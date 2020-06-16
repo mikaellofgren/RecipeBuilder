@@ -1,0 +1,34 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Gzip",
+        "repositoryURL": "https://github.com/1024jp/GzipSwift.git",
+        "state": {
+          "branch": null,
+          "revision": "ba0b6cb51cc6202f896e469b87d2889a46b10d1b",
+          "version": "5.1.1"
+        }
+      },
+      {
+        "package": "HighlightJS",
+        "repositoryURL": "https://github.com/SwiftWebResources/HighlightJS-Swift.git",
+        "state": {
+          "branch": null,
+          "revision": "392c6dbd569817864ff7112a11e41db477468309",
+          "version": "9.18.1"
+        }
+      },
+      {
+        "package": "Highlightr",
+        "repositoryURL": "https://github.com/helje5/Highlightr.git",
+        "state": {
+          "branch": null,
+          "revision": "c2ecdec085f78cdbc0323ec4d44d297e5e6a0379",
+          "version": "3.0.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
