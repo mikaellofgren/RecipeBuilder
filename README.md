@@ -1,4 +1,4 @@
-<img src="https://github.com/mikaellofgren/PkgsCleaner/blob/master/images/recipeBuildericon.png" width="50%"></img><br>
+<img src="https://github.com/mikaellofgren/RecipeBuilder/blob/master/images/recipeBuildericon.png" width="50%"></img><br>
 # RecipeBuilder<br>
  - Click and create recipes (Choose File - New to get started)
  - Open recipes for editing (it always open recipes as a copy, so save and replace when done)
@@ -10,8 +10,8 @@
  - Open autopkg cache folder
  
 
-System requirements: 10.14 or later
-Dependencies: Highlightr
-Icon: vecteezy.com
+System requirements: 10.14 or later<br>
+Dependencies: Highlightr<br>
+Icon: vecteezy.com<br>
 
 
