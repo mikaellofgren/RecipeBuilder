@@ -14,4 +14,6 @@ System requirements: 10.14 or later<br>
 Dependencies: Highlightr<br>
 Icon: vecteezy.com<br>
 
+Download: https://github.com/mikaellofgren/RecipeBuilder/releases
+
 <img src="https://github.com/mikaellofgren/RecipeBuilder/blob/master/images/recipebuilderinterface.png" width="70%"></img><br>
