@@ -146,11 +146,13 @@ wholeDocument = (appDelegate().outputTextField.textStorage as NSAttributedString
        let warning = NSAlert()
        warning.icon = NSImage(named: "Warning")
        warning.addButton(withTitle: "OK")
-       warning.messageText = "Identifier is missing"
+       warning.messageText = "Identifier is missing in document"
        warning.alertStyle = NSAlert.Style.warning
        warning.informativeText = """
-       Add Identifier string to file
-       """
+Add Identifier key and string to the document for example:
+<key>Identifier</key>
+<string>com.github.name.download.app</string>
+"""
        warning.runModal()
        return
        
@@ -196,6 +198,7 @@ wholeDocument = (appDelegate().outputTextField.textStorage as NSAttributedString
                format = ".bigfix."
            default:
                appDelegate().recipeFormatPopup.selectItem(withTitle: "Recipe format")
+               format = ""
                print("no matching recipe format")
        }
     
@@ -481,7 +484,7 @@ let jssOutput = """
             <key>GROUP_NAME</key>
             <string>%NAME%-update-smart</string>
             <key>GROUP_TEMPLATE</key>
-            <string>\(name)-SmartGroupTemplate.xml</string>
+            <string>SmartGroupTemplate.xml</string>
             <key>NAME</key>
             <string>\(name)</string>
             <key>POLICY_CATEGORY</key>
@@ -496,7 +499,7 @@ let jssOutput = """
         <key>MinimumVersion</key>
         <string>0.6.1</string>
         <key>ParentRecipe</key>
-        <string>com.github.dataJAR-recipes.pkg.Coot</string>
+        <string>INSERT_YOUR_PARENT_RECIPE_HERE</string>
         <key>Process</key>
         <array>
             <dict>
