@@ -10,9 +10,9 @@
  - Open autopkg cache folder
  
 
-System requirements: 10.14 or later
-Dependencies: Highlightr
-Icon: vecteezy.com
+System requirements: 10.14 or later<br>
+Dependencies: Highlightr<br>
+Icon: vecteezy.com<br>
 
 Download: https://github.com/mikaellofgren/RecipeBuilder/releases
 
