@@ -751,23 +751,23 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="0.0" y="335" width="1130" height="1095"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="1130" height="1095"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vwV-P6-8Bt" userLabel="outputScrollview">
-                        <rect key="frame" x="20" y="76" width="1090" height="955"/>
+                        <rect key="frame" x="20" y="76" width="1090" height="956"/>
                         <clipView key="contentView" copiesOnScroll="NO" id="cZa-V8-zQz">
-                            <rect key="frame" x="0.0" y="0.0" width="1075" height="955"/>
+                            <rect key="frame" x="0.0" y="0.0" width="1075" height="956"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" selectionGranularity="word" findStyle="bar" allowsUndo="YES" smartInsertDelete="YES" id="DuA-9D-5g6">
-                                    <rect key="frame" x="0.0" y="0.0" width="1075" height="955"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1075" height="956"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="1075" height="955"/>
+                                    <size key="minSize" width="1075" height="956"/>
                                     <size key="maxSize" width="1090" height="10000000"/>
                                     <color key="insertionPointColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </textView>
@@ -779,12 +779,12 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" verticalHuggingPriority="750" ambiguous="YES" horizontal="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VC2-kf-nG3">
-                            <rect key="frame" x="1075" y="0.0" width="15" height="955"/>
+                            <rect key="frame" x="1075" y="0.0" width="15" height="956"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </scroller>
                     </scrollView>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0Z0-Wx-2Y6">
-                        <rect key="frame" x="20" y="1048" width="255" height="21"/>
+                        <rect key="frame" x="20" y="1049" width="255" height="21"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="com.github.your_name_here" drawsBackground="YES" id="fXL-0e-kQN">
                             <font key="font" usesAppearanceFont="YES"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -795,7 +795,7 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7Kc-6t-aGN">
-                        <rect key="frame" x="406" y="1048" width="173" height="21"/>
+                        <rect key="frame" x="406" y="1049" width="173" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="173" id="DzW-8C-bvQ"/>
                         </constraints>
@@ -848,7 +848,7 @@
                         <rect key="frame" x="802" y="1045" width="311" height="25"/>
                         <popUpButtonCell key="cell" type="push" title="Matching recipes" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingHead" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="3vO-s7-xKn" id="8i3-GA-qEe">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="menu"/>
+                            <font key="font" metaFont="system"/>
                             <menu key="menu" id="jfl-cK-2Eo">
                                 <items>
                                     <menuItem title="Matching recipes" state="on" hidden="YES" id="3vO-s7-xKn"/>
@@ -866,7 +866,7 @@
                         </constraints>
                         <popUpButtonCell key="cell" type="push" title="File options..." bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="zha-TI-COZ" id="3tO-qa-KF5">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="menu"/>
+                            <font key="font" metaFont="system"/>
                             <menu key="menu" id="rae-h9-tu0">
                                 <items>
                                     <menuItem title="File options..." state="on" id="zha-TI-COZ"/>
@@ -920,7 +920,7 @@
                         <rect key="frame" x="279" y="1045" width="123" height="25"/>
                         <popUpButtonCell key="cell" type="push" title="Recipe format" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="4vz-PG-WQZ" id="EJ8-UG-fbV">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="menu"/>
+                            <font key="font" metaFont="system"/>
                             <menu key="menu" id="qCg-iz-r1V">
                                 <items>
                                     <menuItem title="Recipe format" state="on" id="4vz-PG-WQZ"/>
@@ -983,10 +983,10 @@
             <point key="canvasLocation" x="-333" y="286.5"/>
         </window>
         <window title="Processors" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" frameAutosaveName="" animationBehavior="default" titleVisibility="hidden" id="9d4-0m-cTq" customClass="NSPanel">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" utility="YES"/>
+            <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="1465" y="800" width="229" height="809"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="5SM-WB-jGj">
                 <rect key="frame" x="0.0" y="0.0" width="229" height="809"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -1475,7 +1475,7 @@ For xar it also optionally skips extracting the payload.</string>
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="1082" height="467"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="j7Q-vL-4oZ">
                 <rect key="frame" x="0.0" y="0.0" width="1082" height="467"/>
                 <autoresizingMask key="autoresizingMask"/>

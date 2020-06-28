@@ -339,6 +339,7 @@ func openSearchInExternalEditor () {
 
 
 func createNewDocument () {
+    appDelegate().window.makeKeyAndOrderFront(Any?.self)
         getIdentifierTextFieldsValues ()
         getAppPkgTextFieldsValues ()
       
@@ -760,6 +761,7 @@ func openRecipe () {
 
               
               if let choosenFileContents = try? String(contentsOfFile: path) {
+                 appDelegate().window.makeKeyAndOrderFront(Any?.self)
                   appDelegate().outputTextField.string = ""
                   insertionPointIndex = (appDelegate().outputTextField.selectedRanges.first?.rangeValue.location)!
                   let xmlFormatOutput = prettyFormatDocument(xmlString: choosenFileContents)
@@ -791,6 +793,7 @@ func openRecipe () {
 
 func openRecipeDirectly () {
     if let choosenFileContents = try? String(contentsOfFile: appDelegate().recipeDirectlyFileName) {
+            appDelegate().window.makeKeyAndOrderFront(Any?.self)
             appDelegate().outputTextField.string = ""
                       insertionPointIndex = (appDelegate().outputTextField.selectedRanges.first?.rangeValue.location)!
                       let xmlFormatOutput = prettyFormatDocument(xmlString: choosenFileContents)
