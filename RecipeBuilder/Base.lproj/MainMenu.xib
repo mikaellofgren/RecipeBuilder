@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,11 +21,13 @@
                 <outlet property="appPkgCreatorButton" destination="uXL-GP-H4B" id="rlD-rW-RKQ"/>
                 <outlet property="atom" destination="80k-re-aIO" id="qcr-GM-6j1"/>
                 <outlet property="bbedit" destination="0s9-es-7GX" id="6Lu-Qf-1ll"/>
+                <outlet property="buttonView" destination="zaC-Fo-LPd" id="Ol0-yp-eFs"/>
                 <outlet property="codeSignatureVerifierButtonApp" destination="Oys-tT-RYi" id="AOo-oG-7ru"/>
                 <outlet property="codeSignatureVerifierButtonPkg" destination="KLv-oG-uec" id="x1w-Jh-8WM"/>
                 <outlet property="copierButton" destination="Faf-29-Tz4" id="A3b-zn-hzt"/>
                 <outlet property="deprecationWarningButton" destination="fiX-2e-ynh" id="jQZ-UA-WNU"/>
                 <outlet property="dmgCreatorButton" destination="Qpe-Ll-ueh" id="Oen-uQ-Dcn"/>
+                <outlet property="enableAndReloadButton" destination="7cR-ww-XK8" id="BEh-X3-gjs"/>
                 <outlet property="endOfCheckPhaseButton" destination="6Xb-Ny-HlC" id="HYx-wl-fAS"/>
                 <outlet property="fileCreatorButton" destination="6VH-3y-73L" id="Lss-Rz-Rhs"/>
                 <outlet property="fileFinderButton" destination="Y1M-eq-rs8" id="gJ0-gy-zqg"/>
@@ -751,7 +753,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="0.0" y="335" width="1130" height="1095"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="1130" height="1095"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -778,7 +780,7 @@
                             <rect key="frame" x="-100" y="-100" width="225" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
-                        <scroller key="verticalScroller" verticalHuggingPriority="750" ambiguous="YES" horizontal="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VC2-kf-nG3">
+                        <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VC2-kf-nG3">
                             <rect key="frame" x="1075" y="0.0" width="15" height="956"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </scroller>
@@ -885,6 +887,11 @@
                                             <action selector="openAutoPkgCacheFolder:" target="Voe-Tx-rLC" id="Saf-TQ-9Dl"/>
                                         </connections>
                                     </menuItem>
+                                    <menuItem title="🕹 Open user buttons folder" toolTip="Opens ~/Library/Application Support/RecipeBuilder/" id="bMi-6r-9zL">
+                                        <connections>
+                                            <action selector="openUserButtonsFolder:" target="Voe-Tx-rLC" id="60b-tw-Vz3"/>
+                                        </connections>
+                                    </menuItem>
                                     <menuItem title="✏️ Save and Open in external editor" id="yY7-30-FCG">
                                         <string key="toolTip">Saves the recipes first and then open in external editor. To select preferred editor to open Search result recipes, choose a editor here while main textfield is empty</string>
                                         <menu key="submenu" title="✏️ Save and Open in external editor" id="2RG-lx-sHX">
@@ -986,7 +993,7 @@
             <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="1465" y="800" width="229" height="809"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <view key="contentView" id="5SM-WB-jGj">
                 <rect key="frame" x="0.0" y="0.0" width="229" height="809"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -1475,7 +1482,7 @@ For xar it also optionally skips extracting the payload.</string>
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="1082" height="467"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
             <view key="contentView" id="j7Q-vL-4oZ">
                 <rect key="frame" x="0.0" y="0.0" width="1082" height="467"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -1523,11 +1530,11 @@ For xar it also optionally skips extracting the payload.</string>
                 <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5LC-8J-BrL">
                     <rect key="frame" x="7" y="6" width="376" height="213"/>
                     <autoresizingMask key="autoresizingMask"/>
-                    <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="AwJ-kR-yi3">
+                    <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="AwJ-kR-yi3">
                         <rect key="frame" x="0.0" y="0.0" width="376" height="213"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView ambiguous="YES" importsGraphics="NO" richText="NO" verticallyResizable="YES" selectionGranularity="paragraph" spellingCorrection="YES" smartInsertDelete="YES" id="Pvf-4Z-TAJ">
+                            <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" selectionGranularity="paragraph" spellingCorrection="YES" smartInsertDelete="YES" id="Pvf-4Z-TAJ">
                                 <rect key="frame" x="0.0" y="0.0" width="376" height="213"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -1550,5 +1557,29 @@ For xar it also optionally skips extracting the payload.</string>
             </subviews>
             <point key="canvasLocation" x="738" y="-166.5"/>
         </customView>
+        <window title="User buttons" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" frameAutosaveName="" animationBehavior="default" id="RLK-vr-IQ4" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" utility="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="1694" y="1326" width="229" height="284"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <view key="contentView" id="zaC-Fo-LPd">
+                <rect key="frame" x="0.0" y="0.0" width="229" height="284"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button toolTip="Enable and reload User buttons" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7cR-ww-XK8">
+                        <rect key="frame" x="17" y="45" width="195" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="inline" title="Enable and reload" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Sa6-E0-aHl">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="smallSystemBold"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="enableAndReloadAction:" target="Voe-Tx-rLC" id="h1M-z0-3v6"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <point key="canvasLocation" x="665.5" y="141"/>
+        </window>
     </objects>
 </document>

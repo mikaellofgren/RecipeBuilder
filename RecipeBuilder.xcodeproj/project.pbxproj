@@ -11,6 +11,7 @@
 		7300825C245308B600F4909F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7300825B245308B600F4909F /* Assets.xcassets */; };
 		7300825F245308B600F4909F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7300825D245308B600F4909F /* MainMenu.xib */; };
 		73008268245309F200F4909F /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73008267245309F200F4909F /* Buttons.swift */; };
+		734EF16724B2582200C203C9 /* UserButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734EF16624B2582200C203C9 /* UserButtons.swift */; };
 		73631C1024587182008A6491 /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = 73631C0F24587182008A6491 /* Highlightr */; };
 		73A9CE74247A5D2600627DA8 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A9CE73247A5D2600627DA8 /* Functions.swift */; };
 /* End PBXBuildFile section */
@@ -23,6 +24,7 @@
 		73008260245308B600F4909F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73008261245308B600F4909F /* RecipeBuilder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RecipeBuilder.entitlements; sourceTree = "<group>"; };
 		73008267245309F200F4909F /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		734EF16624B2582200C203C9 /* UserButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserButtons.swift; sourceTree = "<group>"; };
 		73A9CE73247A5D2600627DA8 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -58,6 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				73008259245308B100F4909F /* AppDelegate.swift */,
+				734EF16624B2582200C203C9 /* UserButtons.swift */,
 				73008267245309F200F4909F /* Buttons.swift */,
 				73A9CE73247A5D2600627DA8 /* Functions.swift */,
 				7300825B245308B600F4909F /* Assets.xcassets */,
@@ -146,6 +149,7 @@
 			files = (
 				7300825A245308B100F4909F /* AppDelegate.swift in Sources */,
 				73008268245309F200F4909F /* Buttons.swift in Sources */,
+				734EF16724B2582200C203C9 /* UserButtons.swift in Sources */,
 				73A9CE74247A5D2600627DA8 /* Functions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

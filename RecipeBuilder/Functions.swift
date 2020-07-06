@@ -29,7 +29,13 @@ var allSearchArray = [String] ()
 var searchString = ""
 var wholeDocument = ""
 var identifierManually = ""
-
+var identifierMismatch = false
+var xmlFormatOutput = ""
+let font = NSFont(name: "Menlo", size: 12)
+let yellowBackgroundAttributes: [NSAttributedString.Key: Any] = [
+    .font: font!,
+    .backgroundColor: NSColor.yellow
+]
 
 func checkThatAutopkgExist () {
 if FileManager.default.fileExists(atPath: "/usr/local/bin/autopkg"){
@@ -103,7 +109,6 @@ func getAutopkgPlistValues () {
 func writeOutput () {
     insertionPointIndex = (appDelegate().outputTextField.selectedRanges.first?.rangeValue.location)!
     let xmlFormatOutput = prettyFormat(xmlString: output)
-       
     highlightr!.theme.codeFont = NSFont(name: "Menlo", size: 12)
     let highlightedCode = highlightr!.highlight(xmlFormatOutput, as: "xml")!
     
@@ -118,6 +123,23 @@ func writePopOvertext (processor: String, extraHelpText: String) {
          let processorInfoAttributed = NSAttributedString(string: processorInfo, attributes: attributedText)
          appDelegate().helpPopoverText.string = ""
          appDelegate().helpPopoverText.textStorage?.insert(NSAttributedString(attributedString: processorInfoAttributed), at: 0)
+}
+
+func writeOutputUserButtons () {
+    insertionPointIndex = (appDelegate().outputTextField.selectedRanges.first?.rangeValue.location)!
+    //let xmlFormatOutput = prettyFormat(xmlString: output)
+    highlightr!.theme.codeFont = NSFont(name: "Menlo", size: 12)
+    let highlightedCode = highlightr!.highlight(output, as: "xml")!
+    
+    appDelegate().outputTextField.textStorage?.insert(NSAttributedString(attributedString: highlightedCode), at: insertionPointIndex)
+}
+
+func writePopOvertextUserButtons (helpText: String) {
+        let buttonInfo = "\nNote:\n\(helpText)"
+        let attributedText = [ NSAttributedString.Key.font: NSFont(name: "Menlo", size: 10.0)! ]
+        let buttonInfoAttributed = NSAttributedString(string: buttonInfo, attributes: attributedText)
+        appDelegate().helpPopoverText.string = ""
+        appDelegate().helpPopoverText.textStorage?.insert(NSAttributedString(attributedString: buttonInfoAttributed), at: 0)
 }
 
 
@@ -141,6 +163,7 @@ wholeDocument = (appDelegate().outputTextField.textStorage as NSAttributedString
    var identifierArrayTemp = [String] ()
    identifierArrayTemp.removeAll()
    var identifier = ""
+   identifierMismatch = false
    identifierArrayTemp = regexFunc(for: "<key>Identifier<\\/key>(.*?[\r\n]){2}", in: wholeDocument)
    if identifierArrayTemp.isEmpty {
        let warning = NSAlert()
@@ -164,7 +187,9 @@ Add Identifier key and string to the document for example:
        
     var formatTitle = ""
     let identifierFormat = identifier
-          
+    
+   
+    
           switch identifierFormat {
            case let identifierFormat where identifierFormat.contains(".download."):
                formatTitle = "download"
@@ -238,6 +263,11 @@ Add Identifier key and string to the document for example:
         identifierManually += "\(format)\(name)"
         
         if identifier != identifierManually {
+            let range = (wholeDocument as NSString).range(of: identifier)
+            
+            let attributedReplaceText = NSAttributedString(string: identifier, attributes: yellowBackgroundAttributes)
+            appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
+            
             let warning = NSAlert()
             warning.icon = NSImage(named: "Warning")
             warning.addButton(withTitle: "OK")
@@ -248,7 +278,9 @@ Add Identifier key and string to the document for example:
             and Finalize again
             """
             warning.runModal()
-        }
+            identifierMismatch = true
+            return
+            }
         
     } else {
         let warning = NSAlert()
@@ -384,8 +416,6 @@ func createNewDocument () {
             return
         }
       
-    
-      
       identifierManually = identififerTextField
       identifierManually += "\(format)\(name)"
 
@@ -417,8 +447,7 @@ func createNewDocument () {
             description = "Downloads the latest version of \(name)"
     }
     
-
-    
+        
 output = """
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -437,7 +466,7 @@ output = """
         <string>0.5.0</string>
         <key>Process</key>
         <array>
-        <!--INSERT_YOUR_PROCESSORS_HERE-->
+            <!--INSERT_YOUR_PROCESSORS_HERE-->
     </array>
     </dict>
 </plist>
@@ -463,7 +492,7 @@ let downloadOutput = """
         <string>0.5.0</string>
         <key>Process</key>
         <array>
-        <!--INSERT_YOUR_PROCESSORS_HERE-->
+            <!--INSERT_YOUR_PROCESSORS_HERE-->
     </array>
     </dict>
 </plist>
@@ -500,7 +529,7 @@ let jssOutput = """
         <key>MinimumVersion</key>
         <string>0.6.1</string>
         <key>ParentRecipe</key>
-        <string>INSERT_YOUR_PARENT_RECIPE_HERE</string>
+        <string>INSERT_YOUR_PARENT_RECIPE_IDENTIFIER_HERE</string>
         <key>Process</key>
         <array>
             <dict>
@@ -539,24 +568,43 @@ let jssOutput = """
     </dict>
 </plist>
 """
-    if descriptionFormat == "download" {
-        output = downloadOutput
-    }
     
-    if descriptionFormat == "jss" {
-          output = jssOutput
-      }
-    
+    func outputNewDocument () {
     appDelegate().outputTextField.string = ""
     insertionPointIndex = (appDelegate().outputTextField.selectedRanges.first?.rangeValue.location)!
-    let xmlFormatOutput = prettyFormatDocument(xmlString: output)
+    xmlFormatOutput = prettyFormatDocument(xmlString: output)
     
     highlightr!.theme.codeFont = NSFont(name: "Menlo", size: 12)
     let highlightedCode = highlightr!.highlight(xmlFormatOutput, as: "xml")!
-    
     appDelegate().outputTextField.textStorage?.insert(NSAttributedString(attributedString: highlightedCode), at: insertionPointIndex)
+    
     // Clear recipePath
     recipePath = ""
+    }
+    
+    if descriptionFormat == "download" {
+        output = downloadOutput
+        outputNewDocument()
+        var range = (xmlFormatOutput as NSString).range(of: "INSERT_YOUR_DOWNLOAD_URL_HERE")
+        var attributedReplaceText = NSAttributedString(string: "INSERT_YOUR_DOWNLOAD_URL_HERE", attributes: yellowBackgroundAttributes)
+        appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
+        
+        range = (xmlFormatOutput as NSString).range(of: "<!--INSERT_YOUR_PROCESSORS_HERE-->")
+        attributedReplaceText = NSAttributedString(string: "<!--INSERT_YOUR_PROCESSORS_HERE-->", attributes: yellowBackgroundAttributes)
+        appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
+    } else if descriptionFormat == "jss" {
+        output = jssOutput
+        outputNewDocument ()
+        let range = (xmlFormatOutput as NSString).range(of: "INSERT_YOUR_PARENT_RECIPE_IDENTIFIER_HERE")
+        let attributedReplaceText = NSAttributedString(string: "INSERT_YOUR_PARENT_RECIPE_IDENTIFIER_HERE", attributes: yellowBackgroundAttributes)
+        appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
+    } else {
+        outputNewDocument ()
+        let range = (xmlFormatOutput as NSString).range(of: "<!--INSERT_YOUR_PROCESSORS_HERE-->")
+        let attributedReplaceText = NSAttributedString(string: "<!--INSERT_YOUR_PROCESSORS_HERE-->", attributes: yellowBackgroundAttributes)
+        appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
+       
+    }
 }
 
 
@@ -567,6 +615,7 @@ func finaliseDocument () {
     wholeDocument = (appDelegate().outputTextField.textStorage as NSAttributedString?)!.string
     if wholeDocument == "" { return }
     getIdentifier ()
+    if identifierMismatch == true {return}
     if recipeFileName == "" { return }
     createRecipeBuilderFolders(createFolder: "tmp")
     let tmpRecipeFile = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/AutoPkg/RecipeBuilder Output/tmp/\(recipeFileName)").path
@@ -625,6 +674,7 @@ func finaliseDocument () {
                         appDelegate().outputTextField.textStorage?.insert(NSAttributedString(attributedString: highlightedCode), at: 0)
                         appDelegate().fileOptions.selectItem(at: 0)
                         deleteTmpFolder ()
+
                     }
 
 }
@@ -825,10 +875,9 @@ func openRecipeDirectly () {
 func saveRecipe () {
     wholeDocument = (appDelegate().outputTextField.textStorage as NSAttributedString?)!.string
           if wholeDocument == "" { return }
-    getIdentifier ()
-         if recipeFileName == "" { return }
-    
-    finaliseDocument ()
+          if recipeFileName == "" { return }
+          finaliseDocument ()
+          if identifierMismatch == true {return}
    
 // Save Dialog
                let dialog = NSSavePanel();

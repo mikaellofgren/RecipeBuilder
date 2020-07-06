@@ -8,6 +8,7 @@
  - Save and open in external editor
  - Search recipes content to find processors usage
  - Open autopkg cache folder
+ - Create your own buttons
  
 
 System requirements: 10.14 or later<br>
@@ -17,3 +18,17 @@ Icon: vecteezy.com<br>
 Download: https://github.com/mikaellofgren/RecipeBuilder/releases
 
 <img src="https://github.com/mikaellofgren/RecipeBuilder/blob/master/images/recipebuilderinterface.png" width="50%"></img><br>
+
+# User buttons<br>
+In folder "~/Library/Application Support/RecipeBuilder"
+you create folders with name 1,2,3..up to 10. You can skip folders, but folder 1 is required if you
+want buttons to autostart, otherwise you have to enable them.
+In every folder create title.txt and add text to the file for the button name.
+Keep it below 26 characters for best result.
+
+Add output.txt for the output text.
+
+And help.txt for the Note text your reading right now (optional).
+To easy open "~/Library/Application Support/RecipeBuilder", choose File options - Open user buttons folder
+Click the Enable and Reload button to create the first "demo" button.
+Use that button to reload if you trying out your new buttons.

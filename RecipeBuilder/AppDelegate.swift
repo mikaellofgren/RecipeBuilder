@@ -18,6 +18,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     
     @IBOutlet weak var window: NSWindow!
     
+    
+    @IBOutlet weak var buttonView: NSView!
     @IBOutlet var recipeIdentifierTextField: NSTextField!
     @IBOutlet var appPKGTextField: NSTextField!
     @IBOutlet var outputTextField: NSTextView!
@@ -74,7 +76,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     @IBOutlet weak var urlDownloaderButton: NSButton!
     @IBOutlet weak var urlTextSearcherButton: NSButton!
     @IBOutlet weak var versionerButton: NSButton!
-
+    @IBOutlet weak var enableAndReloadButton: NSButton!
+    
     @IBAction func getIdentifierTextValue(_ sender: NSTextField) {
              getIdentifierTextFieldsValues ()
          }
@@ -138,6 +141,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     @IBAction func openAutoPkgCacheFolder(_ sender: NSMenuItem) {
         openAutoPkgCache ()
     }
+    
+    
+    @IBAction func openUserButtonsFolder(_ sender: NSMenuItem) {
+        openUserButtons ()
+    }
+     
+   
+    
     
     @IBAction func openExternalAtom(_ sender: NSMenuItem) {
         saveAndOpenExternalEditor = "true"
@@ -452,10 +463,97 @@ if you only want CFBundleShortVersionString
 """)
     }
     
+    
+    @IBAction func enableAndReloadAction(_ sender: NSButton) {
+        getAllUserButtons ()
+    }
+    
+    @objc func buttonAction1(sender: NSButton!) {
+        output = output1
+        writeOutputUserButtons ()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertextUserButtons (helpText: help1)
+    }
+    
+    @objc func buttonAction2(sender: NSButton!) {
+       output = output2
+       writeOutputUserButtons ()
+       helpPopover.close()
+       helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+       writePopOvertextUserButtons (helpText: help2)
+    }
+    
+    @objc func buttonAction3(sender: NSButton!) {
+       output = output3
+       writeOutputUserButtons ()
+       helpPopover.close()
+       helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+       writePopOvertextUserButtons (helpText: help3)
+    }
+    
+    @objc func buttonAction4(sender: NSButton!) {
+       output = output4
+       writeOutputUserButtons ()
+       helpPopover.close()
+       helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+       writePopOvertextUserButtons (helpText: help4)
+    }
+    
+    @objc func buttonAction5(sender: NSButton!) {
+       output = output5
+       writeOutputUserButtons ()
+       helpPopover.close()
+       helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+       writePopOvertextUserButtons (helpText: help5)
+    }
+    
+    @objc func buttonAction6(sender: NSButton!) {
+       output = output6
+       writeOutputUserButtons ()
+       helpPopover.close()
+       helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+       writePopOvertextUserButtons (helpText: help6)
+    }
+    
+    @objc func buttonAction7(sender: NSButton!) {
+       output = output7
+       writeOutputUserButtons ()
+       helpPopover.close()
+       helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+       writePopOvertextUserButtons (helpText: help7)
+    }
+    
+    @objc func buttonAction8(sender: NSButton!) {
+       output = output8
+       writeOutputUserButtons ()
+       helpPopover.close()
+       helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+       writePopOvertextUserButtons (helpText: help8)
+    }
+    
+    @objc func buttonAction9(sender: NSButton!) {
+       output = output9
+       writeOutputUserButtons ()
+       helpPopover.close()
+       helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+       writePopOvertextUserButtons (helpText: help9)
+        
+    }
+    
+    @objc func buttonAction10(sender: NSButton!) {
+       output = output10
+       writeOutputUserButtons ()
+       helpPopover.close()
+       helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+       writePopOvertextUserButtons (helpText: help10)
+    }
    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         outputTextField.font = NSFont(name: "Menlo", size: 12)
         checkThatAutopkgExist ()
+        checkForUserButtonsAndEnable ()
+        
    }
 
     func applicationWillTerminate(_ aNotification: Notification) {
