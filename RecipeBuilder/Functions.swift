@@ -20,6 +20,7 @@ var name = String ()
 var identififerTextField = String ()
 var format = ""
 var recipeFileName = ""
+var tmpRecipeFile = ""
 let recipeBuilderFolder = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/AutoPkg/RecipeBuilder Output/").path
 var recipeBuilderOutputFolderCreate = ""
 var downloadPath = ""
@@ -117,13 +118,36 @@ func writeOutput () {
 
 
 func writePopOvertext (processor: String, extraHelpText: String) {
-     var processorInfo = shell("/usr/local/bin/autopkg processor-info \(processor)")
-         processorInfo = processorInfo+"\nExtra Note:\n\(extraHelpText)"
+    var processorInfo = ""
+    if !processor.isEmpty {
+        processorInfo = shell("/usr/local/bin/autopkg processor-info \(processor)")
+        processorInfo = processorInfo+"\nExtra Note:\n\(extraHelpText)"
+    } else {
+        processorInfo = extraHelpText
+    }
+         
          let attributedText = [ NSAttributedString.Key.font: NSFont(name: "Menlo", size: 10.0)! ]
          let processorInfoAttributed = NSAttributedString(string: processorInfo, attributes: attributedText)
          appDelegate().helpPopoverText.string = ""
          appDelegate().helpPopoverText.textStorage?.insert(NSAttributedString(attributedString: processorInfoAttributed), at: 0)
 }
+
+func writePopOvertextJamfUploader (processor: String, extraHelpText: String) {
+    var processorInfo = ""
+    if !processor.isEmpty {
+        processorInfo = shell("/usr/local/bin/autopkg processor-info -r com.github.grahampugh.jamf-upload.processors \(processor)")
+        processorInfo = processorInfo+"\nExtra Note:\n\(extraHelpText)"
+    } else {
+        processorInfo = extraHelpText
+    }
+         
+         let attributedText = [ NSAttributedString.Key.font: NSFont(name: "Menlo", size: 10.0)! ]
+         let processorInfoAttributed = NSAttributedString(string: processorInfo, attributes: attributedText)
+         appDelegate().helpPopoverText.string = ""
+         appDelegate().helpPopoverText.textStorage?.insert(NSAttributedString(attributedString: processorInfoAttributed), at: 0)
+}
+
+
 
 func writeOutputUserButtons () {
     insertionPointIndex = (appDelegate().outputTextField.selectedRanges.first?.rangeValue.location)!
@@ -203,6 +227,9 @@ Add Identifier key and string to the document for example:
            case let identifierFormat where identifierFormat.contains(".install."):
                formatTitle = "install"
                format = ".install."
+          case let identifierFormat where identifierFormat.contains(".jamf."):
+              formatTitle = "jamf"
+              format = ".jamf."
            case let identifierFormat where identifierFormat.contains(".jss."):
                formatTitle = "jss"
                format = ".jss."
@@ -430,6 +457,8 @@ func createNewDocument () {
             description = "Downloads the latest version of \(name) and creates a package"
         case "install":
             description = "Installs the latest version of \(name)"
+        case "jamf":
+           description = "Downloads the latest version of \(name) and then uploads to Jamf"
         case "jss":
             description = "Downloads the latest version of \(name) and then uploads to the JSS"
         case "lanrev":
@@ -471,6 +500,53 @@ output = """
     </dict>
 </plist>
 """
+    
+let munkiOutput = """
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>Description</key>
+        <string>\(description)</string>
+        <key>Identifier</key>
+        <string>\(identifierManually)</string>
+        <key>Input</key>
+        <dict>
+            <key>NAME</key>
+            <string>\(name)</string>
+            <key>MUNKI_REPO_SUBDIR</key>
+            <string>apps/%NAME%</string>
+            <key>pkginfo</key>
+            <dict>
+                <key>catalogs</key>
+                <array>
+                    <string>testing</string>
+                </array>
+                <key>description</key>
+                <string>INSERT_DESCRIPTION_HERE</string>
+                <key>category</key>
+                <string>INSERT_CATEGORY_HERE</string>
+                <key>developer</key>
+                <string>INSERT_DEVELOPER_HERE</string>
+                <key>display_name</key>
+                <string>INSERT_DISPLAY_NAME_HERE</string>
+                <key>name</key>
+                <string>%NAME%</string>
+                <key>unattended_install</key>
+                <true></true>
+            </dict>
+        </dict>
+        <key>MinimumVersion</key>
+        <string>0.5.0</string>
+        <key>ParentRecipe</key>
+        <string>INSERT_YOUR_PARENT_RECIPE_IDENTIFIER_HERE</string>
+        <key>Process</key>
+        <array>
+            <!--INSERT_YOUR_PROCESSORS_HERE-->
+        </array>
+    </dict>
+</plist>
+"""
 
 let downloadOutput = """
 <?xml version="1.0" encoding="UTF-8"?>
@@ -497,6 +573,65 @@ let downloadOutput = """
     </dict>
 </plist>
 """
+    let jamfOutput = """
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+    <plist version="1.0">
+        <dict>
+            <key>Description</key>
+            <string>\(description)</string>
+            <key>Identifier</key>
+            <string>\(identifierManually)</string>
+            <key>Input</key>
+            <dict>
+                <key>CATEGORY</key>
+                <string>Applications</string>
+                <key>GROUP_NAME</key>
+                <string>%NAME%-update-smart</string>
+                <key>GROUP_TEMPLATE</key>
+                <string>SmartGroupTemplate.xml</string>
+                <key>NAME</key>
+                <string>\(name)</string>
+                <key>PATCH_SOFTWARETITLE</key>
+                <string>Name of the patch softwaretitle (e.g. 'Mozilla Firefox') used in Jamf</string>
+                <key>PATCH_NAME</key>
+                <string>Name of the patch policy (e.g. 'Mozilla Firefox - 93.02.10')</string>
+                <key>PATCH_TEMPLATE</key>
+                <string>PatchTemplate-selfservice.xml</string>
+                <key>PATCH_ICON_POLICY_NAME</key>
+                <string>Name of an already existing (!) policy (not a patch policy)</string>
+                <key>POLICY_CATEGORY</key>
+                <string>Testing</string>
+                <key>POLICY_NAME</key>
+                <string>Install Latest %NAME%</string>
+                <key>POLICY_TEMPLATE</key>
+                <string>PolicyTemplate.xml</string>
+                <key>SELF_SERVICE_DESCRIPTION</key>
+                <string>Install Latest %NAME%</string>
+                <key>SELF_SERVICE_DISPLAY_NAME</key>
+                <string>Install Latest %NAME%</string>
+                <key>SELF_SERVICE_ICON</key>
+                <string>\(name).png</string>
+                <key>TESTING_GROUP_NAME</key>
+                <string>Testing</string>
+                <key>UPDATE_PREDICATE</key>
+                <string>pkg_uploaded == False</string>
+                <key>SLACK_WEBHOOK_URL</key>
+                <string>https://url.to.slack.com</string>
+                <key>TEAMS_WEBHOOK_URL</key>
+                <string>https://url.to.teams.com</string>
+            </dict>
+            <key>MinimumVersion</key>
+            <string>2.3</string>
+            <key>ParentRecipe</key>
+            <string>INSERT_YOUR_PARENT_RECIPE_IDENTIFIER_HERE_OR_REMOVE</string>
+            <key>Process</key>
+            <array>
+                <!--INSERT_YOUR_PROCESSORS_HERE-->
+            </array>
+        </dict>
+    </plist>
+    """
     
 let jssOutput = """
 <?xml version="1.0" encoding="UTF-8"?>
@@ -592,12 +727,52 @@ let jssOutput = """
         range = (xmlFormatOutput as NSString).range(of: "<!--INSERT_YOUR_PROCESSORS_HERE-->")
         attributedReplaceText = NSAttributedString(string: "<!--INSERT_YOUR_PROCESSORS_HERE-->", attributes: yellowBackgroundAttributes)
         appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
-    } else if descriptionFormat == "jss" {
-        output = jssOutput
+    } else if descriptionFormat == "jamf" {
+        output = jamfOutput
         outputNewDocument ()
-        let range = (xmlFormatOutput as NSString).range(of: "INSERT_YOUR_PARENT_RECIPE_IDENTIFIER_HERE")
-        let attributedReplaceText = NSAttributedString(string: "INSERT_YOUR_PARENT_RECIPE_IDENTIFIER_HERE", attributes: yellowBackgroundAttributes)
+        var range = (xmlFormatOutput as NSString).range(of: "INSERT_YOUR_PARENT_RECIPE_IDENTIFIER_HERE_OR_REMOVE")
+        var attributedReplaceText = NSAttributedString(string: "INSERT_YOUR_PARENT_RECIPE_IDENTIFIER_HERE_OR_REMOVE", attributes: yellowBackgroundAttributes)
         appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
+        
+        
+        range = (xmlFormatOutput as NSString).range(of: "<!--INSERT_YOUR_PROCESSORS_HERE-->")
+        attributedReplaceText = NSAttributedString(string: "<!--INSERT_YOUR_PROCESSORS_HERE-->", attributes: yellowBackgroundAttributes)
+        
+        appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
+    } else if descriptionFormat == "jss" {
+            output = jssOutput
+            outputNewDocument ()
+            let range = (xmlFormatOutput as NSString).range(of: "INSERT_YOUR_PARENT_RECIPE_IDENTIFIER_HERE")
+            let attributedReplaceText = NSAttributedString(string: "INSERT_YOUR_PARENT_RECIPE_IDENTIFIER_HERE", attributes: yellowBackgroundAttributes)
+            appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
+        
+    } else if descriptionFormat == "munki" {
+        output = munkiOutput
+        outputNewDocument ()
+        var range = (xmlFormatOutput as NSString).range(of: "INSERT_YOUR_PARENT_RECIPE_IDENTIFIER_HERE")
+        var attributedReplaceText = NSAttributedString(string: "INSERT_YOUR_PARENT_RECIPE_IDENTIFIER_HERE", attributes: yellowBackgroundAttributes)
+        appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
+        
+        range = (xmlFormatOutput as NSString).range(of: "INSERT_DESCRIPTION_HERE")
+        attributedReplaceText = NSAttributedString(string: "INSERT_DESCRIPTION_HERE", attributes: yellowBackgroundAttributes)
+        appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
+        
+        range = (xmlFormatOutput as NSString).range(of: "INSERT_CATEGORY_HERE")
+        attributedReplaceText = NSAttributedString(string: "INSERT_CATEGORY_HERE", attributes: yellowBackgroundAttributes)
+        appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
+        
+        range = (xmlFormatOutput as NSString).range(of: "INSERT_DEVELOPER_HERE")
+        attributedReplaceText = NSAttributedString(string: "INSERT_DEVELOPER_HERE", attributes: yellowBackgroundAttributes)
+        appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
+        
+        range = (xmlFormatOutput as NSString).range(of: "INSERT_DISPLAY_NAME_HERE")
+        attributedReplaceText = NSAttributedString(string: "INSERT_DISPLAY_NAME_HERE", attributes: yellowBackgroundAttributes)
+        appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
+        
+        range = (xmlFormatOutput as NSString).range(of: "<!--INSERT_YOUR_PROCESSORS_HERE-->")
+        attributedReplaceText = NSAttributedString(string: "<!--INSERT_YOUR_PROCESSORS_HERE-->", attributes: yellowBackgroundAttributes)
+        appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
+        
     } else {
         outputNewDocument ()
         let range = (xmlFormatOutput as NSString).range(of: "<!--INSERT_YOUR_PROCESSORS_HERE-->")
@@ -618,7 +793,7 @@ func finaliseDocument () {
     if identifierMismatch == true {return}
     if recipeFileName == "" { return }
     createRecipeBuilderFolders(createFolder: "tmp")
-    let tmpRecipeFile = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/AutoPkg/RecipeBuilder Output/tmp/\(recipeFileName)").path
+    tmpRecipeFile = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/AutoPkg/RecipeBuilder Output/tmp/\(recipeFileName)").path
     let documentDirURL = URL(fileURLWithPath: tmpRecipeFile)
                       // Save data to file
                       let fileURL = documentDirURL
@@ -686,8 +861,9 @@ func autoPkgRunner () {
     getIdentifier ()
     if recipeFileName == "" { return }
     appDelegate().logWindow.orderFront(Any?.self)
-    createRecipeBuilderFolders(createFolder: "tmp")
-    let tmpRecipeFile = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/AutoPkg/RecipeBuilder Output/tmp/\(recipeFileName)").path
+    createRecipeBuilderFolders(createFolder: "")
+    let randomNumber = Int.random(in: 0 ..< 999)
+    tmpRecipeFile = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/AutoPkg/RecipeBuilder Output/\(recipeFileName).temp_\(randomNumber)").path
     let documentDirURL = URL(fileURLWithPath: tmpRecipeFile)
                       // Save data to file
                       let fileURL = documentDirURL
@@ -753,6 +929,7 @@ func toggleExternalEditor () {
             appDelegate().bbedit.state = .off
             appDelegate().sublimeText.state = .off
             appDelegate().textMate.state = .off
+            appDelegate().visualStudioCode.state = .off
     }
     
     if appDelegate().selectedExternalEditor == "BBEdit" {
@@ -760,6 +937,7 @@ func toggleExternalEditor () {
             appDelegate().bbedit.state = .on
             appDelegate().sublimeText.state = .off
             appDelegate().textMate.state = .off
+            appDelegate().visualStudioCode.state = .off
     }
     
     if appDelegate().selectedExternalEditor == "Sublime Text" {
@@ -767,6 +945,7 @@ func toggleExternalEditor () {
               appDelegate().bbedit.state = .off
               appDelegate().sublimeText.state = .on
               appDelegate().textMate.state = .off
+              appDelegate().visualStudioCode.state = .off
       }
 
     if appDelegate().selectedExternalEditor == "TextMate" {
@@ -774,6 +953,15 @@ func toggleExternalEditor () {
                  appDelegate().bbedit.state = .off
                  appDelegate().sublimeText.state = .off
                  appDelegate().textMate.state = .on
+                 appDelegate().visualStudioCode.state = .off
+         }
+    
+    if appDelegate().selectedExternalEditor == "Visual Studio Code" {
+                 appDelegate().atom.state = .off
+                 appDelegate().bbedit.state = .off
+                 appDelegate().sublimeText.state = .off
+                 appDelegate().textMate.state = .off
+                 appDelegate().visualStudioCode.state = .on
          }
 }
 
@@ -943,7 +1131,7 @@ func shell(_ command: String) -> String {
     let pipe = Pipe()
     task.standardOutput = pipe
     task.launch()
-
+  
     let data = pipe.fileHandleForReading.readDataToEndOfFile()
     let output: String = NSString(data: data, encoding: String.Encoding.utf8.rawValue)! as String
 
@@ -1023,10 +1211,15 @@ try FileManager.default.createDirectory(atPath: recipeBuilderOutputFolderCreate,
 
 func deleteTmpFolder () {
     let tmpRecipeFolder = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/AutoPkg/RecipeBuilder Output/tmp/").path
-       // If tempfolder exist
-       if FileManager.default.fileExists(atPath: tmpRecipeFolder) {
-       // Delete tempfolder
-       try? FileManager.default.removeItem(atPath: tmpRecipeFolder)
-       }
+        // If tempfolder exist
+        if FileManager.default.fileExists(atPath: tmpRecipeFolder) {
+            // Delete tempfolder
+            try? FileManager.default.removeItem(atPath: tmpRecipeFolder)
+        }
+        // If tempfile exist
+        if FileManager.default.fileExists(atPath: tmpRecipeFile) {
+            // Delete tempfile
+            try? FileManager.default.removeItem(atPath: tmpRecipeFile)
+        }
 }
 

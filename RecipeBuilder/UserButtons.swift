@@ -61,7 +61,7 @@ var output10 = ""
 var help10 = ""
 
 func createButton1 (title: String) {
-let button1 = NSButton(frame: NSRect(x: 17, y: 255, width: 195, height: 17))
+let button1 = NSButton(frame: NSRect(x: 17, y: 258, width: 191, height: 17))
 button1.title = title
 button1.bezelStyle = NSButton.BezelStyle.inline
 button1.setButtonType(NSButton.ButtonType.momentaryPushIn)
@@ -72,7 +72,7 @@ appDelegate().buttonView.addSubview(button1)
 }
 
 func createButton2 (title: String) {
-let button2 = NSButton(frame: NSRect(x: 17, y: 234, width: 195, height: 17))
+let button2 = NSButton(frame: NSRect(x: 17, y: 237, width: 191, height: 17))
 button2.title = title
 button2.bezelStyle = NSButton.BezelStyle.inline
 button2.setButtonType(NSButton.ButtonType.momentaryPushIn)
@@ -83,7 +83,7 @@ appDelegate().buttonView.addSubview(button2)
 }
 
 func createButton3 (title: String) {
-let button3 = NSButton(frame: NSRect(x: 17, y: 213, width: 195, height: 17))
+let button3 = NSButton(frame: NSRect(x: 17, y: 216, width: 191, height: 17))
 button3.title = title
 button3.bezelStyle = NSButton.BezelStyle.inline
 button3.setButtonType(NSButton.ButtonType.momentaryPushIn)
@@ -94,7 +94,7 @@ appDelegate().buttonView.addSubview(button3)
 }
 
 func createButton4 (title: String) {
-let button4 = NSButton(frame: NSRect(x: 17, y: 192, width: 195, height: 17))
+let button4 = NSButton(frame: NSRect(x: 17, y: 195, width: 191, height: 17))
 button4.title = title
 button4.bezelStyle = NSButton.BezelStyle.inline
 button4.setButtonType(NSButton.ButtonType.momentaryPushIn)
@@ -105,7 +105,7 @@ appDelegate().buttonView.addSubview(button4)
 }
 
 func createButton5 (title: String) {
-let button5 = NSButton(frame: NSRect(x: 17, y: 171, width: 195, height: 17))
+let button5 = NSButton(frame: NSRect(x: 17, y: 174, width: 191, height: 17))
 button5.title = title
 button5.bezelStyle = NSButton.BezelStyle.inline
 button5.setButtonType(NSButton.ButtonType.momentaryPushIn)
@@ -116,7 +116,7 @@ appDelegate().buttonView.addSubview(button5)
 }
 
 func createButton6 (title: String) {
-let button6 = NSButton(frame: NSRect(x: 17, y: 150, width: 195, height: 17))
+let button6 = NSButton(frame: NSRect(x: 17, y: 153, width: 191, height: 17))
 button6.title = title
 button6.bezelStyle = NSButton.BezelStyle.inline
 button6.setButtonType(NSButton.ButtonType.momentaryPushIn)
@@ -127,7 +127,7 @@ appDelegate().buttonView.addSubview(button6)
 }
 
 func createButton7 (title: String) {
-let button7 = NSButton(frame: NSRect(x: 17, y: 129, width: 195, height: 17))
+let button7 = NSButton(frame: NSRect(x: 17, y: 132, width: 191, height: 17))
 button7.title = title
 button7.bezelStyle = NSButton.BezelStyle.inline
 button7.setButtonType(NSButton.ButtonType.momentaryPushIn)
@@ -138,7 +138,7 @@ button7.action = #selector(appDelegate().buttonAction7)
 }
 
 func createButton8 (title: String) {
-let button8 = NSButton(frame: NSRect(x: 17, y: 108, width: 195, height: 17))
+let button8 = NSButton(frame: NSRect(x: 17, y: 111, width: 191, height: 17))
 button8.title = title
 button8.bezelStyle = NSButton.BezelStyle.inline
 button8.setButtonType(NSButton.ButtonType.momentaryPushIn)
@@ -149,7 +149,7 @@ appDelegate().buttonView.addSubview(button8)
 }
 
 func createButton9 (title: String) {
-let button9 = NSButton(frame: NSRect(x: 17, y: 87, width: 195, height: 17))
+let button9 = NSButton(frame: NSRect(x: 17, y: 90, width: 191, height: 17))
 button9.title = title
 button9.bezelStyle = NSButton.BezelStyle.inline
 button9.setButtonType(NSButton.ButtonType.momentaryPushIn)
@@ -160,7 +160,7 @@ appDelegate().buttonView.addSubview(button9)
 }
 
 func createButton10 (title: String) {
-let button10 = NSButton(frame: NSRect(x: 17, y: 66, width: 195, height: 17))
+let button10 = NSButton(frame: NSRect(x: 17, y: 69, width: 191, height: 17))
 button10.title = title
 button10.bezelStyle = NSButton.BezelStyle.inline
 button10.setButtonType(NSButton.ButtonType.momentaryPushIn)

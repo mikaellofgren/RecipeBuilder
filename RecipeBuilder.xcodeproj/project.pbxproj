@@ -12,8 +12,11 @@
 		7300825F245308B600F4909F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7300825D245308B600F4909F /* MainMenu.xib */; };
 		73008268245309F200F4909F /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73008267245309F200F4909F /* Buttons.swift */; };
 		734EF16724B2582200C203C9 /* UserButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734EF16624B2582200C203C9 /* UserButtons.swift */; };
+		7352335927CBF82C004FAA8C /* Buttons3rdParty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7352335827CBF82C004FAA8C /* Buttons3rdParty.swift */; };
+		7352335B27D2981C004FAA8C /* JamfUploaderHelpTexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7352335A27D2981C004FAA8C /* JamfUploaderHelpTexts.swift */; };
 		73631C1024587182008A6491 /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = 73631C0F24587182008A6491 /* Highlightr */; };
 		73A9CE74247A5D2600627DA8 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A9CE73247A5D2600627DA8 /* Functions.swift */; };
+		73B2E40D27D51F9800CFEA88 /* CheckAndVerify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B2E40C27D51F9800CFEA88 /* CheckAndVerify.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +28,10 @@
 		73008261245308B600F4909F /* RecipeBuilder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RecipeBuilder.entitlements; sourceTree = "<group>"; };
 		73008267245309F200F4909F /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		734EF16624B2582200C203C9 /* UserButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserButtons.swift; sourceTree = "<group>"; };
+		7352335827CBF82C004FAA8C /* Buttons3rdParty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons3rdParty.swift; sourceTree = "<group>"; };
+		7352335A27D2981C004FAA8C /* JamfUploaderHelpTexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JamfUploaderHelpTexts.swift; sourceTree = "<group>"; };
 		73A9CE73247A5D2600627DA8 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		73B2E40C27D51F9800CFEA88 /* CheckAndVerify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckAndVerify.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,9 +66,12 @@
 			isa = PBXGroup;
 			children = (
 				73008259245308B100F4909F /* AppDelegate.swift */,
+				7352335A27D2981C004FAA8C /* JamfUploaderHelpTexts.swift */,
 				734EF16624B2582200C203C9 /* UserButtons.swift */,
 				73008267245309F200F4909F /* Buttons.swift */,
+				7352335827CBF82C004FAA8C /* Buttons3rdParty.swift */,
 				73A9CE73247A5D2600627DA8 /* Functions.swift */,
+				73B2E40C27D51F9800CFEA88 /* CheckAndVerify.swift */,
 				7300825B245308B600F4909F /* Assets.xcassets */,
 				7300825D245308B600F4909F /* MainMenu.xib */,
 				73008260245308B600F4909F /* Info.plist */,
@@ -101,7 +110,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1320;
 				ORGANIZATIONNAME = "Mikael Löfgren";
 				TargetAttributes = {
 					73008255245308B100F4909F = {
@@ -149,6 +158,9 @@
 			files = (
 				7300825A245308B100F4909F /* AppDelegate.swift in Sources */,
 				73008268245309F200F4909F /* Buttons.swift in Sources */,
+				73B2E40D27D51F9800CFEA88 /* CheckAndVerify.swift in Sources */,
+				7352335927CBF82C004FAA8C /* Buttons3rdParty.swift in Sources */,
+				7352335B27D2981C004FAA8C /* JamfUploaderHelpTexts.swift in Sources */,
 				734EF16724B2582200C203C9 /* UserButtons.swift in Sources */,
 				73A9CE74247A5D2600627DA8 /* Functions.swift in Sources */,
 			);
@@ -194,6 +206,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -255,6 +268,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -291,14 +305,15 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 543LXU387V;
+				DEVELOPMENT_TEAM = F489D96499;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/RecipeBuilder/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = se.dicom.RecipeBuilder;
+				MARKETING_VERSION = 1.04;
+				PRODUCT_BUNDLE_IDENTIFIER = se.mikaellofgren.RecipeBuilder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -310,17 +325,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = RecipeBuilder/RecipeBuilder.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 543LXU387V;
+				DEVELOPMENT_TEAM = F489D96499;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/RecipeBuilder/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = se.dicom.RecipeBuilder;
+				MARKETING_VERSION = 1.04;
+				PRODUCT_BUNDLE_IDENTIFIER = se.mikaellofgren.RecipeBuilder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

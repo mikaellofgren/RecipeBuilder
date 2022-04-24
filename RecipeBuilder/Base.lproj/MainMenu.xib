@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16097" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16097"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,63 +15,30 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="RecipeBuilder" customModuleProvider="target">
             <connections>
-                <outlet property="MunkiInstallsItemsCreatorButton" destination="ltU-sE-MKZ" id="pNa-7Y-wXy"/>
-                <outlet property="appDMGVersionerButton" destination="WQT-8t-DrB" id="VwC-70-oJZ"/>
                 <outlet property="appPKGTextField" destination="7Kc-6t-aGN" id="pHX-yn-5TB"/>
-                <outlet property="appPkgCreatorButton" destination="uXL-GP-H4B" id="rlD-rW-RKQ"/>
                 <outlet property="atom" destination="80k-re-aIO" id="qcr-GM-6j1"/>
                 <outlet property="bbedit" destination="0s9-es-7GX" id="6Lu-Qf-1ll"/>
                 <outlet property="buttonView" destination="zaC-Fo-LPd" id="Ol0-yp-eFs"/>
-                <outlet property="codeSignatureVerifierButtonApp" destination="Oys-tT-RYi" id="AOo-oG-7ru"/>
-                <outlet property="codeSignatureVerifierButtonPkg" destination="KLv-oG-uec" id="x1w-Jh-8WM"/>
-                <outlet property="copierButton" destination="Faf-29-Tz4" id="A3b-zn-hzt"/>
-                <outlet property="deprecationWarningButton" destination="fiX-2e-ynh" id="jQZ-UA-WNU"/>
-                <outlet property="dmgCreatorButton" destination="Qpe-Ll-ueh" id="Oen-uQ-Dcn"/>
                 <outlet property="enableAndReloadButton" destination="7cR-ww-XK8" id="BEh-X3-gjs"/>
-                <outlet property="endOfCheckPhaseButton" destination="6Xb-Ny-HlC" id="HYx-wl-fAS"/>
-                <outlet property="fileCreatorButton" destination="6VH-3y-73L" id="Lss-Rz-Rhs"/>
-                <outlet property="fileFinderButton" destination="Y1M-eq-rs8" id="gJ0-gy-zqg"/>
-                <outlet property="fileMoverButton" destination="6d3-bd-DoO" id="AMb-mL-NG6"/>
                 <outlet property="fileOptions" destination="BFU-N1-OEU" id="4SY-UC-iS8"/>
-                <outlet property="flatPkgPackerButton" destination="mab-ro-4Wo" id="ORv-Jc-D9f"/>
-                <outlet property="flatPkgUnpackerButton" destination="brZ-Rs-ugw" id="0fk-Ms-1us"/>
-                <outlet property="gitHubReleasesInfoProviderButton" destination="x2X-ca-Ghq" id="vZ2-gn-B8a"/>
                 <outlet property="helpPopover" destination="0q6-KZ-Xca" id="hIL-9o-6Yw"/>
                 <outlet property="helpPopoverText" destination="Pvf-4Z-TAJ" id="Der-Hi-xUz"/>
-                <outlet property="installFromDMGButton" destination="B8P-P7-qEx" id="Vld-96-A90"/>
-                <outlet property="installerButton" destination="xw7-52-qE6" id="G9D-VO-Pok"/>
                 <outlet property="logTextView" destination="FwP-Vr-BNw" id="hdl-dI-NV0"/>
                 <outlet property="logWindow" destination="qpN-QT-fXL" id="0mX-Vq-Wuy"/>
                 <outlet property="matchingRecipes" destination="eDe-55-uM4" id="9KG-vo-REX"/>
-                <outlet property="munkiImporterButton" destination="hzB-J5-DeN" id="yfk-T6-YGg"/>
-                <outlet property="munkiInfoCreatorButton" destination="c8a-it-dwI" id="Xxk-R9-Bv7"/>
-                <outlet property="munkiPkginfoMergerButton" destination="JNU-ME-NqI" id="KVW-rF-2RN"/>
                 <outlet property="newDocument" destination="Was-JA-tGl" id="IhY-p8-i2Z"/>
                 <outlet property="openFile" destination="IAo-SY-fd9" id="rQh-cv-jQj"/>
                 <outlet property="outputTextField" destination="DuA-9D-5g6" id="r9V-DY-VIZ"/>
-                <outlet property="packageRequiredButton" destination="7Pw-i5-lUE" id="hE5-7k-EQt"/>
-                <outlet property="pathDeleterButton" destination="pMV-ll-fA6" id="ofW-HD-y0h"/>
-                <outlet property="pkgCopierButton" destination="204-Cm-DsT" id="LgK-Dd-55A"/>
-                <outlet property="pkgExtractorButton" destination="3Hh-Z4-wlr" id="eXa-4l-fao"/>
-                <outlet property="pkgInfoCreatorButton" destination="59D-yC-jyY" id="4Q4-gK-dlY"/>
-                <outlet property="pkgPayloadUnpackerButton" destination="cFh-2n-F9w" id="8Or-ut-Gr8"/>
-                <outlet property="pkgRootCreatorButton" destination="VIo-Et-9rR" id="0mr-vl-cnK"/>
-                <outlet property="plistEditorButton" destination="vcf-hQ-htI" id="YDM-FV-yH9"/>
-                <outlet property="plistReaderButton" destination="xaA-kk-OeV" id="wkY-cK-XdN"/>
+                <outlet property="processorsView" destination="FPF-XD-aiT" id="fDK-fv-NIA"/>
+                <outlet property="processorsView3rdParty" destination="UAZ-wU-hX8" id="NZ7-af-vty"/>
                 <outlet property="recipeFormatPopup" destination="k3q-W5-8vj" id="rl8-Wl-fCV"/>
                 <outlet property="recipeIdentifierTextField" destination="0Z0-Wx-2Y6" id="vlD-C9-np9"/>
                 <outlet property="saveDocument" destination="pxx-59-PXV" id="kqr-5s-D3a"/>
                 <outlet property="searchField" destination="24b-Of-7zx" id="qEN-50-FK7"/>
-                <outlet property="sparkleUpdateInfoProviderButton" destination="qYR-8C-nwB" id="ySq-60-q9d"/>
                 <outlet property="spinner" destination="b9g-dM-aGG" id="Vz4-QT-JCF"/>
-                <outlet property="stopProcessingIfButton" destination="uiF-Qu-DJs" id="Aad-Rp-eC7"/>
                 <outlet property="sublimeText" destination="x2V-ka-jvX" id="w4V-1y-98l"/>
-                <outlet property="symlinkerButton" destination="BSh-Dc-nR9" id="ZtY-Q9-Y5K"/>
                 <outlet property="textMate" destination="UnY-W0-jpD" id="XcN-QS-07A"/>
-                <outlet property="unarchiverButton" destination="AaF-zA-Pz1" id="agJ-aH-Zwf"/>
-                <outlet property="urlDownloaderButton" destination="Ctc-Ic-4iV" id="Cq4-kd-t86"/>
-                <outlet property="urlTextSearcherButton" destination="Lrq-ZO-mHn" id="j6O-hf-4gW"/>
-                <outlet property="versionerButton" destination="wXc-Ub-GEd" id="YvV-4I-3iq"/>
+                <outlet property="visualStudioCode" destination="qAM-Ju-J18" id="vhb-GJ-884"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -753,23 +720,23 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="0.0" y="335" width="1130" height="1095"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="1130" height="1095"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vwV-P6-8Bt" userLabel="outputScrollview">
-                        <rect key="frame" x="20" y="76" width="1090" height="956"/>
+                        <rect key="frame" x="20" y="75" width="1090" height="957"/>
                         <clipView key="contentView" copiesOnScroll="NO" id="cZa-V8-zQz">
-                            <rect key="frame" x="0.0" y="0.0" width="1075" height="956"/>
+                            <rect key="frame" x="0.0" y="0.0" width="1075" height="957"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" selectionGranularity="word" findStyle="bar" allowsUndo="YES" smartInsertDelete="YES" id="DuA-9D-5g6">
-                                    <rect key="frame" x="0.0" y="0.0" width="1075" height="956"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1075" height="957"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="1075" height="956"/>
+                                    <size key="minSize" width="1075" height="957"/>
                                     <size key="maxSize" width="1090" height="10000000"/>
                                     <color key="insertionPointColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </textView>
@@ -781,7 +748,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VC2-kf-nG3">
-                            <rect key="frame" x="1075" y="0.0" width="15" height="956"/>
+                            <rect key="frame" x="1075" y="0.0" width="15" height="957"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </scroller>
                     </scrollView>
@@ -797,9 +764,9 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7Kc-6t-aGN">
-                        <rect key="frame" x="406" y="1049" width="173" height="21"/>
+                        <rect key="frame" x="405" y="1049" width="173" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="173" id="DzW-8C-bvQ"/>
+                            <constraint firstAttribute="width" constant="173" id="8Xf-hX-fTD"/>
                         </constraints>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="App/PKG name" drawsBackground="YES" id="auS-oE-bHi">
                             <font key="font" usesAppearanceFont="YES"/>
@@ -813,7 +780,7 @@
                     <textField toolTip="Identifier for the recipe" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WvT-rJ-uc4">
                         <rect key="frame" x="20" y="1072" width="257" height="16"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="253" id="YbF-7y-2HU"/>
+                            <constraint firstAttribute="width" constant="253" id="s5S-ra-8Dl"/>
                         </constraints>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Identifier" id="1wf-ZB-dx4">
                             <font key="font" metaFont="system"/>
@@ -822,9 +789,9 @@
                         </textFieldCell>
                     </textField>
                     <textField toolTip="App or PKG name of the recipe" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6ub-wq-Ho6">
-                        <rect key="frame" x="404" y="1072" width="282" height="16"/>
+                        <rect key="frame" x="403" y="1072" width="282" height="16"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="278" id="vMX-E4-ke3"/>
+                            <constraint firstAttribute="width" constant="278" id="8N6-xz-UYY"/>
                         </constraints>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="App/pkg name" id="EDm-lO-cuU">
                             <font key="font" metaFont="system"/>
@@ -833,9 +800,9 @@
                         </textFieldCell>
                     </textField>
                     <searchField toolTip="Search in ~/Library/AutoPkg/RecipeRepos to find processor usage for example" wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="24b-Of-7zx">
-                        <rect key="frame" x="619" y="1048" width="178" height="22"/>
+                        <rect key="frame" x="618" y="1048" width="178" height="22"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="178" id="mg6-G5-JBW"/>
+                            <constraint firstAttribute="width" constant="178" id="5Ej-6i-KOt"/>
                         </constraints>
                         <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" placeholderString="Search recipes" usesSingleLineMode="YES" bezelStyle="round" sendsWholeSearchString="YES" id="6ID-0F-Mcy">
                             <font key="font" metaFont="system"/>
@@ -847,10 +814,10 @@
                         </connections>
                     </searchField>
                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eDe-55-uM4">
-                        <rect key="frame" x="802" y="1045" width="311" height="25"/>
+                        <rect key="frame" x="801" y="1044" width="313" height="25"/>
                         <popUpButtonCell key="cell" type="push" title="Matching recipes" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingHead" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="3vO-s7-xKn" id="8i3-GA-qEe">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
+                            <font key="font" metaFont="menu"/>
                             <menu key="menu" id="jfl-cK-2Eo">
                                 <items>
                                     <menuItem title="Matching recipes" state="on" hidden="YES" id="3vO-s7-xKn"/>
@@ -862,19 +829,24 @@
                         </connections>
                     </popUpButton>
                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BFU-N1-OEU">
-                        <rect key="frame" x="969" y="32" width="144" height="25"/>
+                        <rect key="frame" x="968" y="31" width="146" height="25"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="139" id="0la-Ak-vSV"/>
+                            <constraint firstAttribute="width" constant="139" id="4mT-bo-0Nn"/>
                         </constraints>
-                        <popUpButtonCell key="cell" type="push" title="File options..." bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="zha-TI-COZ" id="3tO-qa-KF5">
+                        <popUpButtonCell key="cell" type="push" title="Options..." bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="zha-TI-COZ" id="3tO-qa-KF5">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
+                            <font key="font" metaFont="menu"/>
                             <menu key="menu" id="rae-h9-tu0">
                                 <items>
-                                    <menuItem title="File options..." state="on" id="zha-TI-COZ"/>
+                                    <menuItem title="Options..." state="on" id="zha-TI-COZ"/>
                                     <menuItem title="✅ Finalize" toolTip="Runs plutil -lint and indenting XML" id="4hl-VE-eSU">
                                         <connections>
                                             <action selector="finalizeDoc:" target="Voe-Tx-rLC" id="Ged-7y-b9Q"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="🆗 Verify recipes files" toolTip="Verify files and check for duplicated Identifiers, and ParentRecipes and MinimumVersion for Yaml files" id="t2F-JL-TNp">
+                                        <connections>
+                                            <action selector="verifyRecipes:" target="Voe-Tx-rLC" id="0Ln-FC-vza"/>
                                         </connections>
                                     </menuItem>
                                     <menuItem title="🏃🏼‍♂️ Autopkg run   " toolTip="Runs autopkg -v, recommended to run from recipes from saved in ~/Library/Autopkg/ folder" id="1W0-Um-uoy">
@@ -916,6 +888,11 @@
                                                         <action selector="openExternalTextMate:" target="Voe-Tx-rLC" id="U7G-nx-Iqx"/>
                                                     </connections>
                                                 </menuItem>
+                                                <menuItem title="Visual Studio Code" id="qAM-Ju-J18">
+                                                    <connections>
+                                                        <action selector="openExternalVisualStudioCode:" target="Voe-Tx-rLC" id="0go-cG-6Fm"/>
+                                                    </connections>
+                                                </menuItem>
                                             </items>
                                         </menu>
                                     </menuItem>
@@ -923,11 +900,11 @@
                             </menu>
                         </popUpButtonCell>
                     </popUpButton>
-                    <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="k3q-W5-8vj">
-                        <rect key="frame" x="279" y="1045" width="123" height="25"/>
+                    <popUpButton verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k3q-W5-8vj">
+                        <rect key="frame" x="278" y="1044" width="124" height="25"/>
                         <popUpButtonCell key="cell" type="push" title="Recipe format" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="4vz-PG-WQZ" id="EJ8-UG-fbV">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
+                            <font key="font" metaFont="menu"/>
                             <menu key="menu" id="qCg-iz-r1V">
                                 <items>
                                     <menuItem title="Recipe format" state="on" id="4vz-PG-WQZ"/>
@@ -935,7 +912,8 @@
                                     <menuItem title="munki" id="VdV-3e-XDe"/>
                                     <menuItem title="pkg" id="QAQ-Lq-OHt"/>
                                     <menuItem title="install" id="vW0-VA-Ng9"/>
-                                    <menuItem title="jss" id="FsN-em-8r1"/>
+                                    <menuItem title="jamf" id="FsN-em-8r1"/>
+                                    <menuItem title="jss" id="qYD-5Z-DSz"/>
                                     <menuItem title="lanrev" id="3NK-M4-deu"/>
                                     <menuItem title="sccm" id="Pmi-kO-eth"/>
                                     <menuItem title="ds" id="exH-7g-brf"/>
@@ -946,7 +924,10 @@
                         </popUpButtonCell>
                     </popUpButton>
                     <textField toolTip="Format for the recipe" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7No-kh-8xc">
-                        <rect key="frame" x="281" y="1072" width="119" height="16"/>
+                        <rect key="frame" x="281" y="1072" width="118" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="114" id="AEA-2v-kSo"/>
+                        </constraints>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Recipe format" id="Rll-hE-8fS">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -954,535 +935,46 @@
                         </textFieldCell>
                     </textField>
                     <progressIndicator hidden="YES" wantsLayer="YES" maxValue="100" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="b9g-dM-aGG">
-                        <rect key="frame" x="22" y="40" width="16" height="16"/>
+                        <rect key="frame" x="22" y="39" width="16" height="16"/>
                     </progressIndicator>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="7No-kh-8xc" firstAttribute="leading" secondItem="WvT-rJ-uc4" secondAttribute="trailing" constant="8" symbolic="YES" id="2oC-FS-txK"/>
-                    <constraint firstItem="0Z0-Wx-2Y6" firstAttribute="baseline" secondItem="k3q-W5-8vj" secondAttribute="baseline" id="3m2-nW-oZ8"/>
-                    <constraint firstItem="b9g-dM-aGG" firstAttribute="top" secondItem="BFU-N1-OEU" secondAttribute="top" id="4a2-9p-lKn"/>
-                    <constraint firstItem="k3q-W5-8vj" firstAttribute="leading" secondItem="0Z0-Wx-2Y6" secondAttribute="trailing" constant="6" id="6Wa-Ah-Tab"/>
-                    <constraint firstItem="24b-Of-7zx" firstAttribute="top" secondItem="6ub-wq-Ho6" secondAttribute="bottom" constant="2" id="6oa-KT-y0a"/>
-                    <constraint firstItem="24b-Of-7zx" firstAttribute="baseline" secondItem="eDe-55-uM4" secondAttribute="baseline" id="8zT-59-5Gd"/>
-                    <constraint firstItem="WvT-rJ-uc4" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="22" id="C6m-fo-nxw"/>
-                    <constraint firstItem="eDe-55-uM4" firstAttribute="leading" secondItem="24b-Of-7zx" secondAttribute="trailing" constant="8" symbolic="YES" id="F3n-Ro-yst"/>
-                    <constraint firstItem="7Kc-6t-aGN" firstAttribute="leading" secondItem="k3q-W5-8vj" secondAttribute="trailing" constant="7" id="FRg-sT-lG1"/>
-                    <constraint firstItem="eDe-55-uM4" firstAttribute="trailing" secondItem="vwV-P6-8Bt" secondAttribute="trailing" id="HsC-Nu-pHo"/>
-                    <constraint firstItem="vwV-P6-8Bt" firstAttribute="trailing" secondItem="BFU-N1-OEU" secondAttribute="trailing" id="Ruc-fo-u3Z"/>
-                    <constraint firstAttribute="bottom" secondItem="BFU-N1-OEU" secondAttribute="bottom" constant="35" id="Tb6-2S-4MS"/>
-                    <constraint firstItem="WvT-rJ-uc4" firstAttribute="trailing" secondItem="0Z0-Wx-2Y6" secondAttribute="trailing" id="ZE0-n7-qsF"/>
-                    <constraint firstItem="6ub-wq-Ho6" firstAttribute="leading" secondItem="7No-kh-8xc" secondAttribute="trailing" constant="8" symbolic="YES" id="bQR-1E-dmE"/>
-                    <constraint firstItem="6ub-wq-Ho6" firstAttribute="leading" secondItem="7Kc-6t-aGN" secondAttribute="leading" id="bkG-hk-z5F"/>
-                    <constraint firstItem="0Z0-Wx-2Y6" firstAttribute="leading" secondItem="vwV-P6-8Bt" secondAttribute="leading" id="bqv-zl-rg1"/>
-                    <constraint firstItem="7Kc-6t-aGN" firstAttribute="baseline" secondItem="24b-Of-7zx" secondAttribute="baseline" id="bu9-LF-yBC"/>
-                    <constraint firstItem="24b-Of-7zx" firstAttribute="leading" secondItem="7Kc-6t-aGN" secondAttribute="trailing" constant="40" id="d5d-Wu-2gE"/>
-                    <constraint firstItem="WvT-rJ-uc4" firstAttribute="baseline" secondItem="7No-kh-8xc" secondAttribute="baseline" id="h4E-jl-FX9"/>
-                    <constraint firstItem="7No-kh-8xc" firstAttribute="baseline" secondItem="6ub-wq-Ho6" secondAttribute="baseline" id="msp-Qp-Avx"/>
-                    <constraint firstItem="vwV-P6-8Bt" firstAttribute="top" secondItem="0Z0-Wx-2Y6" secondAttribute="bottom" constant="17" id="p50-N4-LsN"/>
-                    <constraint firstItem="WvT-rJ-uc4" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="7" id="tPD-mL-3LH"/>
-                    <constraint firstItem="BFU-N1-OEU" firstAttribute="top" secondItem="vwV-P6-8Bt" secondAttribute="bottom" constant="20" id="ve7-6p-TPp"/>
-                    <constraint firstItem="k3q-W5-8vj" firstAttribute="baseline" secondItem="7Kc-6t-aGN" secondAttribute="baseline" id="vmb-aY-oCj"/>
-                    <constraint firstAttribute="trailing" secondItem="eDe-55-uM4" secondAttribute="trailing" constant="20" symbolic="YES" id="xnv-cC-NVo"/>
-                    <constraint firstItem="b9g-dM-aGG" firstAttribute="leading" secondItem="WvT-rJ-uc4" secondAttribute="leading" id="xv0-Ll-hDz"/>
-                    <constraint firstItem="0Z0-Wx-2Y6" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" symbolic="YES" id="ywi-Fz-Euo"/>
+                    <constraint firstItem="24b-Of-7zx" firstAttribute="baseline" secondItem="eDe-55-uM4" secondAttribute="baseline" id="2hO-aM-92v"/>
+                    <constraint firstItem="vwV-P6-8Bt" firstAttribute="trailing" secondItem="BFU-N1-OEU" secondAttribute="trailing" id="3vd-Ft-hPX"/>
+                    <constraint firstItem="0Z0-Wx-2Y6" firstAttribute="leading" secondItem="vwV-P6-8Bt" secondAttribute="leading" id="5az-QR-Uea"/>
+                    <constraint firstItem="eDe-55-uM4" firstAttribute="trailing" secondItem="vwV-P6-8Bt" secondAttribute="trailing" id="7Cy-w2-bpM"/>
+                    <constraint firstItem="24b-Of-7zx" firstAttribute="leading" secondItem="7Kc-6t-aGN" secondAttribute="trailing" constant="40" id="AZX-bu-xie"/>
+                    <constraint firstItem="WvT-rJ-uc4" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="7" id="CSo-I5-7lN"/>
+                    <constraint firstItem="WvT-rJ-uc4" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="22" id="Cnd-vB-gxP"/>
+                    <constraint firstAttribute="bottom" secondItem="BFU-N1-OEU" secondAttribute="bottom" constant="35" id="GbG-zh-mdp"/>
+                    <constraint firstItem="7No-kh-8xc" firstAttribute="baseline" secondItem="6ub-wq-Ho6" secondAttribute="baseline" id="IYQ-ZG-8Jv"/>
+                    <constraint firstItem="b9g-dM-aGG" firstAttribute="top" secondItem="BFU-N1-OEU" secondAttribute="top" id="Ilh-xu-6RE"/>
+                    <constraint firstItem="vwV-P6-8Bt" firstAttribute="top" secondItem="k3q-W5-8vj" secondAttribute="bottom" constant="16" id="J5t-Ov-bt8"/>
+                    <constraint firstItem="0Z0-Wx-2Y6" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" symbolic="YES" id="MJj-xp-t3w"/>
+                    <constraint firstItem="0Z0-Wx-2Y6" firstAttribute="top" secondItem="WvT-rJ-uc4" secondAttribute="bottom" constant="2" id="S7p-wI-gap"/>
+                    <constraint firstItem="k3q-W5-8vj" firstAttribute="leading" secondItem="0Z0-Wx-2Y6" secondAttribute="trailing" constant="6" id="SdW-Nw-Jgr"/>
+                    <constraint firstItem="WvT-rJ-uc4" firstAttribute="trailing" secondItem="0Z0-Wx-2Y6" secondAttribute="trailing" id="TkJ-jY-rLp"/>
+                    <constraint firstItem="6ub-wq-Ho6" firstAttribute="leading" secondItem="7No-kh-8xc" secondAttribute="trailing" constant="8" symbolic="YES" id="U3a-of-Htt"/>
+                    <constraint firstItem="7No-kh-8xc" firstAttribute="centerX" secondItem="k3q-W5-8vj" secondAttribute="centerX" id="XA8-he-66T"/>
+                    <constraint firstItem="6ub-wq-Ho6" firstAttribute="leading" secondItem="7Kc-6t-aGN" secondAttribute="leading" id="XfL-Km-H44"/>
+                    <constraint firstItem="7No-kh-8xc" firstAttribute="leading" secondItem="WvT-rJ-uc4" secondAttribute="trailing" constant="8" symbolic="YES" id="Xyr-Jc-rVH"/>
+                    <constraint firstItem="b9g-dM-aGG" firstAttribute="top" secondItem="vwV-P6-8Bt" secondAttribute="bottom" constant="20" id="Zop-rx-Psq"/>
+                    <constraint firstItem="WvT-rJ-uc4" firstAttribute="leading" secondItem="b9g-dM-aGG" secondAttribute="leading" id="bXh-3s-JO2"/>
+                    <constraint firstItem="k3q-W5-8vj" firstAttribute="baseline" secondItem="7Kc-6t-aGN" secondAttribute="baseline" id="fFP-9h-3jE"/>
+                    <constraint firstItem="7Kc-6t-aGN" firstAttribute="baseline" secondItem="24b-Of-7zx" secondAttribute="baseline" id="h2V-VX-TCw"/>
+                    <constraint firstItem="0Z0-Wx-2Y6" firstAttribute="baseline" secondItem="k3q-W5-8vj" secondAttribute="baseline" id="hku-cZ-gmA"/>
+                    <constraint firstItem="WvT-rJ-uc4" firstAttribute="baseline" secondItem="7No-kh-8xc" secondAttribute="baseline" id="iyR-nV-XvY"/>
+                    <constraint firstItem="eDe-55-uM4" firstAttribute="leading" secondItem="24b-Of-7zx" secondAttribute="trailing" constant="8" symbolic="YES" id="mt7-mi-KAC"/>
+                    <constraint firstAttribute="trailing" secondItem="eDe-55-uM4" secondAttribute="trailing" constant="20" symbolic="YES" id="rHZ-qL-LGO"/>
                 </constraints>
             </view>
             <point key="canvasLocation" x="-333" y="286.5"/>
-        </window>
-        <window title="Processors" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" frameAutosaveName="" animationBehavior="default" titleVisibility="hidden" id="9d4-0m-cTq" customClass="NSPanel">
-            <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" utility="YES"/>
-            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="1465" y="800" width="229" height="809"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
-            <view key="contentView" id="5SM-WB-jGj">
-                <rect key="frame" x="0.0" y="0.0" width="229" height="809"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <button toolTip="Generates an installs array for a pkginfo file" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ltU-sE-MKZ">
-                        <rect key="frame" x="17" y="402" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="MunkiInstallsItemsCreator" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ekg-Sg-Ppn">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="MunkiInstallsItemsCreatorAction:" target="Voe-Tx-rLC" id="nSd-BD-jJn"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Extracts bundle ID and version of app inside dmg." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WQT-8t-DrB">
-                        <rect key="frame" x="17" y="780" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="AppDmgVersioner" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="oAj-jA-sYp">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="appDMGVersionerAction:" target="Voe-Tx-rLC" id="3Vq-AG-52K"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Calls autopkgserver to create a package from an application." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uXL-GP-H4B">
-                        <rect key="frame" x="17" y="759" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="AppPkgCreator" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GRf-sc-sT1">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="appPkgCreatorAction:" target="Voe-Tx-rLC" id="HLb-YF-0mT"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Deletes file paths." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pMV-ll-fA6">
-                        <rect key="frame" x="17" y="339" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="PathDeleter" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bKj-ho-cxJ">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="pathDeleterAction:" target="Voe-Tx-rLC" id="rLj-ij-qVI"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Verifies application bundle or installer package signature." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KLv-oG-uec">
-                        <rect key="frame" x="17" y="717" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="CodeSignatureVerifier PKG" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="emv-cT-1dR">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="codeSignatureVerifierActionPkg:" target="Voe-Tx-rLC" id="laq-Fa-68Q"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Copies source_path to destination_path." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Faf-29-Tz4">
-                        <rect key="frame" x="17" y="696" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="Copier" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="S8j-4r-9rK">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="copierAction:" target="Voe-Tx-rLC" id="jd8-yS-6qc"/>
-                        </connections>
-                    </button>
-                    <button toolTip="This processor outputs a warning that the recipe has been deprecated." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fiX-2e-ynh">
-                        <rect key="frame" x="17" y="675" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="DeprecationWarning" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bVy-FC-40f">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="deprecationWarningAction:" target="Voe-Tx-rLC" id="nuB-mo-Cc7"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Creates a disk image from a directory." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qpe-Ll-ueh">
-                        <rect key="frame" x="17" y="654" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="DmgCreator" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="P9q-Oj-uo3">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="dmgCreatorAction:" target="Voe-Tx-rLC" id="Q7p-LS-Y1f"/>
-                        </connections>
-                    </button>
-                    <button toolTip="This processor does nothing at all." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6Xb-Ny-HlC">
-                        <rect key="frame" x="17" y="633" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="EndOfCheckPhase" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="49J-ni-ANR">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="endOfCheckPhaseAction:" target="Voe-Tx-rLC" id="eYx-H3-Mee"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Create a file." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6VH-3y-73L">
-                        <rect key="frame" x="17" y="612" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="FileCreator" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="eFX-mw-MbA">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="fileCreatorAction:" target="Voe-Tx-rLC" id="1m5-vC-UVn"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Finds a filename for use in other Processors." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Y1M-eq-rs8">
-                        <rect key="frame" x="17" y="591" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="FileFinder" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="TiN-uL-W5L">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="fileFinderAction:" target="Voe-Tx-rLC" id="kaO-AP-Deh"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Moves/renames a file." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6d3-bd-DoO">
-                        <rect key="frame" x="17" y="570" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="FileMover" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="STn-Y7-Vjg">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="fileMoverAction:" target="Voe-Tx-rLC" id="aKx-SC-pO7"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Flatten an expanded package using pkgutil." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mab-ro-4Wo">
-                        <rect key="frame" x="17" y="549" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="FlatPkgPacker" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qrR-da-nUh">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="flatPkgPackerAction:" target="Voe-Tx-rLC" id="rTE-Au-h0d"/>
-                        </connections>
-                    </button>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="brZ-Rs-ugw">
-                        <rect key="frame" x="17" y="528" width="195" height="17"/>
-                        <string key="toolTip">Expands a flat package using pkgutil or xar.
-For xar it also optionally skips extracting the payload.</string>
-                        <buttonCell key="cell" type="inline" title="FlatPkgUnpacker" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="lKr-O7-CeO">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="flatPkgUnpackerAction:" target="Voe-Tx-rLC" id="WR6-y4-rpa"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Get metadata from the latest release from a GitHub project using the GitHub Releases API. Requires version 0.5.0." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="x2X-ca-Ghq">
-                        <rect key="frame" x="17" y="507" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="GitHubReleasesInfoProvider" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ffn-EJ-mqS">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="gitHubReleasesInfoProviderAction:" target="Voe-Tx-rLC" id="Zdk-xM-MEU"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Calls autopkginstalld to install a package." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xw7-52-qE6">
-                        <rect key="frame" x="17" y="486" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="Installer" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZCv-BQ-GMI">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="installerAction:" target="Voe-Tx-rLC" id="1aa-aI-Y6w"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Calls autopkginstalld to copy items from a disk image to the root filesystem." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="B8P-P7-qEx">
-                        <rect key="frame" x="17" y="465" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="InstallFromDMG" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Ow8-M9-iQr">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="installFromDMGAction:" target="Voe-Tx-rLC" id="15X-9M-C4d"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Imports a pkg or dmg to the Munki repo." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hzB-J5-DeN">
-                        <rect key="frame" x="17" y="444" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="MunkiImporter" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="PNR-8P-UNs">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="munkiImporterAction:" target="Voe-Tx-rLC" id="Ixg-P0-wLN"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Creates a pkginfo file for a munki package." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="c8a-it-dwI">
-                        <rect key="frame" x="17" y="423" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="MunkiInfoCreator" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="jL7-Lp-ArF">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="munkiInfoCreatorAction:" target="Voe-Tx-rLC" id="UuN-Bc-Jmh"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Merges two pkginfo dictionaries." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JNU-ME-NqI">
-                        <rect key="frame" x="17" y="381" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="MunkiPkginfoMerger" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="1fV-xO-Xkm">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="munkiPkginfoMergerAction:" target="Voe-Tx-rLC" id="uIL-t2-Kmx"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Copies source_pkg to pkg_path." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="204-Cm-DsT">
-                        <rect key="frame" x="17" y="318" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="PkgCopier" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="PMR-a8-MhJ">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="pkgCopierAction:" target="Voe-Tx-rLC" id="coM-Hl-7D7"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Extracts the contents of a bundle-style pkg (possibly on a disk image) to pkgroot." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3Hh-Z4-wlr">
-                        <rect key="frame" x="17" y="297" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="PkgExtractor" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="zyk-qT-t63">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="pkgExtractorAction:" target="Voe-Tx-rLC" id="TWK-gA-E7j"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Creates an PackageInfo file for a package." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="59D-yC-jyY">
-                        <rect key="frame" x="17" y="276" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="PkgInfoCreator" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Xyr-QS-Fjp">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="pkgInfoCreatorAction:" target="Voe-Tx-rLC" id="gho-xd-W6S"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Unpacks a package payload." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cFh-2n-F9w">
-                        <rect key="frame" x="17" y="255" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="PkgPayloadUnpacker" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="tlR-GB-hdA">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="pkgPayloadUnpackerAction:" target="Voe-Tx-rLC" id="70d-a8-R95"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Creates a package root and a directory structure. (Can also be used to create directory structures for other purposes.)" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VIo-Et-9rR">
-                        <rect key="frame" x="17" y="234" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="PkgRootCreator" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="kEg-rY-qQR">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="pkgRootCreatorAction:" target="Voe-Tx-rLC" id="3gq-pd-Fd1"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Merges data with an input plist (which can be empty) and writes a new plist." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vcf-hQ-htI">
-                        <rect key="frame" x="17" y="213" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="PlistEditor" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gDE-d9-M8s">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="plistEditorAction:" target="Voe-Tx-rLC" id="h88-zg-Xd0"/>
-                        </connections>
-                    </button>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="xaA-kk-OeV">
-                        <rect key="frame" x="17" y="192" width="195" height="17"/>
-                        <string key="toolTip">Extracts values from top-level keys in a plist file, and assigns to arbitrary output variables. This behavior is different from other processors that pre-define all their possible output variables. As it is often used for versioning, it defaults to extracting 'CFBundleShortVersionString' to 'version'. This can be used as a replacement for both the AppDmgVersioner and Versioner processors.</string>
-                        <buttonCell key="cell" type="inline" title="PlistReader" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Dt1-d9-UvM">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="plistReaderAction:" target="Voe-Tx-rLC" id="YSH-jN-CoM"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Provides URL to the highest version number or latest update." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qYR-8C-nwB">
-                        <rect key="frame" x="17" y="171" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="SparkleUpdateInfoProvider" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="kq8-aQ-wvf">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="sparkleUpdateInfoProviderAction:" target="Voe-Tx-rLC" id="BZh-kv-NXQ"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Sets a variable to tell AutoPackager to stop processing a recipe if a predicate comparison evaluates to true." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uiF-Qu-DJs">
-                        <rect key="frame" x="17" y="150" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="StopProcessingIf" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9i1-Mx-H84">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="stopProcessingIfAction:" target="Voe-Tx-rLC" id="y6P-Dd-ZHE"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Copies source_path to destination_path." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BSh-Dc-nR9">
-                        <rect key="frame" x="17" y="129" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="Symlinker" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KWl-Bb-7HA">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="symlinkerAction:" target="Voe-Tx-rLC" id="xbZ-Si-WRd"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Archive decompressor for zip and common tar-compressed formats." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="AaF-zA-Pz1">
-                        <rect key="frame" x="17" y="108" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="Unarchiver" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9k5-z6-gxT">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="unarchiverAction:" target="Voe-Tx-rLC" id="xkM-z1-OLm"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Downloads a URL to the specified download_dir using curl." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ctc-Ic-4iV">
-                        <rect key="frame" x="17" y="87" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="URLDownloader" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sHp-6F-4Kq">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="urlDownloaderAction:" target="Voe-Tx-rLC" id="ZEQ-Zm-Y2i"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Downloads a URL using curl and performs a regular expression match on the text." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Lrq-ZO-mHn">
-                        <rect key="frame" x="17" y="66" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="URLTextSearcher" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="K8B-KK-SQL">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="urlTextSearcherAction:" target="Voe-Tx-rLC" id="gVZ-N1-VPP"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Returns version information from a plist" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wXc-Ub-GEd">
-                        <rect key="frame" x="17" y="45" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="Versioner" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="SDP-YA-P15">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="versionerAction:" target="Voe-Tx-rLC" id="mic-gF-xne"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Raises a ProcessorError if the PKG variable doesn't exist." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7Pw-i5-lUE">
-                        <rect key="frame" x="17" y="360" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="PackageRequired" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="xgO-7F-soY">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="packageRequiredAction:" target="Voe-Tx-rLC" id="aQc-Xa-kUl"/>
-                        </connections>
-                    </button>
-                    <button toolTip="Verifies application bundle or installer package signature." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Oys-tT-RYi">
-                        <rect key="frame" x="17" y="738" width="195" height="17"/>
-                        <buttonCell key="cell" type="inline" title="CodeSignatureVerifier App" bezelStyle="inline" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yEn-pj-6PK">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="smallSystemBold"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="codeSignatureVerifierActionApp:" target="Voe-Tx-rLC" id="Lic-Ea-VzL"/>
-                        </connections>
-                    </button>
-                </subviews>
-                <constraints>
-                    <constraint firstItem="uiF-Qu-DJs" firstAttribute="trailing" secondItem="BSh-Dc-nR9" secondAttribute="trailing" id="02O-lB-Iye"/>
-                    <constraint firstItem="BSh-Dc-nR9" firstAttribute="top" secondItem="uiF-Qu-DJs" secondAttribute="bottom" constant="5" id="0I1-vF-5u3"/>
-                    <constraint firstItem="brZ-Rs-ugw" firstAttribute="top" secondItem="mab-ro-4Wo" secondAttribute="bottom" constant="5" id="0J6-yT-eRj"/>
-                    <constraint firstItem="xaA-kk-OeV" firstAttribute="leading" secondItem="qYR-8C-nwB" secondAttribute="leading" id="0Py-J9-5gc"/>
-                    <constraint firstItem="Lrq-ZO-mHn" firstAttribute="leading" secondItem="wXc-Ub-GEd" secondAttribute="leading" id="0yf-l6-K7J"/>
-                    <constraint firstItem="Lrq-ZO-mHn" firstAttribute="top" secondItem="Ctc-Ic-4iV" secondAttribute="bottom" constant="5" id="1JS-Rl-6ZA"/>
-                    <constraint firstItem="qYR-8C-nwB" firstAttribute="trailing" secondItem="uiF-Qu-DJs" secondAttribute="trailing" id="1q1-Fd-ngT"/>
-                    <constraint firstItem="WQT-8t-DrB" firstAttribute="leading" secondItem="uXL-GP-H4B" secondAttribute="leading" id="2Ze-X8-aS0"/>
-                    <constraint firstItem="x2X-ca-Ghq" firstAttribute="leading" secondItem="xw7-52-qE6" secondAttribute="leading" id="2ph-Yh-dLx"/>
-                    <constraint firstItem="KLv-oG-uec" firstAttribute="leading" secondItem="Faf-29-Tz4" secondAttribute="leading" id="3ax-qH-tbK"/>
-                    <constraint firstItem="qYR-8C-nwB" firstAttribute="leading" secondItem="uiF-Qu-DJs" secondAttribute="leading" id="3cx-6B-Kuq"/>
-                    <constraint firstItem="204-Cm-DsT" firstAttribute="top" secondItem="pMV-ll-fA6" secondAttribute="bottom" constant="5" id="3lW-Yj-DUR"/>
-                    <constraint firstItem="59D-yC-jyY" firstAttribute="top" secondItem="3Hh-Z4-wlr" secondAttribute="bottom" constant="5" id="3qg-Mh-vSd"/>
-                    <constraint firstItem="VIo-Et-9rR" firstAttribute="top" secondItem="cFh-2n-F9w" secondAttribute="bottom" constant="5" id="3wU-T6-s4b"/>
-                    <constraint firstItem="pMV-ll-fA6" firstAttribute="trailing" secondItem="204-Cm-DsT" secondAttribute="trailing" id="4No-F8-qJP"/>
-                    <constraint firstItem="59D-yC-jyY" firstAttribute="trailing" secondItem="cFh-2n-F9w" secondAttribute="trailing" id="4j5-we-tQc"/>
-                    <constraint firstItem="ltU-sE-MKZ" firstAttribute="trailing" secondItem="JNU-ME-NqI" secondAttribute="trailing" id="5Va-jK-gcq"/>
-                    <constraint firstItem="Qpe-Ll-ueh" firstAttribute="trailing" secondItem="6Xb-Ny-HlC" secondAttribute="trailing" id="5Zy-Fb-JiT"/>
-                    <constraint firstItem="Oys-tT-RYi" firstAttribute="top" secondItem="uXL-GP-H4B" secondAttribute="bottom" constant="5" id="5b4-pu-U5t"/>
-                    <constraint firstItem="204-Cm-DsT" firstAttribute="trailing" secondItem="3Hh-Z4-wlr" secondAttribute="trailing" id="5pQ-Ia-PX5"/>
-                    <constraint firstItem="Qpe-Ll-ueh" firstAttribute="leading" secondItem="6Xb-Ny-HlC" secondAttribute="leading" id="5wu-ab-9tZ"/>
-                    <constraint firstItem="uiF-Qu-DJs" firstAttribute="top" secondItem="qYR-8C-nwB" secondAttribute="bottom" constant="5" id="752-8K-9Pm"/>
-                    <constraint firstItem="WQT-8t-DrB" firstAttribute="leading" secondItem="5SM-WB-jGj" secondAttribute="leading" constant="17" id="7Yv-Su-ubD"/>
-                    <constraint firstItem="Lrq-ZO-mHn" firstAttribute="trailing" secondItem="wXc-Ub-GEd" secondAttribute="trailing" id="9Fn-Vg-4zd"/>
-                    <constraint firstItem="VIo-Et-9rR" firstAttribute="leading" secondItem="vcf-hQ-htI" secondAttribute="leading" id="Arl-CE-rqb"/>
-                    <constraint firstItem="KLv-oG-uec" firstAttribute="top" secondItem="Oys-tT-RYi" secondAttribute="bottom" constant="5" id="B2S-MT-RJb"/>
-                    <constraint firstItem="vcf-hQ-htI" firstAttribute="top" secondItem="VIo-Et-9rR" secondAttribute="bottom" constant="5" id="BcP-3j-BSl"/>
-                    <constraint firstItem="mab-ro-4Wo" firstAttribute="trailing" secondItem="brZ-Rs-ugw" secondAttribute="trailing" id="BjV-X2-9y4"/>
-                    <constraint firstItem="VIo-Et-9rR" firstAttribute="trailing" secondItem="vcf-hQ-htI" secondAttribute="trailing" id="Bjo-oZ-C50"/>
-                    <constraint firstItem="xw7-52-qE6" firstAttribute="trailing" secondItem="B8P-P7-qEx" secondAttribute="trailing" id="CAw-QD-CDm"/>
-                    <constraint firstItem="fiX-2e-ynh" firstAttribute="top" secondItem="Faf-29-Tz4" secondAttribute="bottom" constant="5" id="D35-gg-d6p"/>
-                    <constraint firstItem="Y1M-eq-rs8" firstAttribute="trailing" secondItem="6d3-bd-DoO" secondAttribute="trailing" id="D9o-5L-ner"/>
-                    <constraint firstItem="ltU-sE-MKZ" firstAttribute="top" secondItem="c8a-it-dwI" secondAttribute="bottom" constant="5" id="DJ2-am-sIm"/>
-                    <constraint firstItem="hzB-J5-DeN" firstAttribute="top" secondItem="B8P-P7-qEx" secondAttribute="bottom" constant="5" id="DNg-1C-NxD"/>
-                    <constraint firstItem="Y1M-eq-rs8" firstAttribute="leading" secondItem="6d3-bd-DoO" secondAttribute="leading" id="Db3-j3-02T"/>
-                    <constraint firstItem="uXL-GP-H4B" firstAttribute="leading" secondItem="Oys-tT-RYi" secondAttribute="leading" id="ENL-HS-Jy7"/>
-                    <constraint firstItem="3Hh-Z4-wlr" firstAttribute="leading" secondItem="59D-yC-jyY" secondAttribute="leading" id="FoB-Te-08u"/>
-                    <constraint firstItem="uXL-GP-H4B" firstAttribute="top" secondItem="WQT-8t-DrB" secondAttribute="bottom" constant="5" id="IEc-PK-WNw"/>
-                    <constraint firstItem="Ctc-Ic-4iV" firstAttribute="top" secondItem="AaF-zA-Pz1" secondAttribute="bottom" constant="5" id="JJK-Te-YSO"/>
-                    <constraint firstItem="204-Cm-DsT" firstAttribute="leading" secondItem="3Hh-Z4-wlr" secondAttribute="leading" id="KDV-cK-HcW"/>
-                    <constraint firstItem="c8a-it-dwI" firstAttribute="top" secondItem="hzB-J5-DeN" secondAttribute="bottom" constant="5" id="L42-my-Mkc"/>
-                    <constraint firstItem="pMV-ll-fA6" firstAttribute="leading" secondItem="204-Cm-DsT" secondAttribute="leading" id="Lfc-HP-B2U"/>
-                    <constraint firstItem="Oys-tT-RYi" firstAttribute="trailing" secondItem="KLv-oG-uec" secondAttribute="trailing" id="Lrg-2s-HrY"/>
-                    <constraint firstItem="wXc-Ub-GEd" firstAttribute="top" secondItem="Lrq-ZO-mHn" secondAttribute="bottom" constant="5" id="MTE-7T-ODr"/>
-                    <constraint firstItem="xaA-kk-OeV" firstAttribute="trailing" secondItem="qYR-8C-nwB" secondAttribute="trailing" id="MTv-zL-Fjv"/>
-                    <constraint firstItem="6VH-3y-73L" firstAttribute="leading" secondItem="Y1M-eq-rs8" secondAttribute="leading" id="MUv-Vf-fdf"/>
-                    <constraint firstItem="vcf-hQ-htI" firstAttribute="leading" secondItem="xaA-kk-OeV" secondAttribute="leading" id="Mgn-uk-HtL"/>
-                    <constraint firstItem="fiX-2e-ynh" firstAttribute="leading" secondItem="Qpe-Ll-ueh" secondAttribute="leading" id="OXs-Lz-GQU"/>
-                    <constraint firstItem="JNU-ME-NqI" firstAttribute="leading" secondItem="7Pw-i5-lUE" secondAttribute="leading" id="OYw-JS-MJM"/>
-                    <constraint firstItem="vcf-hQ-htI" firstAttribute="trailing" secondItem="xaA-kk-OeV" secondAttribute="trailing" id="Ojz-4B-7rI"/>
-                    <constraint firstItem="c8a-it-dwI" firstAttribute="trailing" secondItem="ltU-sE-MKZ" secondAttribute="trailing" id="Ow5-2F-7Xs"/>
-                    <constraint firstItem="BSh-Dc-nR9" firstAttribute="leading" secondItem="AaF-zA-Pz1" secondAttribute="leading" id="Pt3-98-Obx"/>
-                    <constraint firstItem="7Pw-i5-lUE" firstAttribute="trailing" secondItem="pMV-ll-fA6" secondAttribute="trailing" id="Pya-5i-KkY"/>
-                    <constraint firstItem="xw7-52-qE6" firstAttribute="top" secondItem="x2X-ca-Ghq" secondAttribute="bottom" constant="5" id="QN0-oH-9Ta"/>
-                    <constraint firstItem="B8P-P7-qEx" firstAttribute="leading" secondItem="hzB-J5-DeN" secondAttribute="leading" id="QeQ-Rf-8z4"/>
-                    <constraint firstItem="6d3-bd-DoO" firstAttribute="trailing" secondItem="mab-ro-4Wo" secondAttribute="trailing" id="Rko-j0-tGb"/>
-                    <constraint firstItem="6d3-bd-DoO" firstAttribute="leading" secondItem="mab-ro-4Wo" secondAttribute="leading" id="RsX-50-Mpz"/>
-                    <constraint firstItem="BSh-Dc-nR9" firstAttribute="trailing" secondItem="AaF-zA-Pz1" secondAttribute="trailing" id="SJ3-Bf-LLB"/>
-                    <constraint firstItem="6Xb-Ny-HlC" firstAttribute="top" secondItem="Qpe-Ll-ueh" secondAttribute="bottom" constant="5" id="TXi-YT-cLX"/>
-                    <constraint firstItem="cFh-2n-F9w" firstAttribute="top" secondItem="59D-yC-jyY" secondAttribute="bottom" constant="5" id="Tlr-GX-WJE"/>
-                    <constraint firstItem="pMV-ll-fA6" firstAttribute="top" secondItem="7Pw-i5-lUE" secondAttribute="bottom" constant="5" id="U6H-eA-BYY"/>
-                    <constraint firstItem="uiF-Qu-DJs" firstAttribute="leading" secondItem="BSh-Dc-nR9" secondAttribute="leading" id="W0U-xa-Pcs"/>
-                    <constraint firstItem="KLv-oG-uec" firstAttribute="trailing" secondItem="Faf-29-Tz4" secondAttribute="trailing" id="Wt3-FO-fxa"/>
-                    <constraint firstItem="hzB-J5-DeN" firstAttribute="leading" secondItem="c8a-it-dwI" secondAttribute="leading" id="X5T-Hs-REd"/>
-                    <constraint firstItem="6d3-bd-DoO" firstAttribute="top" secondItem="Y1M-eq-rs8" secondAttribute="bottom" constant="5" id="XfY-pq-eI4"/>
-                    <constraint firstItem="mab-ro-4Wo" firstAttribute="top" secondItem="6d3-bd-DoO" secondAttribute="bottom" constant="5" id="YCv-Ap-2Sz"/>
-                    <constraint firstItem="59D-yC-jyY" firstAttribute="leading" secondItem="cFh-2n-F9w" secondAttribute="leading" id="aWV-hD-hTe"/>
-                    <constraint firstItem="6VH-3y-73L" firstAttribute="trailing" secondItem="Y1M-eq-rs8" secondAttribute="trailing" id="adk-81-m1X"/>
-                    <constraint firstItem="c8a-it-dwI" firstAttribute="leading" secondItem="ltU-sE-MKZ" secondAttribute="leading" id="aeG-3G-LvM"/>
-                    <constraint firstItem="brZ-Rs-ugw" firstAttribute="trailing" secondItem="x2X-ca-Ghq" secondAttribute="trailing" id="bFH-R6-ayK"/>
-                    <constraint firstItem="Oys-tT-RYi" firstAttribute="leading" secondItem="KLv-oG-uec" secondAttribute="leading" id="bPD-s2-aCJ"/>
-                    <constraint firstItem="hzB-J5-DeN" firstAttribute="trailing" secondItem="c8a-it-dwI" secondAttribute="trailing" id="bYZ-sU-oPr"/>
-                    <constraint firstItem="fiX-2e-ynh" firstAttribute="trailing" secondItem="Qpe-Ll-ueh" secondAttribute="trailing" id="bpu-iF-e4v"/>
-                    <constraint firstItem="xaA-kk-OeV" firstAttribute="top" secondItem="vcf-hQ-htI" secondAttribute="bottom" constant="5" id="bsy-CA-yKf"/>
-                    <constraint firstItem="uXL-GP-H4B" firstAttribute="trailing" secondItem="Oys-tT-RYi" secondAttribute="trailing" id="cWY-lR-j27"/>
-                    <constraint firstItem="cFh-2n-F9w" firstAttribute="leading" secondItem="VIo-Et-9rR" secondAttribute="leading" id="cdh-Oe-r4q"/>
-                    <constraint firstItem="7Pw-i5-lUE" firstAttribute="leading" secondItem="pMV-ll-fA6" secondAttribute="leading" id="cyh-kq-hcm"/>
-                    <constraint firstItem="brZ-Rs-ugw" firstAttribute="leading" secondItem="x2X-ca-Ghq" secondAttribute="leading" id="dFM-A9-m71"/>
-                    <constraint firstItem="6Xb-Ny-HlC" firstAttribute="leading" secondItem="6VH-3y-73L" secondAttribute="leading" id="dQg-ob-gfT"/>
-                    <constraint firstItem="JNU-ME-NqI" firstAttribute="top" secondItem="ltU-sE-MKZ" secondAttribute="bottom" constant="5" id="dz4-OB-Ye8"/>
-                    <constraint firstItem="AaF-zA-Pz1" firstAttribute="trailing" secondItem="Ctc-Ic-4iV" secondAttribute="trailing" id="eKL-Cx-MTR"/>
-                    <constraint firstItem="WQT-8t-DrB" firstAttribute="centerX" secondItem="5SM-WB-jGj" secondAttribute="centerX" id="ezL-MI-OBG"/>
-                    <constraint firstItem="AaF-zA-Pz1" firstAttribute="leading" secondItem="Ctc-Ic-4iV" secondAttribute="leading" id="ezv-M3-dC3"/>
-                    <constraint firstItem="6Xb-Ny-HlC" firstAttribute="trailing" secondItem="6VH-3y-73L" secondAttribute="trailing" id="gAl-tq-KG9"/>
-                    <constraint firstItem="WQT-8t-DrB" firstAttribute="trailing" secondItem="uXL-GP-H4B" secondAttribute="trailing" id="gLa-HY-zuy"/>
-                    <constraint firstItem="Y1M-eq-rs8" firstAttribute="top" secondItem="6VH-3y-73L" secondAttribute="bottom" constant="5" id="gR9-Xy-hXI"/>
-                    <constraint firstItem="x2X-ca-Ghq" firstAttribute="trailing" secondItem="xw7-52-qE6" secondAttribute="trailing" id="gep-EZ-0Jm"/>
-                    <constraint firstItem="Ctc-Ic-4iV" firstAttribute="leading" secondItem="Lrq-ZO-mHn" secondAttribute="leading" id="hG4-z9-yM9"/>
-                    <constraint firstItem="AaF-zA-Pz1" firstAttribute="top" secondItem="BSh-Dc-nR9" secondAttribute="bottom" constant="5" id="ia6-xj-Pwe"/>
-                    <constraint firstItem="xw7-52-qE6" firstAttribute="leading" secondItem="B8P-P7-qEx" secondAttribute="leading" id="kRV-M8-zvS"/>
-                    <constraint firstItem="JNU-ME-NqI" firstAttribute="trailing" secondItem="7Pw-i5-lUE" secondAttribute="trailing" id="lng-FM-pKz"/>
-                    <constraint firstItem="Faf-29-Tz4" firstAttribute="top" secondItem="KLv-oG-uec" secondAttribute="bottom" constant="5" id="lzd-zr-V4K"/>
-                    <constraint firstItem="Faf-29-Tz4" firstAttribute="trailing" secondItem="fiX-2e-ynh" secondAttribute="trailing" id="n5d-DN-IAi"/>
-                    <constraint firstItem="ltU-sE-MKZ" firstAttribute="leading" secondItem="JNU-ME-NqI" secondAttribute="leading" id="nCZ-qc-Y9K"/>
-                    <constraint firstItem="Qpe-Ll-ueh" firstAttribute="top" secondItem="fiX-2e-ynh" secondAttribute="bottom" constant="5" id="nek-Ga-L6L"/>
-                    <constraint firstItem="cFh-2n-F9w" firstAttribute="trailing" secondItem="VIo-Et-9rR" secondAttribute="trailing" id="otz-dQ-ail"/>
-                    <constraint firstAttribute="bottom" secondItem="wXc-Ub-GEd" secondAttribute="bottom" constant="46" id="pHi-om-Yoi"/>
-                    <constraint firstItem="Faf-29-Tz4" firstAttribute="leading" secondItem="fiX-2e-ynh" secondAttribute="leading" id="qKh-hE-0vM"/>
-                    <constraint firstItem="6VH-3y-73L" firstAttribute="top" secondItem="6Xb-Ny-HlC" secondAttribute="bottom" constant="5" id="rqN-TX-3zJ"/>
-                    <constraint firstItem="3Hh-Z4-wlr" firstAttribute="trailing" secondItem="59D-yC-jyY" secondAttribute="trailing" id="s8d-rJ-bQP"/>
-                    <constraint firstItem="Ctc-Ic-4iV" firstAttribute="trailing" secondItem="Lrq-ZO-mHn" secondAttribute="trailing" id="tyD-l9-Xpj"/>
-                    <constraint firstItem="mab-ro-4Wo" firstAttribute="leading" secondItem="brZ-Rs-ugw" secondAttribute="leading" id="ufY-P7-JDc"/>
-                    <constraint firstItem="B8P-P7-qEx" firstAttribute="trailing" secondItem="hzB-J5-DeN" secondAttribute="trailing" id="wOc-MN-xlA"/>
-                    <constraint firstItem="x2X-ca-Ghq" firstAttribute="top" secondItem="brZ-Rs-ugw" secondAttribute="bottom" constant="5" id="z8d-cx-64S"/>
-                    <constraint firstItem="3Hh-Z4-wlr" firstAttribute="top" secondItem="204-Cm-DsT" secondAttribute="bottom" constant="5" id="zOF-2f-WTS"/>
-                    <constraint firstItem="qYR-8C-nwB" firstAttribute="top" secondItem="xaA-kk-OeV" secondAttribute="bottom" constant="5" id="zhe-nO-Yke"/>
-                    <constraint firstItem="B8P-P7-qEx" firstAttribute="top" secondItem="xw7-52-qE6" secondAttribute="bottom" constant="5" id="ziR-xf-686"/>
-                    <constraint firstItem="7Pw-i5-lUE" firstAttribute="top" secondItem="JNU-ME-NqI" secondAttribute="bottom" constant="5" id="zjG-e2-LOx"/>
-                </constraints>
-            </view>
-            <connections>
-                <outlet property="delegate" destination="Voe-Tx-rLC" id="OT5-4Z-ptj"/>
-            </connections>
-            <point key="canvasLocation" x="390.5" y="143.5"/>
         </window>
         <window title="Log" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="qpN-QT-fXL" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="1082" height="467"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
             <view key="contentView" id="j7Q-vL-4oZ">
                 <rect key="frame" x="0.0" y="0.0" width="1082" height="467"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -1491,7 +983,7 @@ For xar it also optionally skips extracting the payload.</string>
                         <rect key="frame" x="0.0" y="0.0" width="1082" height="467"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="GBI-FO-2rq">
                             <rect key="frame" x="0.0" y="0.0" width="1067" height="467"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="FwP-Vr-BNw">
                                     <rect key="frame" x="0.0" y="0.0" width="1067" height="467"/>
@@ -1532,7 +1024,7 @@ For xar it also optionally skips extracting the payload.</string>
                     <autoresizingMask key="autoresizingMask"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="AwJ-kR-yi3">
                         <rect key="frame" x="0.0" y="0.0" width="376" height="213"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" selectionGranularity="paragraph" spellingCorrection="YES" smartInsertDelete="YES" id="Pvf-4Z-TAJ">
                                 <rect key="frame" x="0.0" y="0.0" width="376" height="213"/>
@@ -1561,7 +1053,7 @@ For xar it also optionally skips extracting the payload.</string>
             <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="1694" y="1326" width="229" height="284"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1417"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
             <view key="contentView" id="zaC-Fo-LPd">
                 <rect key="frame" x="0.0" y="0.0" width="229" height="284"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -1580,6 +1072,28 @@ For xar it also optionally skips extracting the payload.</string>
                 </subviews>
             </view>
             <point key="canvasLocation" x="665.5" y="141"/>
+        </window>
+        <window title="Processors" subtitle="Built-in" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" frameAutosaveName="" animationBehavior="default" id="0yD-ws-lUR" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" utility="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="272" y="172" width="225" height="881"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <view key="contentView" id="FPF-XD-aiT">
+                <rect key="frame" x="0.0" y="0.0" width="225" height="881"/>
+                <autoresizingMask key="autoresizingMask"/>
+            </view>
+            <point key="canvasLocation" x="394" y="180"/>
+        </window>
+        <window title="Processors" subtitle="3rd party" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" frameAutosaveName="" animationBehavior="default" id="Vbm-XX-brd" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" utility="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="272" y="172" width="229" height="350"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <view key="contentView" id="UAZ-wU-hX8">
+                <rect key="frame" x="0.0" y="0.0" width="229" height="350"/>
+                <autoresizingMask key="autoresizingMask"/>
+            </view>
+            <point key="canvasLocation" x="666" y="488"/>
         </window>
     </objects>
 </document>

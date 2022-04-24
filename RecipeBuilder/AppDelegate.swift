@@ -18,7 +18,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     
     @IBOutlet weak var window: NSWindow!
     
-    
+    @IBOutlet var processorsView: NSView!
+    @IBOutlet var processorsView3rdParty: NSView!
     @IBOutlet weak var buttonView: NSView!
     @IBOutlet var recipeIdentifierTextField: NSTextField!
     @IBOutlet var appPKGTextField: NSTextField!
@@ -34,48 +35,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     @IBOutlet var bbedit: NSMenuItem!
     @IBOutlet var sublimeText: NSMenuItem!
     @IBOutlet var textMate: NSMenuItem!
+    @IBOutlet var visualStudioCode: NSMenuItem!
     
     @IBOutlet var spinner: NSProgressIndicator!
     @IBOutlet var logWindow: NSPanel!
     @IBOutlet var logTextView: NSTextView!
     @IBOutlet var helpPopover: NSPopover!
     @IBOutlet var helpPopoverText: NSTextView!
-    @IBOutlet weak var appDMGVersionerButton: NSButton!
-    @IBOutlet weak var appPkgCreatorButton: NSButton!
-    @IBOutlet weak var codeSignatureVerifierButtonPkg: NSButton!
-    @IBOutlet weak var codeSignatureVerifierButtonApp: NSButton!
-    @IBOutlet weak var copierButton: NSButton!
-    @IBOutlet weak var deprecationWarningButton: NSButton!
-    @IBOutlet weak var dmgCreatorButton: NSButton!
-    @IBOutlet weak var endOfCheckPhaseButton: NSButton!
-    @IBOutlet weak var fileCreatorButton: NSButton!
-    @IBOutlet weak var fileFinderButton: NSButton!
-    @IBOutlet weak var fileMoverButton: NSButton!
-    @IBOutlet weak var flatPkgPackerButton: NSButton!
-    @IBOutlet weak var flatPkgUnpackerButton: NSButton!
-    @IBOutlet weak var gitHubReleasesInfoProviderButton: NSButton!
-    @IBOutlet weak var installerButton: NSButton!
-    @IBOutlet weak var installFromDMGButton: NSButton!
-    @IBOutlet weak var munkiImporterButton: NSButton!
-    @IBOutlet weak var munkiInfoCreatorButton: NSButton!
-    @IBOutlet weak var MunkiInstallsItemsCreatorButton: NSButton!
-    @IBOutlet weak var munkiPkginfoMergerButton: NSButton!
-    @IBOutlet weak var packageRequiredButton: NSButton!
-    @IBOutlet weak var pathDeleterButton: NSButton!
-    @IBOutlet weak var pkgCopierButton: NSButton!
-    @IBOutlet weak var pkgExtractorButton: NSButton!
-    @IBOutlet weak var pkgInfoCreatorButton: NSButton!
-    @IBOutlet weak var pkgPayloadUnpackerButton: NSButton!
-    @IBOutlet weak var pkgRootCreatorButton: NSButton!
-    @IBOutlet weak var plistEditorButton: NSButton!
-    @IBOutlet weak var plistReaderButton: NSButton!
-    @IBOutlet weak var sparkleUpdateInfoProviderButton: NSButton!
-    @IBOutlet weak var stopProcessingIfButton: NSButton!
-    @IBOutlet weak var symlinkerButton: NSButton!
-    @IBOutlet weak var unarchiverButton: NSButton!
-    @IBOutlet weak var urlDownloaderButton: NSButton!
-    @IBOutlet weak var urlTextSearcherButton: NSButton!
-    @IBOutlet weak var versionerButton: NSButton!
     @IBOutlet weak var enableAndReloadButton: NSButton!
     
     @IBAction func getIdentifierTextValue(_ sender: NSTextField) {
@@ -132,6 +98,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         finaliseDocument ()
     }
     
+    @IBAction func verifyRecipes(_ sender: NSMenuItem) {
+        startCheckAndVerify ()
+    }
+    
     @IBAction func autopkgRun(_ sender: NSMenuItem) {
         appDelegate().spinner.isHidden=false
         self.spinner.startAnimation(self)
@@ -178,14 +148,22 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         saveRecipe ()
     }
     
-@IBAction func appDMGVersionerAction(_ sender: NSButton) {
-        appDMGVersioner ()
-        helpPopover.close()
-        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
-        writePopOvertext(processor: "AppDmgVersioner", extraHelpText: "Name of app found at the root of the disk image. This does not search recursively for a matching app. If you need to specify a path, use Versioner instead.")
-      }
+    @IBAction func openExternalVisualStudioCode (_ sender: NSMenuItem) {
+        saveAndOpenExternalEditor = "true"
+        selectedExternalEditor = sender.title
+        toggleExternalEditor ()
+        saveRecipe ()
+    }
     
-    @IBAction func appPkgCreatorAction(_ sender: NSButton) {
+
+    @objc func appDMGVersionerAction (sender: NSButton) {
+            appDMGVersioner ()
+            helpPopover.close()
+            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+            writePopOvertext(processor: "AppDmgVersioner", extraHelpText: "Name of app found at the root of the disk image. This does not search recursively for a matching app. If you need to specify a path, use Versioner instead.")
+          }
+    
+    @objc func appPkgCreatorAction (sender: NSButton) {
         appPkgCreator ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
@@ -203,85 +181,84 @@ Often used in pkg.recipe
 """)
    }
     
-    @IBAction func codeSignatureVerifierActionPkg(_ sender: NSButton) {
+    @objc func codeSignatureVerifierAppAction(sender: NSButton) {
+        codeSignatureVerifierApp ()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertext(processor: "CodeSignatureVerifier", extraHelpText: "Used with download.recipes")
+    }
+
+    @objc func codeSignatureVerifierPkgAction(sender: NSButton) {
         codeSignatureVerifierPKG ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
         writePopOvertext(processor: "CodeSignatureVerifier", extraHelpText: "Used with download.recipes")
     }
     
-    @IBAction func codeSignatureVerifierActionApp(_ sender: NSButton) {
-        codeSignatureVerifierApp ()
-        helpPopover.close()
-        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
-        writePopOvertext(processor: "CodeSignatureVerifier", extraHelpText: "Used with download.recipes")
-    }
-    
-    
-    @IBAction func copierAction(_ sender: NSButton) {
+    @objc func copierAction(sender: NSButton) {
         copier ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
         writePopOvertext(processor: "Copier", extraHelpText: "")
     }
     
-    @IBAction func deprecationWarningAction(_ sender: NSButton) {
+    @objc func deprecationWarningAction(sender: NSButton) {
         deprecationWarning ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
         writePopOvertext(processor: "DeprecationWarning", extraHelpText: "This processor outputs a warning that the recipe has been deprecated.")
     }
     
-    @IBAction func dmgCreatorAction(_ sender: NSButton) {
+    @objc func dmgCreatorAction(sender: NSButton) {
         dmgCreator ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
         writePopOvertext(processor: "DmgCreator", extraHelpText: "")
     }
     
-    @IBAction func endOfCheckPhaseAction(_ sender: NSButton) {
+    @objc func endOfCheckPhaseAction(sender: NSButton) {
         endOfCheckPhase ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
-        writePopOvertext(processor: "EndOfCheckPhase", extraHelpText: "")
+        writePopOvertext(processor: "EndOfCheckPhase", extraHelpText: "Recommended to be used directly after processsor URLDownloader")
     }
     
-    @IBAction func fileCreatorAction(_ sender: NSButton) {
+    @objc func fileCreatorAction(sender: NSButton) {
         fileCreator ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
         writePopOvertext(processor: "FileCreator", extraHelpText: "")
     }
     
-    @IBAction func fileFinderAction(_ sender: NSButton) {
+    @objc func fileFinderAction(sender: NSButton) {
         fileFinder ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
         writePopOvertext(processor: "FileFinder", extraHelpText: "")
     }
     
-    @IBAction func fileMoverAction(_ sender: NSButton) {
+    @objc func fileMoverAction(sender: NSButton) {
         fileMover ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
         writePopOvertext(processor: "FileMover", extraHelpText: "")
     }
     
-    @IBAction func flatPkgPackerAction(_ sender: NSButton) {
+    @objc func flatPkgPackerAction(sender: NSButton) {
         flatPkgPacker ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
         writePopOvertext(processor: "FlatPkgPacker", extraHelpText: "")
     }
     
-    @IBAction func flatPkgUnpackerAction(_ sender: NSButton) {
+    @objc func flatPkgUnpackerAction(sender: NSButton) {
         flatPkgUnpacker ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
         writePopOvertext(processor: "FlatPkgUnpacker", extraHelpText: "")
     }
     
-    @IBAction func gitHubReleasesInfoProviderAction(_ sender: NSButton) {
+    @objc func gitHubReleasesInfoProviderAction(sender: NSButton) {
         gitHubReleasesInfoProvider ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
@@ -292,70 +269,84 @@ Add as Input key to use the %GITHUB_REPO% variable
 """)
     }
     
-    @IBAction func installerAction(_ sender: NSButton) {
+    @objc func installerAction(sender: NSButton) {
         installer ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
         writePopOvertext(processor: "Installer", extraHelpText: "Used with install.recipes")
     }
     
-    @IBAction func installFromDMGAction(_ sender: NSButton) {
+    @objc func installFromDMGAction(sender: NSButton) {
         installFromDMG ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
         writePopOvertext(processor: "InstallFromDMG", extraHelpText: "Used with install.recipes")
     }
     
-    @IBAction func munkiImporterAction(_ sender: NSButton) {
+    @objc func munkiCatalogBuilderAction(sender: NSButton) {
+        munkiCatalogBuilder ()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertext(processor: "MunkiCatalogBuilder", extraHelpText: "")
+    }
+    
+    @objc func munkiImporterAction(sender: NSButton) {
         munkiImporter ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
         writePopOvertext(processor: "MunkiImporter", extraHelpText: "")
     }
     
-    @IBAction func munkiInfoCreatorAction(_ sender: NSButton) {
+    @objc func munkiInfoCreatorAction(sender: NSButton) {
         munkiInfoCreator ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
         writePopOvertext(processor: "MunkiInfoCreator", extraHelpText: "")
     }
     
-    @IBAction func MunkiInstallsItemsCreatorAction(_ sender: NSButton) {
+    @objc func MunkiInstallsItemsCreatorAction(sender: NSButton) {
         munkiInstallsItemsCreator ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
         writePopOvertext(processor: "MunkiInstallsItemsCreator", extraHelpText: "The faux_root path must include the installs_items_path %RECIPE_CACHE_DIR%/Applications/%NAME%.app. MunkiPkginfoMerger needed afterwards")
     }
     
-    @IBAction func munkiPkginfoMergerAction(_ sender: NSButton) {
+    @objc func munkiPkginfoMergerAction(sender: NSButton) {
         munkiPkginfoMerger ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
         writePopOvertext(processor: "MunkiPkginfoMerger", extraHelpText: "")
     }
     
-    @IBAction func packageRequiredAction(_ sender: NSButton) {
+    @IBAction func packageRequiredAction(sender: NSButton) {
         packageRequired ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
         writePopOvertext(processor: "PackageRequired", extraHelpText: "")
     }
     
-    @IBAction func pathDeleterAction(_ sender: NSButton) {
+    @objc func pathDeleterAction(sender: NSButton) {
         pathDeleter ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
         writePopOvertext(processor: "PathDeleter", extraHelpText: "")
     }
     
-    @IBAction func pkgCopierAction(_ sender: NSButton) {
+    @objc func pkgCopierAction(sender: NSButton) {
         pkgCopier ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
         writePopOvertext(processor: "PkgCopier", extraHelpText: "")
     }
     
-    @IBAction func pkgExtractorAction(_ sender: NSButton) {
+    @objc func pkgCreatorAction(sender: NSButton) {
+        pkgCreator ()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertext(processor: "PkgCreator", extraHelpText: "Add your reverse domain for the id key")
+    }
+    
+    @objc func pkgExtractorAction(sender: NSButton) {
         pkgExtractor ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
@@ -365,7 +356,7 @@ Bundle-style pkg is the old pkg format and rare.
 """)
     }
     
-    @IBAction func pkgInfoCreatorAction(_ sender: NSButton) {
+    @objc func pkgInfoCreatorAction(sender: NSButton) {
         pkgInfoCreator ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
@@ -374,35 +365,35 @@ pkgroot and version are required, but likely they are set earlier from another p
 """)
     }
     
-    @IBAction func pkgPayloadUnpackerAction(_ sender: NSButton) {
+    @objc func pkgPayloadUnpackerAction(sender: NSButton) {
         pkgPayloadUnpacker ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
         writePopOvertext(processor: "PkgPayloadUnpacker", extraHelpText: "")
     }
     
-    @IBAction func pkgRootCreatorAction(_ sender: NSButton) {
+    @objc func pkgRootCreatorAction(sender: NSButton) {
         pkgRootCreator ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
-        writePopOvertext(processor: "PkgRootCreator", extraHelpText: "")
+        writePopOvertext(processor: "PkgRootCreator", extraHelpText: "Deletes whole directory don't use %RECIPE_CACHE_DIR% instead use %RECIPE_CACHE_DIR%/%NAME%")
     }
     
-    @IBAction func plistEditorAction(_ sender: NSButton) {
+    @objc func plistEditorAction(sender: NSButton) {
         plistEditor ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
         writePopOvertext(processor: "PlistEditor", extraHelpText: "")
     }
     
-    @IBAction func plistReaderAction(_ sender: NSButton) {
+    @objc func plistReaderAction(sender: NSButton) {
         plistReader ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
         writePopOvertext(processor: "PlistReader", extraHelpText: "")
     }
     
-    @IBAction func sparkleUpdateInfoProviderAction(_ sender: NSButton) {
+    @objc func sparkleUpdateInfoProviderAction(sender: NSButton) {
         sparkleUpdateInfoProvider ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
@@ -416,42 +407,42 @@ and provide the the Sparkle feed URL as the string instead
 """)
     }
     
-    @IBAction func stopProcessingIfAction(_ sender: NSButton) {
+    @objc func stopProcessingIfAction(sender: NSButton) {
         stopProcessingIf ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
         writePopOvertext(processor: "StopProcessingIf", extraHelpText: "")
     }
     
-    @IBAction func symlinkerAction(_ sender: NSButton) {
+    @objc func symlinkerAction(sender: NSButton) {
         symlinker ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
         writePopOvertext(processor: "Symlinker", extraHelpText: "")
     }
     
-    @IBAction func unarchiverAction(_ sender: NSButton) {
+    @objc func unarchiverAction(sender: NSButton) {
         unarchiver ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
         writePopOvertext(processor: "Unarchiver", extraHelpText: "")
     }
     
-    @IBAction func urlDownloaderAction(_ sender: NSButton) {
+    @objc func urlDownloaderAction(sender: NSButton) {
         urlDownloader ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
         writePopOvertext(processor: "URLDownloader", extraHelpText: "")
     }
     
-    @IBAction func urlTextSearcherAction(_ sender: NSButton) {
+    @objc func urlTextSearcherAction(sender: NSButton) {
         urlTextSearcher ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
         writePopOvertext(processor: "URLTextSearcher", extraHelpText: "Often used before URLDownloader get the \"real\" download URL thats passed to URLDownloader")
     }
     
-    @IBAction func versionerAction(_ sender: NSButton) {
+    @objc func versionerAction(sender: NSButton) {
         versioner ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
@@ -462,6 +453,126 @@ Remove
 if you only want CFBundleShortVersionString
 """)
     }
+    
+    // 3rd party buttons
+    @objc func JamfCategoryUploaderAction(sender: NSButton) {
+        JamfCategoryUploader ()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertextJamfUploader(processor: "JamfCategoryUploader", extraHelpText: JamfCategoryUploaderHelp)
+        //writePopOvertext(processor: "", extraHelpText: JamfCategoryUploaderHelp)
+    }
+    
+    @objc func JamfComputerGroupUploaderAction(sender: NSButton) {
+            JamfComputerGroupUploader ()
+            helpPopover.close()
+            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+            writePopOvertextJamfUploader(processor: "JamfComputerGroupUploader", extraHelpText: JamfComputerGroupUploaderHelp)
+            //writePopOvertext(processor: "", extraHelpText: JamfComputerGroupUploaderHelp)
+        }
+
+    @objc func JamfComputerProfileUploaderAction(sender: NSButton) {
+            JamfComputerProfileUploader ()
+            helpPopover.close()
+            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+            writePopOvertextJamfUploader(processor: "JamfComputerProfileUploader", extraHelpText: JamfComputerProfileUploaderHelp)
+            //writePopOvertext(processor: "", extraHelpText: JamfComputerProfileUploaderHelp)
+        }
+        
+        @objc func JamfDockItemUploaderAction(sender: NSButton) {
+            JamfDockItemUploader ()
+            helpPopover.close()
+            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+            writePopOvertextJamfUploader(processor: "JamfDockItemUploader", extraHelpText: JamfDockItemUploaderHelp)
+            //writePopOvertext(processor: "", extraHelpText: JamfDockItemUploaderHelp)
+        }
+        
+         @objc func JamfExtensionAttributeUploaderAction(sender: NSButton) {
+            JamfExtensionAttributeUploader () 
+            helpPopover.close()
+            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+            writePopOvertextJamfUploader(processor: "JamfExtensionAttributeUploader", extraHelpText: JamfExtensionAttributeUploaderHelp)
+            //writePopOvertext(processor: "", extraHelpText: JamfExtensionAttributeUploaderHelp)
+        }
+    
+        @objc func JamfMacAppUploaderAction(sender: NSButton) {
+            JamfMacAppUploader ()
+            helpPopover.close()
+            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+            writePopOvertextJamfUploader(processor: "JamfMacAppUploader", extraHelpText: JamfMacAppUploaderHelp)
+        }
+
+        @objc func JamfPackageUploaderAction(sender: NSButton) {
+            JamfPackageUploader ()
+            helpPopover.close()
+            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+            writePopOvertextJamfUploader(processor: "JamfPackageUploader", extraHelpText: JamfPackageUploaderHelp)
+            //writePopOvertext(processor: "", extraHelpText: JamfPackageUploaderHelp)
+        }
+        
+         @objc func JamfPatchUploaderAction(sender: NSButton) {
+            JamfPatchUploader ()
+            helpPopover.close()
+            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+            writePopOvertextJamfUploader(processor: "JamfPatchUploader", extraHelpText: JamfPatchUploaderHelp)
+            //writePopOvertext(processor: "", extraHelpText: JamfPatchUploaderHelp)
+        }
+        
+        @objc func JamfPolicyDeleterAction(sender: NSButton) {
+            JamfPolicyDeleter ()
+            helpPopover.close()
+            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+            writePopOvertextJamfUploader(processor: "JamfPolicyDeleter", extraHelpText: JamfPolicyDeleterHelp)
+            //writePopOvertext(processor: "", extraHelpText: JamfPolicyDeleterHelp)
+        }
+        
+        @objc func JamfPolicyLogFlusherAction(sender: NSButton) {
+            JamfPolicyLogFlusher ()
+            helpPopover.close()
+            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+            writePopOvertextJamfUploader(processor: "JamfPolicyLogFlusher", extraHelpText: JamfPolicyLogFlusherHelp)
+            //writePopOvertext(processor: "", extraHelpText: JamfPolicyLogFlusherHelp)
+        }
+        
+        @objc func JamfPolicyUploaderAction(sender: NSButton) {
+            JamfPolicyUploader ()
+            helpPopover.close()
+            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+            writePopOvertextJamfUploader(processor: "JamfPolicyUploader", extraHelpText: JamfPolicyUploaderHelp)
+            //writePopOvertext(processor: "", extraHelpText: JamfPolicyUploaderHelp)
+        }
+        
+        @objc func JamfScriptUploaderAction(sender: NSButton) {
+            JamfScriptUploader ()
+            helpPopover.close()
+            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+            writePopOvertextJamfUploader(processor: "JamfScriptUploader", extraHelpText: JamfScriptUploaderHelp)
+            //writePopOvertext(processor: "", extraHelpText: JamfScriptUploaderHelp)
+        }
+        
+        @objc func JamfSoftwareRestrictionUploaderAction(sender: NSButton) {
+            JamfSoftwareRestrictionUploader ()
+            helpPopover.close()
+            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+            writePopOvertextJamfUploader(processor: "JamfSoftwareRestrictionUploader", extraHelpText: JamfSoftwareRestrictionUploaderHelp)
+            //writePopOvertext(processor: "", extraHelpText: JamfSoftwareRestrictionUploaderHelp)
+        }
+        
+         @objc func JamfUploaderSlackerAction(sender: NSButton) {
+            JamfUploaderSlacker ()
+            helpPopover.close()
+            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+            writePopOvertextJamfUploader(processor: "JamfUploaderSlacker", extraHelpText: JamfUploaderSlackerHelp)
+            //writePopOvertext(processor: "", extraHelpText: JamfUploaderSlackerHelp)
+        }
+        
+         @objc func JamfUploaderTeamsNotifierAction(sender: NSButton) {
+            JamfUploaderTeamsNotifier ()
+            helpPopover.close()
+            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+            writePopOvertextJamfUploader(processor: "JamfUploaderTeamsNotifier", extraHelpText: JamfUploaderTeamsNotifierHelp)
+            //writePopOvertext(processor: "", extraHelpText: JamfUploaderTeamsNotifierHelp)
+        }
     
     
     @IBAction func enableAndReloadAction(_ sender: NSButton) {
@@ -551,14 +662,15 @@ if you only want CFBundleShortVersionString
    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         outputTextField.font = NSFont(name: "Menlo", size: 12)
+        createAllDefaultButtons ()
+        createAll3rdPartyButtons ()
         checkThatAutopkgExist ()
         checkForUserButtonsAndEnable ()
-        
-   }
+    }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
       
-}
+    }
 
 }

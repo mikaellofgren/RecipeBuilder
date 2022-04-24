@@ -9,6 +9,7 @@
  - Search recipes content to find processors usage
  - Open autopkg cache folder
  - Create your own buttons
+ - Check and verify recipes files
  
 
 System requirements: 10.14 or later<br>
