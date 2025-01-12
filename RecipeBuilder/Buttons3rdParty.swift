@@ -1,9 +1,8 @@
 //
 //  Buttons3rdParty.swift
-//  RecipeBuilder
 //
-//  Created by Mikael Löfgren on 2022-02-27.
-//  Copyright © 2022 Mikael Löfgren. All rights reserved.
+//  Created by Mikael Löfgren on 2024-12-27
+//  Copyright © 2024 Mikael Löfgren. All rights reserved.
 //
 
 import Cocoa
@@ -12,37 +11,356 @@ import Foundation
 import Highlightr
 
 func createAll3rdPartyButtons () {
-    createButtonJamfCategoryUploader ()
-    createButtonJamfComputerGroupUploader ()
-    createButtonJamfComputerProfileUploader ()
-    createButtonJamfDockItemUploader ()
-    createButtonJamfExtensionAttributeUploader ()
-    createButtonJamfMacAppUploader ()
-    createButtonJamfPackageUploader ()
-    createButtonJamfPatchUploader ()
-    createButtonJamfPolicyDeleter ()
-    createButtonJamfPolicyLogFlusher ()
-    createButtonJamfPolicyUploader ()
-    createButtonJamfScriptUploader ()
-    createButtonJamfSoftwareRestrictionUploader ()
-    createButtonJamfUploaderSlacker ()
-    createButtonJamfUploaderTeamsNotifier ()
+        createButtonJamfAccountUploader()
+        createButtonJamfCategoryUploader()
+        createButtonJamfClassicAPIObjectUploader()
+        createButtonJamfComputerGroupDeleter()
+        createButtonJamfComputerGroupUploader()
+        createButtonJamfComputerProfileUploader()
+        createButtonJamfDockItemUploader()
+        createButtonJamfExtensionAttributeUploader()
+        createButtonJamfIconUploader()
+        createButtonJamfMacAppUploader()
+        createButtonJamfMobileDeviceGroupUploader()
+        createButtonJamfMobileDeviceProfileUploader()
+        createButtonJamfPackageCleaner()
+        createButtonJamfPackageRecalculator()
+        createButtonJamfPackageUploader()
+        createButtonJamfPatchChecker()
+        createButtonJamfPatchUploader()
+        createButtonJamfPkgMetadataUploader()
+        createButtonJamfPolicyDeleter()
+        createButtonJamfPolicyLogFlusher()
+        createButtonJamfPolicyUploader()
+        createButtonJamfScriptUploader()
+        createButtonJamfSoftwareRestrictionUploader()
+        createButtonJamfUploaderSlacker()
+        createButtonJamfUploaderTeamsNotifier()
 }
 
+// Functions to create the buttons
+// 21 pixels between every button
 // https://github.com/autopkg/grahampugh-recipes/blob/main/JamfUploaderProcessors/READMEs/JamfCategoryUploader.md
-
-func createButtonJamfCategoryUploader () {
-let JamfCategoryUploader = NSButton(frame: NSRect(x: 17, y: 324, width: 191, height: 17))
-    JamfCategoryUploader.title = "JamfCategoryUploader"
-    JamfCategoryUploader.bezelStyle = NSButton.BezelStyle.inline
-    JamfCategoryUploader.setButtonType(NSButton.ButtonType.momentaryPushIn)
-    JamfCategoryUploader.isBordered = true
-    JamfCategoryUploader.font = .boldSystemFont(ofSize: 11)
-    JamfCategoryUploader.toolTip = "Upload a category to Jamf"
-    JamfCategoryUploader.action = #selector(appDelegate().JamfCategoryUploaderAction)
-appDelegate().processorsView3rdParty.addSubview(JamfCategoryUploader)
+func createButtonJamfAccountUploader() {
+    let button = NSButton(frame: NSRect(x: 17, y: 855, width: 191, height: 17))
+    button.title = "JamfAccountUploader"
+    button.bezelStyle = .inline
+    button.setButtonType(.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.toolTip = "Upload an account to Jamf"
+    button.action = #selector(appDelegate().JamfAccountUploaderAction)
+    appDelegate().processorsView3rdParty.addSubview(button)
 }
 
+func createButtonJamfCategoryUploader() {
+    let button = NSButton(frame: NSRect(x: 17, y: 834, width: 191, height: 17))
+    button.title = "JamfCategoryUploader"
+    button.bezelStyle = .inline
+    button.setButtonType(.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.toolTip = "Upload a category to Jamf"
+    button.action = #selector(appDelegate().JamfCategoryUploaderAction)
+    appDelegate().processorsView3rdParty.addSubview(button)
+}
+
+func createButtonJamfClassicAPIObjectUploader() {
+    let button = NSButton(frame: NSRect(x: 17, y: 813, width: 191, height: 17))
+    button.title = "JamfClassicAPIObjectUploader"
+    button.bezelStyle = .inline
+    button.setButtonType(.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.toolTip = "Upload Classic API objects to Jamf"
+    button.action = #selector(appDelegate().JamfClassicAPIObjectUploaderAction)
+    appDelegate().processorsView3rdParty.addSubview(button)
+}
+
+func createButtonJamfComputerGroupDeleter() {
+    let button = NSButton(frame: NSRect(x: 17, y: 792, width: 191, height: 17))
+    button.title = "JamfComputerGroupDeleter"
+    button.bezelStyle = .inline
+    button.setButtonType(.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.toolTip = "Delete a computer group in Jamf"
+    button.action = #selector(appDelegate().JamfComputerGroupDeleterAction)
+    appDelegate().processorsView3rdParty.addSubview(button)
+}
+
+func createButtonJamfComputerGroupUploader() {
+    let button = NSButton(frame: NSRect(x: 17, y: 771, width: 191, height: 17))
+    button.title = "JamfComputerGroupUploader"
+    button.bezelStyle = .inline
+    button.setButtonType(.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.toolTip = "Upload a computer group to Jamf"
+    button.action = #selector(appDelegate().JamfComputerGroupUploaderAction)
+    appDelegate().processorsView3rdParty.addSubview(button)
+}
+
+func createButtonJamfComputerProfileUploader() {
+    let button = NSButton(frame: NSRect(x: 17, y: 750, width: 191, height: 17))
+    button.title = "JamfComputerProfileUploader"
+    button.bezelStyle = .inline
+    button.setButtonType(.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.toolTip = "Upload a computer profile to Jamf"
+    button.action = #selector(appDelegate().JamfComputerProfileUploaderAction)
+    appDelegate().processorsView3rdParty.addSubview(button)
+}
+
+func createButtonJamfDockItemUploader() {
+    let button = NSButton(frame: NSRect(x: 17, y: 729, width: 191, height: 17))
+    button.title = "JamfDockItemUploader"
+    button.bezelStyle = .inline
+    button.setButtonType(.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.toolTip = "Upload a dock item to Jamf"
+    button.action = #selector(appDelegate().JamfDockItemUploaderAction)
+    appDelegate().processorsView3rdParty.addSubview(button)
+}
+
+func createButtonJamfExtensionAttributeUploader() {
+    let button = NSButton(frame: NSRect(x: 17, y: 708, width: 191, height: 17))
+    button.title = "JamfExtensionAttributeUploader"
+    button.bezelStyle = .inline
+    button.setButtonType(.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.toolTip = "Upload an extension attribute to Jamf"
+    button.action = #selector(appDelegate().JamfExtensionAttributeUploaderAction)
+    appDelegate().processorsView3rdParty.addSubview(button)
+}
+
+func createButtonJamfIconUploader() {
+    let button = NSButton(frame: NSRect(x: 17, y: 687, width: 191, height: 17))
+    button.title = "JamfIconUploader"
+    button.bezelStyle = .inline
+    button.setButtonType(.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.toolTip = "Upload an icon to Jamf"
+    button.action = #selector(appDelegate().JamfIconUploaderAction)
+    appDelegate().processorsView3rdParty.addSubview(button)
+}
+
+func createButtonJamfMacAppUploader() {
+    let button = NSButton(frame: NSRect(x: 17, y: 666, width: 191, height: 17))
+    button.title = "JamfMacAppUploader"
+    button.bezelStyle = .inline
+    button.setButtonType(.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.toolTip = "Upload a Mac app to Jamf"
+    button.action = #selector(appDelegate().JamfMacAppUploaderAction)
+    appDelegate().processorsView3rdParty.addSubview(button)
+}
+
+func createButtonJamfMobileDeviceGroupUploader() {
+    let button = NSButton(frame: NSRect(x: 17, y: 645, width: 191, height: 17))
+    button.title = "JamfMobileDeviceGroupUploader"
+    button.bezelStyle = .inline
+    button.setButtonType(.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.toolTip = "Upload a mobile device group to Jamf"
+    button.action = #selector(appDelegate().JamfMobileDeviceGroupUploaderAction)
+    appDelegate().processorsView3rdParty.addSubview(button)
+}
+
+func createButtonJamfMobileDeviceProfileUploader() {
+    let button = NSButton(frame: NSRect(x: 17, y: 624, width: 191, height: 17))
+    button.title = "JamfMobileDeviceProfileUpload"
+    button.bezelStyle = .inline
+    button.setButtonType(.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.toolTip = "Upload a mobile device profile to Jamf"
+    button.action = #selector(appDelegate().JamfMobileDeviceProfileUploaderAction)
+    appDelegate().processorsView3rdParty.addSubview(button)
+}
+
+func createButtonJamfPackageCleaner() {
+    let button = NSButton(frame: NSRect(x: 17, y: 603, width: 191, height: 17))
+    button.title = "JamfPackageCleaner"
+    button.bezelStyle = .inline
+    button.setButtonType(.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.toolTip = "Clean up old packages in Jamf"
+    button.action = #selector(appDelegate().JamfPackageCleanerAction)
+    appDelegate().processorsView3rdParty.addSubview(button)
+}
+
+func createButtonJamfPackageRecalculator() {
+    let button = NSButton(frame: NSRect(x: 17, y: 582, width: 191, height: 17))
+    button.title = "JamfPackageRecalculator"
+    button.bezelStyle = .inline
+    button.setButtonType(.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.toolTip = "Recalculate package information in Jamf"
+    button.action = #selector(appDelegate().JamfPackageRecalculatorAction)
+    appDelegate().processorsView3rdParty.addSubview(button)
+}
+
+func createButtonJamfPackageUploader() {
+    let button = NSButton(frame: NSRect(x: 17, y: 561, width: 191, height: 17))
+    button.title = "JamfPackageUploader"
+    button.bezelStyle = .inline
+    button.setButtonType(.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.toolTip = "Upload a package to Jamf"
+    button.action = #selector(appDelegate().JamfPackageUploaderAction)
+    appDelegate().processorsView3rdParty.addSubview(button)
+}
+
+func createButtonJamfPatchChecker() {
+    let button = NSButton(frame: NSRect(x: 17, y: 540, width: 191, height: 17))
+    button.title = "JamfPatchChecker"
+    button.bezelStyle = .inline
+    button.setButtonType(.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.toolTip = "Check for patch updates in Jamf"
+    button.action = #selector(appDelegate().JamfPatchCheckerAction)
+    appDelegate().processorsView3rdParty.addSubview(button)
+}
+
+func createButtonJamfPatchUploader() {
+    let button = NSButton(frame: NSRect(x: 17, y: 519, width: 191, height: 17))
+    button.title = "JamfPatchUploader"
+    button.bezelStyle = .inline
+    button.setButtonType(.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.toolTip = "Upload patch definitions to Jamf"
+    button.action = #selector(appDelegate().JamfPatchUploaderAction)
+    appDelegate().processorsView3rdParty.addSubview(button)
+}
+
+func createButtonJamfPkgMetadataUploader() {
+    let button = NSButton(frame: NSRect(x: 17, y: 498, width: 191, height: 17))
+    button.title = "JamfPkgMetadataUploader"
+    button.bezelStyle = .inline
+    button.setButtonType(.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.toolTip = "Upload pkg Metadata to Jamf"
+    button.action = #selector(appDelegate().JamfPkgMetadataUploaderAction)
+    appDelegate().processorsView3rdParty.addSubview(button)
+}
+
+func createButtonJamfPolicyDeleter() {
+    let button = NSButton(frame: NSRect(x: 17, y: 477, width: 191, height: 17))
+    button.title = "JamfPolicyDeleter"
+    button.bezelStyle = .inline
+    button.setButtonType(.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.toolTip = "Delete policies in Jamf"
+    button.action = #selector(appDelegate().JamfPolicyDeleterAction)
+    appDelegate().processorsView3rdParty.addSubview(button)
+}
+
+func createButtonJamfPolicyLogFlusher() {
+    let button = NSButton(frame: NSRect(x: 17, y: 456, width: 191, height: 17))
+    button.title = "JamfPolicyLogFlusher"
+    button.bezelStyle = .inline
+    button.setButtonType(.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.toolTip = "Flush policy logs in Jamf"
+    button.action = #selector(appDelegate().JamfPolicyLogFlusherAction)
+    appDelegate().processorsView3rdParty.addSubview(button)
+}
+
+func createButtonJamfPolicyUploader() {
+    let button = NSButton(frame: NSRect(x: 17, y: 435, width: 191, height: 17))
+    button.title = "JamfPolicyUploader"
+    button.bezelStyle = .inline
+    button.setButtonType(.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.toolTip = "Upload a policy to Jamf"
+    button.action = #selector(appDelegate().JamfPolicyUploaderAction)
+    appDelegate().processorsView3rdParty.addSubview(button)
+}
+
+func createButtonJamfScriptUploader() {
+    let button = NSButton(frame: NSRect(x: 17, y: 414, width: 191, height: 17))
+    button.title = "JamfScriptUploader"
+    button.bezelStyle = .inline
+    button.setButtonType(.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.toolTip = "Upload a script to Jamf"
+    button.action = #selector(appDelegate().JamfScriptUploaderAction)
+    appDelegate().processorsView3rdParty.addSubview(button)
+}
+
+func createButtonJamfSoftwareRestrictionUploader() {
+    let button = NSButton(frame: NSRect(x: 17, y: 393, width: 191, height: 17))
+    button.title = "JamfSoftwareRestrictionUpload"
+    button.bezelStyle = .inline
+    button.setButtonType(.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.toolTip = "Upload software restrictions to Jamf"
+    button.action = #selector(appDelegate().JamfSoftwareRestrictionUploaderAction)
+    appDelegate().processorsView3rdParty.addSubview(button)
+}
+
+func createButtonJamfUploaderSlacker() {
+    let button = NSButton(frame: NSRect(x: 17, y: 372, width: 191, height: 17))
+    button.title = "JamfUploaderSlacker"
+    button.bezelStyle = .inline
+    button.setButtonType(.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.toolTip = "Send notifications to Slack"
+    button.action = #selector(appDelegate().JamfUploaderSlackerAction)
+    appDelegate().processorsView3rdParty.addSubview(button)
+}
+
+func createButtonJamfUploaderTeamsNotifier() {
+    let button = NSButton(frame: NSRect(x: 17, y: 351, width: 191, height: 17))
+    button.title = "JamfUploaderTeamsNotifier"
+    button.bezelStyle = .inline
+    button.setButtonType(.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.toolTip = "Send notifications to Microsoft Teams"
+    button.action = #selector(appDelegate().JamfUploaderTeamsNotifierAction)
+    appDelegate().processorsView3rdParty.addSubview(button)
+}
+
+
+// Functions called from button trigger/action (write output etc)
+func JamfAccountUploader() {
+    output = """
+<dict>
+    <key>Arguments</key>
+    <dict>
+        <key>account_name</key>
+        <string>%ACCOUNT_NAME%</string>
+        <key>account_type</key>
+        <string>user</string>
+        <key>account_template</key>
+        <string>/path/to/XML</string>
+    </dict>
+    <key>Processor</key>
+    <string>com.github.grahampugh.jamf-upload.processors/JamfAccountUploader</string>
+</dict>
+"""
+    writeOutput()
+}
 
 func JamfCategoryUploader () {
     output = """
@@ -59,16 +377,38 @@ func JamfCategoryUploader () {
     writeOutput ()
     }
 
-func createButtonJamfComputerGroupUploader () {
-let JamfComputerGroupUploader = NSButton(frame: NSRect(x: 17, y: 303, width: 191, height: 17))
-    JamfComputerGroupUploader.title = "JamfComputerGroupUploader"
-    JamfComputerGroupUploader.bezelStyle = NSButton.BezelStyle.inline
-    JamfComputerGroupUploader.setButtonType(NSButton.ButtonType.momentaryPushIn)
-    JamfComputerGroupUploader.isBordered = true
-    JamfComputerGroupUploader.font = .boldSystemFont(ofSize: 11)
-    JamfComputerGroupUploader.toolTip = "Upload a computer group to Jamf"
-    JamfComputerGroupUploader.action = #selector(appDelegate().JamfComputerGroupUploaderAction)
-appDelegate().processorsView3rdParty.addSubview(JamfComputerGroupUploader)
+func JamfClassicAPIObjectUploader() {
+    output = """
+<dict>
+    <key>Arguments</key>
+    <dict>
+        <key>object_name</key>
+        <string>%OBJECT_NAME%</string>
+        <key>object_type</key>
+        <string>%OBJECT_TYPE%</string>
+        <key>object_template</key>
+        <string>/path/to/template.xml</string>
+    </dict>
+    <key>Processor</key>
+    <string>com.github.grahampugh.jamf-upload.processors/JamfClassicAPIObjectUploader</string>
+</dict>
+"""
+    writeOutput()
+}
+
+func JamfComputerGroupDeleter() {
+    output = """
+<dict>
+    <key>Arguments</key>
+    <dict>
+        <key>computergroup_name</key>
+        <string>%GROUP_NAME%</string>
+    </dict>
+    <key>Processor</key>
+    <string>com.github.grahampugh.jamf-upload.processors/JamfComputerGroupDeleter</string>
+</dict>
+"""
+    writeOutput()
 }
 
 func JamfComputerGroupUploader () {
@@ -79,25 +419,13 @@ func JamfComputerGroupUploader () {
                 <key>computergroup_name</key>
                 <string>%GROUP_NAME%</string>
                 <key>computergroup_template</key>
-                <string>%GROUP_TEMPLATE%</string>
+                <string>/path/to/template.xml</string>
             </dict>
             <key>Processor</key>
             <string>com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader</string>
         </dict>
 """
     writeOutput ()
-}
-
-func createButtonJamfComputerProfileUploader () {
-let JamfComputerProfileUploader = NSButton(frame: NSRect(x: 17, y: 282, width: 191, height: 17))
-    JamfComputerProfileUploader.title = "JamfComputerProfileUploader"
-    JamfComputerProfileUploader.bezelStyle = NSButton.BezelStyle.inline
-    JamfComputerProfileUploader.setButtonType(NSButton.ButtonType.momentaryPushIn)
-    JamfComputerProfileUploader.isBordered = true
-    JamfComputerProfileUploader.font = .boldSystemFont(ofSize: 11)
-    JamfComputerProfileUploader.toolTip = "Upload computer configuration profiles to Jamf"
-    JamfComputerProfileUploader.action = #selector(appDelegate().JamfComputerProfileUploaderAction)
-appDelegate().processorsView3rdParty.addSubview(JamfComputerProfileUploader)
 }
 
 func JamfComputerProfileUploader () {
@@ -109,24 +437,22 @@ func JamfComputerProfileUploader () {
         <string>%PROFILE_NAME%</string>
         <key>mobileconfig</key>
         <string>/path/to/mobileconfig</string>
+        <key>identifier</key>
+        <string>Configuration Profile payload identifier</string>
+        <key>profile_category</key>
+        <string>Category to assign to the profile</string>
+        <key>organization</key>
+        <string>Organization to assign to the profile</string>
+        <key>profile_description</key>
+        <string>Description to assign to the profile</string>
+        <key>profile_computergroup</key>
+        <string>Device group that will be scoped to the profile</string>
     </dict>
     <key>Processor</key>
     <string>com.github.grahampugh.jamf-upload.processors/JamfComputerProfileUploader</string>
 </dict>
 """
     writeOutput ()
-}
-
-func createButtonJamfDockItemUploader () {
-let JamfDockItemUploader = NSButton(frame: NSRect(x: 17, y: 261, width: 191, height: 17))
-    JamfDockItemUploader.title = "JamfDockItemUploader"
-    JamfDockItemUploader.bezelStyle = NSButton.BezelStyle.inline
-    JamfDockItemUploader.setButtonType(NSButton.ButtonType.momentaryPushIn)
-    JamfDockItemUploader.isBordered = true
-    JamfDockItemUploader.font = .boldSystemFont(ofSize: 11)
-    JamfDockItemUploader.toolTip = "Upload a dock item to Jamf"
-    JamfDockItemUploader.action = #selector(appDelegate().JamfDockItemUploaderAction)
-appDelegate().processorsView3rdParty.addSubview(JamfDockItemUploader)
 }
 
 func JamfDockItemUploader () {
@@ -150,18 +476,6 @@ func JamfDockItemUploader () {
     writeOutput ()
 }
 
-func createButtonJamfExtensionAttributeUploader () {
-let JamfExtensionAttributeUploader = NSButton(frame: NSRect(x: 17, y: 240, width: 191, height: 17))
-    JamfExtensionAttributeUploader.title = "JamfExtensionAttributeUploader"
-    JamfExtensionAttributeUploader.bezelStyle = NSButton.BezelStyle.inline
-    JamfExtensionAttributeUploader.setButtonType(NSButton.ButtonType.momentaryPushIn)
-    JamfExtensionAttributeUploader.isBordered = true
-    JamfExtensionAttributeUploader.font = .boldSystemFont(ofSize: 11)
-    JamfExtensionAttributeUploader.toolTip = "Upload a extension attribute to Jamf"
-    JamfExtensionAttributeUploader.action = #selector(appDelegate().JamfExtensionAttributeUploaderAction)
-appDelegate().processorsView3rdParty.addSubview(JamfExtensionAttributeUploader)
-}
-
 func JamfExtensionAttributeUploader () {
     output = """
     <dict>
@@ -179,17 +493,20 @@ func JamfExtensionAttributeUploader () {
     writeOutput ()
 }
 
-func createButtonJamfMacAppUploader () {
-    let JamfMacAppUploader = NSButton(frame: NSRect(x: 17, y: 219, width: 191, height: 17))
-        JamfMacAppUploader.title = "JamfMacAppUploader"
-        JamfMacAppUploader.bezelStyle = NSButton.BezelStyle.inline
-        JamfMacAppUploader.setButtonType(NSButton.ButtonType.momentaryPushIn)
-        JamfMacAppUploader.isBordered = true
-        JamfMacAppUploader.font = .boldSystemFont(ofSize: 11)
-        JamfMacAppUploader.toolTip = "Upload a Mac App Store app to a Jamf"
-        JamfMacAppUploader.action = #selector(appDelegate().JamfMacAppUploaderAction)
-    appDelegate().processorsView3rdParty.addSubview(JamfMacAppUploader)
-    }
+func JamfIconUploader() {
+    output = """
+<dict>
+    <key>Arguments</key>
+    <dict>
+        <key>icon_file</key>
+        <string>/path/to/icon.png</string>
+    </dict>
+    <key>Processor</key>
+    <string>com.github.grahampugh.jamf-upload.processors/JamfIconUploader</string>
+</dict>
+"""
+    writeOutput()
+}
 
 func JamfMacAppUploader () {
     output = """
@@ -209,17 +526,75 @@ func JamfMacAppUploader () {
 }
 
 
+func JamfMobileDeviceGroupUploader() {
+    output = """
+<dict>
+    <key>Arguments</key>
+    <dict>
+        <key>mobiledevicegroup_name</key>
+        <string>%GROUP_NAME%</string>
+        <key>mobiledevicegroup_template</key>
+        <string>/path/to/template.xml</string>
+    </dict>
+    <key>Processor</key>
+    <string>com.github.grahampugh.jamf-upload.processors/JamfMobileDeviceGroupUploader</string>
+</dict>
+"""
+    writeOutput()
+}
 
-func createButtonJamfPackageUploader () {
-let JamfPackageUploader = NSButton(frame: NSRect(x: 17, y: 198, width: 191, height: 17))
-    JamfPackageUploader.title = "JamfPackageUploader"
-    JamfPackageUploader.bezelStyle = NSButton.BezelStyle.inline
-    JamfPackageUploader.setButtonType(NSButton.ButtonType.momentaryPushIn)
-    JamfPackageUploader.isBordered = true
-    JamfPackageUploader.font = .boldSystemFont(ofSize: 11)
-    JamfPackageUploader.toolTip = "Upload a package to Jamf"
-    JamfPackageUploader.action = #selector(appDelegate().JamfPackageUploaderAction)
-appDelegate().processorsView3rdParty.addSubview(JamfPackageUploader)
+func JamfMobileDeviceProfileUploader() {
+    output = """
+<dict>
+    <key>Arguments</key>
+    <dict>
+        <key>profile_name</key>
+        <string>%PROFILE_NAME%</string>
+        <key>mobileconfig</key>
+        <string>/path/to/mobileconfig</string>
+        <key>identifier</key>
+        <string>Configuration Profile payload identifier</string>
+        <key>profile_category</key>
+        <string>Category to assign to the profile</string>
+        <key>organization</key>
+        <string>Organization to assign to the profile</string>
+        <key>profile_description</key>
+        <string>Description to assign to the profile</string>
+        <key>profile_mobiledevicegroup</key>
+        <string>Device group that will be scoped to the profile</string>
+    </dict>
+    <key>Processor</key>
+    <string>com.github.grahampugh.jamf-upload.processors/JamfMobileDeviceProfileUploader</string>
+</dict>
+"""
+    writeOutput()
+}
+
+func JamfPackageCleaner() {
+    output = """
+<dict>
+    <key>Arguments</key>
+    <dict>
+        <key>pkg_name_match</key>
+        <string>%NAME%-</string>
+        <key>versions_to_keep</key>
+        <string>5</string>
+    </dict>
+    <key>Processor</key>
+    <string>com.github.grahampugh.jamf-upload.processors/JamfPackageCleaner</string>
+</dict>
+"""
+    writeOutput()
+}
+
+func JamfPackageRecalculator() {
+    output = """
+<dict>
+    <key>Processor</key>
+    <string>com.github.grahampugh.jamf-upload.processors/JamfPackageRecalculator</string>
+</dict>
+"""
+    writeOutput()
 }
 
 func JamfPackageUploader () {
@@ -237,17 +612,21 @@ func JamfPackageUploader () {
     writeOutput ()
 }
 
-func createButtonJamfPatchUploader () {
-let JamfPatchUploader = NSButton(frame: NSRect(x: 17, y: 177, width: 191, height: 17))
-    JamfPatchUploader.title = "JamfPatchUploader"
-    JamfPatchUploader.bezelStyle = NSButton.BezelStyle.inline
-    JamfPatchUploader.setButtonType(NSButton.ButtonType.momentaryPushIn)
-    JamfPatchUploader.isBordered = true
-    JamfPatchUploader.font = .boldSystemFont(ofSize: 11)
-    JamfPatchUploader.toolTip = "Upload a patch defination to Jamf"
-    JamfPatchUploader.action = #selector(appDelegate().JamfPatchUploaderAction)
-appDelegate().processorsView3rdParty.addSubview(JamfPatchUploader)
+func JamfPatchChecker() {
+    output = """
+<dict>
+    <key>Arguments</key>
+    <dict>
+        <key>patch_softwaretitle</key>
+        <string>Name of the patch softwaretitle (e.g. 'Mozilla Firefox') used in Jamf.</string>
+    </dict>
+    <key>Processor</key>
+    <string>com.github.grahampugh.jamf-upload.processors/JamfPatchChecker</string>
+</dict>
+"""
+    writeOutput()
 }
+
 
 func JamfPatchUploader () {
     output = """
@@ -270,16 +649,38 @@ func JamfPatchUploader () {
     writeOutput ()
 }
 
-func createButtonJamfPolicyDeleter () {
-let JamfPolicyDeleter = NSButton(frame: NSRect(x: 17, y: 156, width: 191, height: 17))
-    JamfPolicyDeleter.title = "JamfPolicyDeleter"
-    JamfPolicyDeleter.bezelStyle = NSButton.BezelStyle.inline
-    JamfPolicyDeleter.setButtonType(NSButton.ButtonType.momentaryPushIn)
-    JamfPolicyDeleter.isBordered = true
-    JamfPolicyDeleter.font = .boldSystemFont(ofSize: 11)
-    JamfPolicyDeleter.toolTip = "Delete a policy from Jamf"
-    JamfPolicyDeleter.action = #selector(appDelegate().JamfPolicyDeleterAction)
-appDelegate().processorsView3rdParty.addSubview(JamfPolicyDeleter)
+
+func JamfPkgMetadataUploader() {
+    output = """
+<dict>
+    <key>Arguments</key>
+    <dict>
+        <key>pkg_display_name</key>
+        <string>Package display name</string>
+        <key>pkg_category</key>
+        <string>Package category</string>
+        <key>pkg_info</key>
+        <string>Package info field</string>
+        <key>pkg_notes</key>
+        <string>Package notes field</string>
+        <key>pkg_priority</key>
+        <string>Package priority. Default=10</string>
+        <key>reboot_required</key>
+        <string>Default='False'</string>
+        <key>os_requirements</key>
+        <string>Package OS requirement</string>
+        <key>required_processor</key>
+        <string>Package required processor. Acceptable values are 'x86' or 'None'</string>
+        <key>send_notification</key>
+        <string>Whether to send a notification when a package is installed. Default='False'</string>
+        <key>replace_pkg_metadata</key>
+        <string>Overwrite existing package metadata and continue if True</string>
+    </dict>
+    <key>Processor</key>
+    <string>com.github.grahampugh.jamf-upload.processors/JamfPkgMetadataUploader</string>
+</dict>
+"""
+    writeOutput()
 }
 
 func JamfPolicyDeleter() {
@@ -295,18 +696,6 @@ func JamfPolicyDeleter() {
         </dict>
 """
     writeOutput ()
-}
-
-func createButtonJamfPolicyLogFlusher () {
-let JamfPolicyLogFlusher = NSButton(frame: NSRect(x: 17, y: 135, width: 191, height: 17))
-    JamfPolicyLogFlusher.title = "JamfPolicyLogFlusher"
-    JamfPolicyLogFlusher.bezelStyle = NSButton.BezelStyle.inline
-    JamfPolicyLogFlusher.setButtonType(NSButton.ButtonType.momentaryPushIn)
-    JamfPolicyLogFlusher.isBordered = true
-    JamfPolicyLogFlusher.font = .boldSystemFont(ofSize: 11)
-    JamfPolicyLogFlusher.toolTip = "Flush a policy log from Jamf"
-    JamfPolicyLogFlusher.action = #selector(appDelegate().JamfPolicyLogFlusherAction)
-appDelegate().processorsView3rdParty.addSubview(JamfPolicyLogFlusher)
 }
 
 func JamfPolicyLogFlusher() {
@@ -326,17 +715,6 @@ func JamfPolicyLogFlusher() {
     writeOutput ()
 }
 
-func createButtonJamfPolicyUploader () {
-let JamfPolicyUploader = NSButton(frame: NSRect(x: 17, y: 114, width: 191, height: 17))
-    JamfPolicyUploader.title = "JamfPolicyUploader"
-    JamfPolicyUploader.bezelStyle = NSButton.BezelStyle.inline
-    JamfPolicyUploader.setButtonType(NSButton.ButtonType.momentaryPushIn)
-    JamfPolicyUploader.isBordered = true
-    JamfPolicyUploader.font = .boldSystemFont(ofSize: 11)
-    JamfPolicyUploader.toolTip = "Upload a policy to Jamf"
-    JamfPolicyUploader.action = #selector(appDelegate().JamfPolicyUploaderAction)
-appDelegate().processorsView3rdParty.addSubview(JamfPolicyUploader)
-}
 
 func JamfPolicyUploader () {
     output = """
@@ -357,25 +735,13 @@ func JamfPolicyUploader () {
     writeOutput ()
 }
 
-func createButtonJamfScriptUploader () {
-let JamfScriptUploader = NSButton(frame: NSRect(x: 17, y: 93, width: 191, height: 17))
-    JamfScriptUploader.title = "JamfScriptUploader"
-    JamfScriptUploader.bezelStyle = NSButton.BezelStyle.inline
-    JamfScriptUploader.setButtonType(NSButton.ButtonType.momentaryPushIn)
-    JamfScriptUploader.isBordered = true
-    JamfScriptUploader.font = .boldSystemFont(ofSize: 11)
-    JamfScriptUploader.toolTip = "Upload a script to Jamf"
-    JamfScriptUploader.action = #selector(appDelegate().JamfScriptUploaderAction)
-appDelegate().processorsView3rdParty.addSubview(JamfScriptUploader)
-}
-
 func JamfScriptUploader () {
     output = """
 <dict>
     <key>Arguments</key>
     <dict>
         <key>script_path</key>
-        <string>/pat/to/script.sh</string>
+        <string>/path/to/script.sh</string>
         <key>script_category</key>
         <string>%SCRIPT_CATEGORY%</string>
         <key>script_priority</key>
@@ -386,18 +752,6 @@ func JamfScriptUploader () {
 </dict>
 """
     writeOutput ()
-}
-
-func createButtonJamfSoftwareRestrictionUploader () {
-let JamfSoftwareRestrictionUploader = NSButton(frame: NSRect(x: 17, y: 72, width: 191, height: 17))
-    JamfSoftwareRestrictionUploader.title = "JamfSoftwareRestrictionUploader"
-    JamfSoftwareRestrictionUploader.bezelStyle = NSButton.BezelStyle.inline
-    JamfSoftwareRestrictionUploader.setButtonType(NSButton.ButtonType.momentaryPushIn)
-    JamfSoftwareRestrictionUploader.isBordered = true
-    JamfSoftwareRestrictionUploader.font = .boldSystemFont(ofSize: 11)
-    JamfSoftwareRestrictionUploader.toolTip = "Upload a software restriction to Jamf"
-    JamfSoftwareRestrictionUploader.action = #selector(appDelegate().JamfSoftwareRestrictionUploaderAction)
-appDelegate().processorsView3rdParty.addSubview(JamfSoftwareRestrictionUploader)
 }
 
 func JamfSoftwareRestrictionUploader () {
@@ -417,18 +771,6 @@ func JamfSoftwareRestrictionUploader () {
     writeOutput ()
 }
 
-func createButtonJamfUploaderSlacker () {
-let JamfUploaderSlacker = NSButton(frame: NSRect(x: 17, y: 51, width: 191, height: 17))
-    JamfUploaderSlacker.title = "JamfUploaderSlacker"
-    JamfUploaderSlacker.bezelStyle = NSButton.BezelStyle.inline
-    JamfUploaderSlacker.setButtonType(NSButton.ButtonType.momentaryPushIn)
-    JamfUploaderSlacker.isBordered = true
-    JamfUploaderSlacker.font = .boldSystemFont(ofSize: 11)
-    JamfUploaderSlacker.toolTip = "Postprocessor for AutoPkg that will send details about a recipe run to a Slack webhook"
-    JamfUploaderSlacker.action = #selector(appDelegate().JamfUploaderSlackerAction)
-appDelegate().processorsView3rdParty.addSubview(JamfUploaderSlacker)
-}
-
 func JamfUploaderSlacker () {
     output = """
 <dict>
@@ -444,18 +786,6 @@ func JamfUploaderSlacker () {
 </dict>
 """
     writeOutput ()
-}
-
-func createButtonJamfUploaderTeamsNotifier () {
-let JamfUploaderTeamsNotifier = NSButton(frame: NSRect(x: 17, y: 30, width: 191, height: 17))
-    JamfUploaderTeamsNotifier.title = "JamfUploaderTeamsNotifier"
-    JamfUploaderTeamsNotifier.bezelStyle = NSButton.BezelStyle.inline
-    JamfUploaderTeamsNotifier.setButtonType(NSButton.ButtonType.momentaryPushIn)
-    JamfUploaderTeamsNotifier.isBordered = true
-    JamfUploaderTeamsNotifier.font = .boldSystemFont(ofSize: 11)
-    JamfUploaderTeamsNotifier.toolTip = "Postprocessor for AutoPkg that will send details about a recipe run to a Microsoft Teams webhook"
-    JamfUploaderTeamsNotifier.action = #selector(appDelegate().JamfUploaderTeamsNotifierAction)
-appDelegate().processorsView3rdParty.addSubview(JamfUploaderTeamsNotifier)
 }
 
 func JamfUploaderTeamsNotifier () {

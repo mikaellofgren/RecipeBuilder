@@ -1,9 +1,8 @@
 //
 //  CheckAndVerify.swift
-//  RecipeBuilder
 //
-//  Created by Mikael Löfgren on 2022-03-06.
-//  Copyright © 2022 Mikael Löfgren. All rights reserved.
+//  Created by Mikael Löfgren on 2024-12-27
+//  Copyright © 2024 Mikael Löfgren. All rights reserved.
 //
 
 import Foundation

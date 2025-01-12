@@ -1,9 +1,8 @@
 //
 //  Functions.swift
-//  RecipeBuilder
 //
-//  Created by Mikael Löfgren on 2020-05-24.
-//  Copyright © 2020 Mikael Löfgren. All rights reserved.
+//  Created by Mikael Löfgren on 2024-12-27
+//  Copyright © 2024 Mikael Löfgren. All rights reserved.
 //
 
 import Cocoa
@@ -23,15 +22,18 @@ var recipeFileName = ""
 var tmpRecipeFile = ""
 let recipeBuilderFolder = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/AutoPkg/RecipeBuilder Output/").path
 var recipeBuilderOutputFolderCreate = ""
-var downloadPath = ""
 var insertionPointIndex = Int ()
 var recipeRepoDir = ""
 var allSearchArray = [String] ()
+var externalEditorPath = "/Applications/BBEdit.app"
 var searchString = ""
 var wholeDocument = ""
 var identifierManually = ""
 var identifierMismatch = false
 var xmlFormatOutput = ""
+var yamlModeStatus = false
+var processedFilesCount = 0 // Counter for processed files
+var loggedMessages = Set<String>() // Global set to track logged messages
 let font = NSFont(name: "Menlo", size: 12)
 let yellowBackgroundAttributes: [NSAttributedString.Key: Any] = [
     .font: font!,
@@ -58,63 +60,43 @@ if FileManager.default.fileExists(atPath: "/usr/local/bin/autopkg"){
 
 
 func getAutopkgPlistValues () {
-    let plistFile  = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/Preferences/com.github.autopkg.plist").path
-       let plistPath = URL(fileURLWithPath: plistFile)
-           
-           struct PreferencesRead: Decodable {
-           private enum CodingKeys: String, CodingKey {
-               case RECIPE_REPO_DIR
-           }
-           var RECIPE_REPO_DIR: String? = nil
-            }
-
-       if FileManager.default.fileExists(atPath: plistFile){
-           
-           func parsePlist() -> PreferencesRead {
-               let data = try! Data(contentsOf: plistPath)
-               let decoder = PropertyListDecoder()
-               return try! decoder.decode(PreferencesRead.self, from: data)
-           }
-
-           let readPlistValues = parsePlist()
-           
-           if readPlistValues.RECIPE_REPO_DIR != nil {
-                  recipeRepoDir = readPlistValues.RECIPE_REPO_DIR!
-                    // Call the search as background service
-                    runBackgroundSearch ()
-           } else {
-                let warning = NSAlert()
-                warning.icon = NSImage(named: "Warning")
-                warning.addButton(withTitle: "OK")
-                warning.messageText = "Value not found in plist"
-                warning.alertStyle = NSAlert.Style.warning
-                warning.informativeText = """
-                Try this command in Terminal.app:
-                defaults read com.github.autopkg RECIPE_REPO_DIR
-                And if its missing add it with this command:
-                defaults write com.github.autopkg RECIPE_REPO_DIR ~/Library/AutoPkg/RecipeRepos
-                """
-                warning.runModal()
-                print("Value RECIPE_REPO_DIR not found in \(plistFile)")
-                // We try to search standard path
-                recipeRepoDir = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/AutoPkg/RecipeRepos").path
-                runBackgroundSearch ()
-                }
-           } else {
-                print("\(plistFile) not found.")
-           return
-       }
+    guard let defaults = UserDefaults(suiteName: "com.github.autopkg") else { return }
+    recipeRepoDir = defaults.string(forKey: "RECIPE_REPO_DIR") ?? ""
+    if recipeRepoDir.isEmpty {
+        let warning = NSAlert()
+        warning.icon = NSImage(named: "Warning")
+        warning.addButton(withTitle: "OK")
+        warning.messageText = "Value not found in plist"
+        warning.alertStyle = NSAlert.Style.warning
+        warning.informativeText = """
+        Try this command in Terminal.app:
+        defaults read com.github.autopkg RECIPE_REPO_DIR
+        And if its missing add it with this command:
+        defaults write com.github.autopkg RECIPE_REPO_DIR ~/Library/AutoPkg/RecipeRepos
+        """
+        warning.runModal()
+        return
+        
+    } else {
+        runBackgroundSearch ()
     }
+}
 
 
 func writeOutput () {
     insertionPointIndex = (appDelegate().outputTextField.selectedRanges.first?.rangeValue.location)!
-    let xmlFormatOutput = prettyFormat(xmlString: output)
+    highlightr!.setTheme(to: "xcode")
     highlightr!.theme.codeFont = NSFont(name: "Menlo", size: 12)
-    let highlightedCode = highlightr!.highlight(xmlFormatOutput, as: "xml")!
-    
-    appDelegate().outputTextField.textStorage?.insert(NSAttributedString(attributedString: highlightedCode), at: insertionPointIndex)
-}
+    if yamlModeStatus == true {
+        let yamlOutput = xmlDictSnippetToYAMLList(xmlSnippet: output)!
+        let highlightedCode = highlightr!.highlight(yamlOutput, as: "yaml")!
+        appDelegate().outputTextField.textStorage?.insert(NSAttributedString(attributedString: highlightedCode), at: insertionPointIndex)
+    } else {
+        let xmlFormatOutput = prettyFormat(xmlString: output)
+        let highlightedCode = highlightr!.highlight(xmlFormatOutput, as: "xml")!
+        appDelegate().outputTextField.textStorage?.insert(NSAttributedString(attributedString: highlightedCode), at: insertionPointIndex)
+    }
+    }
 
 
 func writePopOvertext (processor: String, extraHelpText: String) {
@@ -132,6 +114,7 @@ func writePopOvertext (processor: String, extraHelpText: String) {
          appDelegate().helpPopoverText.textStorage?.insert(NSAttributedString(attributedString: processorInfoAttributed), at: 0)
 }
 
+
 func writePopOvertextJamfUploader (processor: String, extraHelpText: String) {
     var processorInfo = ""
     if !processor.isEmpty {
@@ -148,15 +131,15 @@ func writePopOvertextJamfUploader (processor: String, extraHelpText: String) {
 }
 
 
-
 func writeOutputUserButtons () {
     insertionPointIndex = (appDelegate().outputTextField.selectedRanges.first?.rangeValue.location)!
-    //let xmlFormatOutput = prettyFormat(xmlString: output)
+    highlightr!.setTheme(to: "xcode")
     highlightr!.theme.codeFont = NSFont(name: "Menlo", size: 12)
     let highlightedCode = highlightr!.highlight(output, as: "xml")!
     
     appDelegate().outputTextField.textStorage?.insert(NSAttributedString(attributedString: highlightedCode), at: insertionPointIndex)
 }
+
 
 func writePopOvertextUserButtons (helpText: String) {
         let buttonInfo = "\nNote:\n\(helpText)"
@@ -168,16 +151,16 @@ func writePopOvertextUserButtons (helpText: String) {
 
 
 func getIdentifierTextFieldsValues () {
-if appDelegate().recipeIdentifierTextField.stringValue != "" {
-identififerTextField = appDelegate().recipeIdentifierTextField.stringValue
-}
+    if appDelegate().recipeIdentifierTextField.stringValue != "" {
+        identififerTextField = appDelegate().recipeIdentifierTextField.stringValue
+    }
 }
 
 
 func getAppPkgTextFieldsValues () {
-if appDelegate().appPKGTextField.stringValue != "" {
-name = appDelegate().appPKGTextField.stringValue
-}
+    if appDelegate().appPKGTextField.stringValue != "" {
+        name = appDelegate().appPKGTextField.stringValue
+    }
 }
 
 
@@ -188,8 +171,14 @@ wholeDocument = (appDelegate().outputTextField.textStorage as NSAttributedString
    identifierArrayTemp.removeAll()
    var identifier = ""
    identifierMismatch = false
-   identifierArrayTemp = regexFunc(for: "<key>Identifier<\\/key>(.*?[\r\n]){2}", in: wholeDocument)
+    if wholeDocument.hasPrefix("<?xml") && yamlModeStatus == false {
+        identifierArrayTemp = regexFunc(for: "<key>Identifier<\\/key>(.*?[\r\n]){2}", in: wholeDocument)
+    } else {
+        identifierArrayTemp = regexFunc(for: "(?<=Identifier:\\s).*", in: wholeDocument)
+    }
    if identifierArrayTemp.isEmpty {
+       
+       
        let warning = NSAlert()
        warning.icon = NSImage(named: "Warning")
        warning.addButton(withTitle: "OK")
@@ -205,14 +194,13 @@ Add Identifier key and string to the document for example:
        
    } else {
    identifier = identifierArrayTemp[0].replacingOccurrences(of: "<key>Identifier</key>", with: "", options: [.regularExpression, .caseInsensitive])
+   identifier = identifier.replacingOccurrences(of: "Identifier:", with: "", options: [.regularExpression, .caseInsensitive])
    identifier = identifier.replacingOccurrences(of: "</string>", with: "", options: [.regularExpression, .caseInsensitive])
    identifier = identifier.replacingOccurrences(of: "<string>", with: "", options: [.regularExpression, .caseInsensitive])
    identifier = identifier.trimmingCharacters(in: .whitespacesAndNewlines)
-       
+
     var formatTitle = ""
     let identifierFormat = identifier
-    
-   
     
           switch identifierFormat {
            case let identifierFormat where identifierFormat.contains(".download."):
@@ -269,22 +257,21 @@ Add Identifier key and string to the document for example:
             getIdentifierTextFieldsValues ()
         }
         
-       
         if name == "" {
             appDelegate().appPKGTextField.stringValue = appPkg
             getAppPkgTextFieldsValues ()
         }
         
-            if appDelegate().recipeFormatPopup.titleOfSelectedItem == "Recipe format" {
+        if appDelegate().recipeFormatPopup.titleOfSelectedItem == "Recipe format" {
                 appDelegate().recipeFormatPopup.selectItem(withTitle: formatTitle)
-            }
+        }
         
         if appDelegate().recipeFormatPopup.titleOfSelectedItem != "Recipe format" {
             format = ".\(appDelegate().recipeFormatPopup.titleOfSelectedItem!)."
         }
         
-        // Generate recipeFileName needed when saving
-        recipeFileName = "\(name)\(format)recipe"
+        // Generate recipeFileName (used in save dialog as prefilled name)
+        recipeFileName = "\(name)\(format)"
         
         identifierManually = identififerTextField
         identifierManually += "\(format)\(name)"
@@ -346,8 +333,7 @@ func startSearching () {
      } else {
           print("Path doesnt exist at: \(recipeRepoDir)")
          return }
-     
-     
+       
      let enumerator = FileManager.default.enumerator(atPath: recipeRepoDir)
      let filePaths = enumerator?.allObjects as! [String]
      let recipeFilePaths = filePaths.filter{$0.hasSuffix(".recipe")}
@@ -387,13 +373,50 @@ DispatchQueue.global(qos: .userInteractive).async {
 }
 
 
-func openSearchInExternalEditor () {
-// Open selected .recipe in preferd app
-// Need to use NSURL otherwise files with spaces will fail
-    let fileURL = NSURL.fileURL(withPath: appDelegate().searchSelectedRecipe)
-    if appDelegate().selectedExternalEditor != "" && appDelegate().searchSelectedRecipe != "" {
-        NSWorkspace.shared.openFile(fileURL.path, withApplication: appDelegate().selectedExternalEditor)
-         }
+func openFileInExternalEditor(fileURL: URL) {
+    // Ensure both the editor path and file URL are valid
+    guard !appDelegate().selectedExternalEditor.isEmpty,
+          !externalEditorPath.isEmpty else {
+        print("External editor path or selected editor is empty.")
+        return
+    }
+
+    // Check if the external editor exists at the specified path
+    if !FileManager.default.fileExists(atPath: externalEditorPath) {
+        let warning = NSAlert()
+        warning.icon = NSImage(named: "Warning")
+        warning.addButton(withTitle: "OK")
+        warning.messageText = "Missing External Editor"
+        warning.alertStyle = NSAlert.Style.warning
+        warning.informativeText = """
+        Can't find external editor at: \(externalEditorPath)
+        Make sure the application exists at the specified path and try again.
+        """
+        warning.runModal()
+        return
+    }
+
+    // Create URL for the external editor
+    let editorURL = URL(fileURLWithPath: externalEditorPath)
+
+    // Prepare configuration
+    let configuration = NSWorkspace.OpenConfiguration()
+
+    // Open the file in the external editor
+    NSWorkspace.shared.open([fileURL], withApplicationAt: editorURL, configuration: configuration) { app, error in
+        if let error = error {
+            let warning = NSAlert()
+            warning.icon = NSImage(named: "Warning")
+            warning.addButton(withTitle: "OK")
+            warning.messageText = "Failed to Open File"
+            warning.alertStyle = NSAlert.Style.warning
+            warning.informativeText = """
+            Failed to open file with external editor at: \(externalEditorPath)
+            Error: \(error.localizedDescription)
+            """
+            warning.runModal()
+        }
+    }
 }
 
 
@@ -573,6 +596,7 @@ let downloadOutput = """
     </dict>
 </plist>
 """
+    
     let jamfOutput = """
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -708,10 +732,14 @@ let jssOutput = """
     appDelegate().outputTextField.string = ""
     insertionPointIndex = (appDelegate().outputTextField.selectedRanges.first?.rangeValue.location)!
     xmlFormatOutput = prettyFormatDocument(xmlString: output)
-    
+        
+    highlightr!.setTheme(to: "xcode")
     highlightr!.theme.codeFont = NSFont(name: "Menlo", size: 12)
     let highlightedCode = highlightr!.highlight(xmlFormatOutput, as: "xml")!
     appDelegate().outputTextField.textStorage?.insert(NSAttributedString(attributedString: highlightedCode), at: insertionPointIndex)
+        if yamlModeStatus == true {
+            XMLtoYaml ()
+        }
     
     // Clear recipePath
     recipePath = ""
@@ -720,77 +748,84 @@ let jssOutput = """
     if descriptionFormat == "download" {
         output = downloadOutput
         outputNewDocument()
-        var range = (xmlFormatOutput as NSString).range(of: "INSERT_YOUR_DOWNLOAD_URL_HERE")
-        var attributedReplaceText = NSAttributedString(string: "INSERT_YOUR_DOWNLOAD_URL_HERE", attributes: yellowBackgroundAttributes)
-        appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
-        
-        range = (xmlFormatOutput as NSString).range(of: "<!--INSERT_YOUR_PROCESSORS_HERE-->")
-        attributedReplaceText = NSAttributedString(string: "<!--INSERT_YOUR_PROCESSORS_HERE-->", attributes: yellowBackgroundAttributes)
-        appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
+        if yamlModeStatus == false {
+            var range = (xmlFormatOutput as NSString).range(of: "INSERT_YOUR_DOWNLOAD_URL_HERE")
+            var attributedReplaceText = NSAttributedString(string: "INSERT_YOUR_DOWNLOAD_URL_HERE", attributes: yellowBackgroundAttributes)
+            appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
+            
+            range = (xmlFormatOutput as NSString).range(of: "<!--INSERT_YOUR_PROCESSORS_HERE-->")
+            attributedReplaceText = NSAttributedString(string: "<!--INSERT_YOUR_PROCESSORS_HERE-->", attributes: yellowBackgroundAttributes)
+            appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
+        }
     } else if descriptionFormat == "jamf" {
         output = jamfOutput
         outputNewDocument ()
-        var range = (xmlFormatOutput as NSString).range(of: "INSERT_YOUR_PARENT_RECIPE_IDENTIFIER_HERE_OR_REMOVE")
-        var attributedReplaceText = NSAttributedString(string: "INSERT_YOUR_PARENT_RECIPE_IDENTIFIER_HERE_OR_REMOVE", attributes: yellowBackgroundAttributes)
-        appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
-        
-        
-        range = (xmlFormatOutput as NSString).range(of: "<!--INSERT_YOUR_PROCESSORS_HERE-->")
-        attributedReplaceText = NSAttributedString(string: "<!--INSERT_YOUR_PROCESSORS_HERE-->", attributes: yellowBackgroundAttributes)
-        
-        appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
+        if yamlModeStatus == false {
+            var range = (xmlFormatOutput as NSString).range(of: "INSERT_YOUR_PARENT_RECIPE_IDENTIFIER_HERE_OR_REMOVE")
+            var attributedReplaceText = NSAttributedString(string: "INSERT_YOUR_PARENT_RECIPE_IDENTIFIER_HERE_OR_REMOVE", attributes: yellowBackgroundAttributes)
+            appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
+            
+            
+            range = (xmlFormatOutput as NSString).range(of: "<!--INSERT_YOUR_PROCESSORS_HERE-->")
+            attributedReplaceText = NSAttributedString(string: "<!--INSERT_YOUR_PROCESSORS_HERE-->", attributes: yellowBackgroundAttributes)
+            
+            appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
+        }
     } else if descriptionFormat == "jss" {
             output = jssOutput
             outputNewDocument ()
+        if yamlModeStatus == false {
             let range = (xmlFormatOutput as NSString).range(of: "INSERT_YOUR_PARENT_RECIPE_IDENTIFIER_HERE")
             let attributedReplaceText = NSAttributedString(string: "INSERT_YOUR_PARENT_RECIPE_IDENTIFIER_HERE", attributes: yellowBackgroundAttributes)
             appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
-        
+        }
     } else if descriptionFormat == "munki" {
         output = munkiOutput
         outputNewDocument ()
-        var range = (xmlFormatOutput as NSString).range(of: "INSERT_YOUR_PARENT_RECIPE_IDENTIFIER_HERE")
-        var attributedReplaceText = NSAttributedString(string: "INSERT_YOUR_PARENT_RECIPE_IDENTIFIER_HERE", attributes: yellowBackgroundAttributes)
-        appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
-        
-        range = (xmlFormatOutput as NSString).range(of: "INSERT_DESCRIPTION_HERE")
-        attributedReplaceText = NSAttributedString(string: "INSERT_DESCRIPTION_HERE", attributes: yellowBackgroundAttributes)
-        appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
-        
-        range = (xmlFormatOutput as NSString).range(of: "INSERT_CATEGORY_HERE")
-        attributedReplaceText = NSAttributedString(string: "INSERT_CATEGORY_HERE", attributes: yellowBackgroundAttributes)
-        appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
-        
-        range = (xmlFormatOutput as NSString).range(of: "INSERT_DEVELOPER_HERE")
-        attributedReplaceText = NSAttributedString(string: "INSERT_DEVELOPER_HERE", attributes: yellowBackgroundAttributes)
-        appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
-        
-        range = (xmlFormatOutput as NSString).range(of: "INSERT_DISPLAY_NAME_HERE")
-        attributedReplaceText = NSAttributedString(string: "INSERT_DISPLAY_NAME_HERE", attributes: yellowBackgroundAttributes)
-        appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
-        
-        range = (xmlFormatOutput as NSString).range(of: "<!--INSERT_YOUR_PROCESSORS_HERE-->")
-        attributedReplaceText = NSAttributedString(string: "<!--INSERT_YOUR_PROCESSORS_HERE-->", attributes: yellowBackgroundAttributes)
-        appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
-        
+        if yamlModeStatus == false {
+            var range = (xmlFormatOutput as NSString).range(of: "INSERT_YOUR_PARENT_RECIPE_IDENTIFIER_HERE")
+            var attributedReplaceText = NSAttributedString(string: "INSERT_YOUR_PARENT_RECIPE_IDENTIFIER_HERE", attributes: yellowBackgroundAttributes)
+            appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
+            
+            range = (xmlFormatOutput as NSString).range(of: "INSERT_DESCRIPTION_HERE")
+            attributedReplaceText = NSAttributedString(string: "INSERT_DESCRIPTION_HERE", attributes: yellowBackgroundAttributes)
+            appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
+            
+            range = (xmlFormatOutput as NSString).range(of: "INSERT_CATEGORY_HERE")
+            attributedReplaceText = NSAttributedString(string: "INSERT_CATEGORY_HERE", attributes: yellowBackgroundAttributes)
+            appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
+            
+            range = (xmlFormatOutput as NSString).range(of: "INSERT_DEVELOPER_HERE")
+            attributedReplaceText = NSAttributedString(string: "INSERT_DEVELOPER_HERE", attributes: yellowBackgroundAttributes)
+            appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
+            
+            range = (xmlFormatOutput as NSString).range(of: "INSERT_DISPLAY_NAME_HERE")
+            attributedReplaceText = NSAttributedString(string: "INSERT_DISPLAY_NAME_HERE", attributes: yellowBackgroundAttributes)
+            appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
+            
+            range = (xmlFormatOutput as NSString).range(of: "<!--INSERT_YOUR_PROCESSORS_HERE-->")
+            attributedReplaceText = NSAttributedString(string: "<!--INSERT_YOUR_PROCESSORS_HERE-->", attributes: yellowBackgroundAttributes)
+            appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
+        }
     } else {
         outputNewDocument ()
-        let range = (xmlFormatOutput as NSString).range(of: "<!--INSERT_YOUR_PROCESSORS_HERE-->")
-        let attributedReplaceText = NSAttributedString(string: "<!--INSERT_YOUR_PROCESSORS_HERE-->", attributes: yellowBackgroundAttributes)
-        appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
-       
+        if yamlModeStatus == false {
+            let range = (xmlFormatOutput as NSString).range(of: "<!--INSERT_YOUR_PROCESSORS_HERE-->")
+            let attributedReplaceText = NSAttributedString(string: "<!--INSERT_YOUR_PROCESSORS_HERE-->", attributes: yellowBackgroundAttributes)
+            appDelegate().outputTextField.textStorage?.replaceCharacters(in: range, with: attributedReplaceText)
+        }
     }
-}
+    }
 
 
-
-
-
-func finaliseDocument () {
+func finalizeDocument () {
     wholeDocument = (appDelegate().outputTextField.textStorage as NSAttributedString?)!.string
     if wholeDocument == "" { return }
+    if wholeDocument.hasPrefix("<?xml") && yamlModeStatus == false {
     getIdentifier ()
-    if identifierMismatch == true {return}
+    if identifierMismatch == true {
+        appDelegate().fileOptions.selectItem(at: 0)
+        return}
     if recipeFileName == "" { return }
     createRecipeBuilderFolders(createFolder: "tmp")
     tmpRecipeFile = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/AutoPkg/RecipeBuilder Output/tmp/\(recipeFileName)").path
@@ -843,6 +878,7 @@ func finaliseDocument () {
                             return
                     }
                     
+                        highlightr!.setTheme(to: "xcode")
                         highlightr!.theme.codeFont = NSFont(name: "Menlo", size: 12)
                         let highlightedCode = highlightr!.highlight(xmlFormatOutput, as: "xml")!
                         appDelegate().outputTextField.string = ""
@@ -851,19 +887,37 @@ func finaliseDocument () {
                         deleteTmpFolder ()
 
                     }
-
+    } else {
+        // Not plist/XML - We can't verify
+        
+        highlightr!.setTheme(to: "xcode")
+        highlightr!.theme.codeFont = NSFont(name: "Menlo", size: 12)
+        let highlightedCode = highlightr!.highlight(wholeDocument, as: "yaml")!
+        appDelegate().outputTextField.string = ""
+        appDelegate().outputTextField.textStorage?.insert(NSAttributedString(attributedString: highlightedCode), at: 0)
+        appDelegate().fileOptions.selectItem(at: 0)
+        getIdentifier()
+    }
 }
 
 
 func autoPkgRunner () {
     wholeDocument = (appDelegate().outputTextField.textStorage as NSAttributedString?)!.string
     if wholeDocument == "" { return }
-    getIdentifier ()
+    let randomNumber = Int.random(in: 0 ..< 999)
+    // If XML/plist or Yaml
+    if wholeDocument.hasPrefix("<?xml") && yamlModeStatus == false {
+        getIdentifier ()
+        tmpRecipeFile = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/AutoPkg/RecipeBuilder Output/\(recipeFileName).temp_\(randomNumber)").path
+    } else {
+        tmpRecipeFile = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/AutoPkg/RecipeBuilder Output/\(recipeFileName).temp_\(randomNumber).yaml").path
+    }
+   
     if recipeFileName == "" { return }
     appDelegate().logWindow.orderFront(Any?.self)
     createRecipeBuilderFolders(createFolder: "")
-    let randomNumber = Int.random(in: 0 ..< 999)
-    tmpRecipeFile = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/AutoPkg/RecipeBuilder Output/\(recipeFileName).temp_\(randomNumber)").path
+    
+    
     let documentDirURL = URL(fileURLWithPath: tmpRecipeFile)
                       // Save data to file
                       let fileURL = documentDirURL
@@ -881,12 +935,12 @@ func autoPkgRunner () {
       
         DispatchQueue.main.async {
             // Back on the main thread
+                    highlightr!.setTheme(to: "xcode")
                     highlightr!.theme.codeFont = NSFont(name: "Menlo", size: 12)
                     let highlightedCode = highlightr!.highlight(recipeRun, as: "bash")!
                     appDelegate().logTextView.string = ""
                     appDelegate().logTextView.textStorage?.insert(NSAttributedString(attributedString: highlightedCode), at: 0)
                     appDelegate().fileOptions.selectItem(at: 0)
-                    downloadPath = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/AutoPkg/Cache/\(identifierManually)/downloads").path
                     appDelegate().spinner.isHidden=true
                     deleteTmpFolder ()
             
@@ -923,52 +977,310 @@ if FileManager.default.fileExists(atPath: autopkgCache) {
 }
 
 
-func toggleExternalEditor () {
-    if appDelegate().selectedExternalEditor == "Atom" {
-            appDelegate().atom.state = .on
-            appDelegate().bbedit.state = .off
-            appDelegate().sublimeText.state = .off
-            appDelegate().textMate.state = .off
-            appDelegate().visualStudioCode.state = .off
+func getTrustInfo() {
+    // Function to set the FAIL_RECIPES_WITHOUT_TRUST_INFO value based on the input
+    let defaults = UserDefaults(suiteName: "com.github.autopkg")
+    if let currentValue = defaults?.object(forKey: "FAIL_RECIPES_WITHOUT_TRUST_INFO") as? Bool {
+        // Get the value as String and call function to update the GUI
+        appDelegate().trustInfo = String(currentValue)
+        toggleTrustInfo ()
+        }
+}
+
+
+func setTrustInfo(to value: Bool) {
+    // Function to set the FAIL_RECIPES_WITHOUT_TRUST_INFO value based on the input
+    let defaults = UserDefaults(suiteName: "com.github.autopkg")
+    if let currentValue = defaults?.object(forKey: "FAIL_RECIPES_WITHOUT_TRUST_INFO") as? Bool {
+        if currentValue != value {
+            defaults?.set(value, forKey: "FAIL_RECIPES_WITHOUT_TRUST_INFO")
+        }
+    } else {
+        defaults?.set(value, forKey: "FAIL_RECIPES_WITHOUT_TRUST_INFO")
+    }
+}
+
+
+func toggleTrustInfo () {
+    if appDelegate().trustInfo.lowercased() == "true" {
+        appDelegate().trustInfoTrue.state = .on
+        appDelegate().trustInfoFalse.state = .off
     }
     
+    if appDelegate().trustInfo.lowercased() == "false" {
+        appDelegate().trustInfoTrue.state = .off
+        appDelegate().trustInfoFalse.state = .on
+    }
+}
+
+
+func toggleExternalEditor () {   
     if appDelegate().selectedExternalEditor == "BBEdit" {
-            appDelegate().atom.state = .off
+            externalEditorPath = "/Applications/BBEdit.app"
             appDelegate().bbedit.state = .on
             appDelegate().sublimeText.state = .off
             appDelegate().textMate.state = .off
             appDelegate().visualStudioCode.state = .off
+        
     }
     
     if appDelegate().selectedExternalEditor == "Sublime Text" {
-              appDelegate().atom.state = .off
-              appDelegate().bbedit.state = .off
-              appDelegate().sublimeText.state = .on
-              appDelegate().textMate.state = .off
-              appDelegate().visualStudioCode.state = .off
+            externalEditorPath = "/Applications/Sublime Text.app"
+            appDelegate().bbedit.state = .off
+            appDelegate().sublimeText.state = .on
+            appDelegate().textMate.state = .off
+            appDelegate().visualStudioCode.state = .off
       }
 
     if appDelegate().selectedExternalEditor == "TextMate" {
-                 appDelegate().atom.state = .off
-                 appDelegate().bbedit.state = .off
-                 appDelegate().sublimeText.state = .off
-                 appDelegate().textMate.state = .on
-                 appDelegate().visualStudioCode.state = .off
+            externalEditorPath = "/Applications/TextMate.app"
+            appDelegate().bbedit.state = .off
+            appDelegate().sublimeText.state = .off
+            appDelegate().textMate.state = .on
+            appDelegate().visualStudioCode.state = .off
          }
     
     if appDelegate().selectedExternalEditor == "Visual Studio Code" {
-                 appDelegate().atom.state = .off
-                 appDelegate().bbedit.state = .off
-                 appDelegate().sublimeText.state = .off
-                 appDelegate().textMate.state = .off
-                 appDelegate().visualStudioCode.state = .on
+            externalEditorPath = "/Applications/Visual Studio Code.app"
+            appDelegate().bbedit.state = .off
+            appDelegate().sublimeText.state = .off
+            appDelegate().textMate.state = .off
+            appDelegate().visualStudioCode.state = .on
          }
 }
 
 
+// Toogle between the modes XML or Yaml
+func yamlModeStatusSwitcher () {
+    if yamlModeStatus == false {
+        appDelegate().modeSwitch.state = .on
+        yamlModeStatus = true
+        XMLtoYaml ()
+        getIdentifier()
+        
+        //Check if we still got XML (something went wrong)
+        wholeDocument = (appDelegate().outputTextField.textStorage as NSAttributedString?)!.string
+        if wholeDocument.hasPrefix("<?xml") {
+            yamlModeStatusSwitcher ()
+        }
+    } else {
+        appDelegate().modeSwitch.state = .off
+        yamlModeStatus = false
+        YamlToXML()
+        getIdentifier()
+        
+        //Check if we got XML
+        wholeDocument = (appDelegate().outputTextField.textStorage as NSAttributedString?)!.string
+        if wholeDocument.hasPrefix("<?xml") {
+            finalizeDocument ()
+        } else {
+            yamlModeStatusSwitcher ()
+        }
+        
+    }
+}
 
 
+func selectFolderAndProcessRecipesToYaml() {
+    let openPanel = NSOpenPanel()
+    openPanel.canChooseFiles = false
+    openPanel.canChooseDirectories = true
+    openPanel.allowsMultipleSelection = false
+    openPanel.prompt = "Select Folder"
+    
+    if openPanel.runModal() == .OK, let selectedFolder = openPanel.url {
+        // Process the selected folder URL
+        print("Selected folder: \(selectedFolder.path)")
+ 
+        DispatchQueue.global(qos: .userInitiated).async {
+            let startTime = Date() // Start timer
+            processedFilesCount = 0 // Counter for processed files
+            let dispatchGroup = DispatchGroup() // Group to track file processing
+            
+            do {
+                let fileManager = FileManager.default
+                let filePaths = try fileManager.contentsOfDirectory(at: selectedFolder, includingPropertiesForKeys: nil)
+                
+                for filePath in filePaths where filePath.pathExtension == "recipe" {
+                    dispatchGroup.enter() // Enter the group for each file
+                    
+                    do {
+                        let chosenFileContents = try String(contentsOf: filePath)
+                        
+                        // Ensure UI updates are performed on the main thread
+                        DispatchQueue.main.async {
+                            guard let appDelegate = NSApplication.shared.delegate as? AppDelegate,
+                                  let textView = appDelegate.outputTextField else {
+                                print("Output text field not found.")
+                                dispatchGroup.leave() // Leave the group if no UI element is found
+                                return
+                            }
+                            
+                            // Ensure the app window is visible
+                            appDelegate.window?.makeKeyAndOrderFront(nil)
+                            
+                            let path = filePath.path
+                            outputToLogView(logString: "Validate file (.recipe): \(path)\n")
+                            
+                            // Append the content of the current file
+                            textView.string += chosenFileContents
+                            XMLtoYaml()
+                            
+                            // Get the converted YAML text from the text field
+                            let convertedYaml = textView.string
+                            
+                            if convertedYaml.isEmpty || convertedYaml.hasPrefix("<?xml") {
+                                print("❌ Error converting XML file \(path)")
+                                outputToLogView(logString: "❌ Error converting XML file \(path)\n")
+                                outputToLogView(logString: "-----------------------------------\n")
+                                textView.string = "" // Clear previous content
+                                dispatchGroup.leave() // Leave the group after processing
+                            } else {
+                                // Save the YAML file
+                                let yamlFileName = "\(path).yaml"
+                                do {
+                                    try convertedYaml.write(toFile: yamlFileName, atomically: true, encoding: .utf8)
+                                    outputToLogView(logString: "Saved YAML file: \(yamlFileName)\n")
+                                    outputToLogView(logString: "-----------------------------------\n")
+                                    processedFilesCount += 1 // Increment counter
+                                } catch {
+                                    print("Error saving YAML file \(yamlFileName): \(error.localizedDescription)")
+                                    outputToLogView(logString: "Error saving YAML file \(yamlFileName): \(error.localizedDescription)\n")
+                                }
+                            }
+                            
+                            // Clear the text field contents if needed
+                            textView.string = "" // Clear previous content
+                            dispatchGroup.leave() // Leave the group after processing
+                        }
+                    } catch {
+                        DispatchQueue.main.async {
+                            print("Error reading contents of file \(filePath): \(error.localizedDescription)")
+                            outputToLogView(logString: "Error reading contents of file: \(error.localizedDescription)\n")
+                            dispatchGroup.leave() // Leave the group on error
+                        }
+                    }
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    print("Error reading contents of folder: \(error.localizedDescription)")
+                    outputToLogView(logString: "Error reading contents of folder: \(error.localizedDescription)\n")
+                }
+            }
+            
+            // Wait for all tasks to finish
+            dispatchGroup.notify(queue: .main) {
+                let endTime = Date() // End timer
+                let totalTime = endTime.timeIntervalSince(startTime) // Calculate time
+                let formattedTime = String(format: "%.2f", totalTime) // Format with two decimal places
+                outputToLogView(logString: "Processed \(processedFilesCount) files in \(formattedTime) seconds.\n")
+            }
+        }
+    }  else {
+        print("No folder selected.")
+    }
+}
 
+
+func selectFolderAndProcessRecipesToXML() {
+    let openPanel = NSOpenPanel()
+    openPanel.canChooseFiles = false
+    openPanel.canChooseDirectories = true
+    openPanel.allowsMultipleSelection = false
+    openPanel.prompt = "Select Folder"
+
+    if openPanel.runModal() == .OK, let selectedFolder = openPanel.url {
+        // Process the selected folder URL
+        print("Selected folder: \(selectedFolder.path)")
+
+        DispatchQueue.global(qos: .userInitiated).async {
+            let startTime = Date() // Start timer
+            processedFilesCount = 0 // Counter for processed files
+            let dispatchGroup = DispatchGroup() // Group to track file processing
+            
+            do {
+                let fileManager = FileManager.default
+                let filePaths = try fileManager.contentsOfDirectory(at: selectedFolder, includingPropertiesForKeys: nil)
+
+                for filePath in filePaths where filePath.pathExtension == "yaml" {
+                    dispatchGroup.enter() // Enter the group for each file
+                    
+                    do {
+                        let chosenFileContents = try String(contentsOf: filePath)
+
+                        // Ensure UI updates are performed on the main thread
+                        DispatchQueue.main.async {
+                            guard let appDelegate = NSApplication.shared.delegate as? AppDelegate,
+                                  let textView = appDelegate.outputTextField else {
+                                print("Output text field not found.")
+                                dispatchGroup.leave() // Leave the group if no UI element is found
+                                return
+                            }
+
+                            // Ensure the app window is visible
+                            appDelegate.window?.makeKeyAndOrderFront(nil)
+                            
+                            let path = filePath.path
+                            outputToLogView(logString: "Validate file (.yaml): \(path)\n")
+
+                            // Append the content of the current file
+                            textView.string += chosenFileContents
+                            YamlToXML()
+                            
+                            // Get the converted XML text from the text field
+                            let convertedXML = textView.string
+                            
+                            if convertedXML == "" || !convertedXML.hasPrefix("<?xml") {
+                                print("❌ Error converting Yaml file \(path)")
+                                outputToLogView(logString: "❌ Error converting Yaml file \(path)\n")
+                                outputToLogView(logString: "-----------------------------------\n")
+                                textView.string = "" // Clear previous content
+                                dispatchGroup.leave() // Leave the group after processing
+                            } else {
+                                // Save the XML file
+                                let xmlFileName = "\(path).recipe"
+                                do {
+                                    try convertedXML.write(toFile: xmlFileName, atomically: true, encoding: .utf8)
+                                    outputToLogView(logString: "Saved XML file: \(xmlFileName)\n")
+                                    outputToLogView(logString: "-----------------------------------\n")
+                                    processedFilesCount += 1 // Increment counter
+                                } catch {
+                                    print("Error saving YXML file \(xmlFileName): \(error.localizedDescription)")
+                                    outputToLogView(logString: "Error saving XML file \(xmlFileName): \(error.localizedDescription)\n")
+                                }
+                                
+                                // Clear the text field contents if needed
+                                textView.string = "" // Clear previous content
+                                dispatchGroup.leave() // Leave the group after processing
+                            }
+                        }
+                    } catch {
+                        DispatchQueue.main.async {
+                            print("Error reading contents of file \(filePath): \(error.localizedDescription)")
+                            outputToLogView(logString: "Error reading contents of file: \(error.localizedDescription)\n")
+                            dispatchGroup.leave() // Leave the group on error
+                        }
+                    }
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    print("Error reading contents of folder: \(error.localizedDescription)")
+                    outputToLogView(logString: "Error reading contents of folder: \(error.localizedDescription)\n")
+                }
+            }
+            
+            // Wait for all tasks to finish
+            dispatchGroup.notify(queue: .main) {
+                let endTime = Date() // End timer
+                let totalTime = endTime.timeIntervalSince(startTime) // Calculate time
+                let formattedTime = String(format: "%.2f", totalTime) // Format with two decimal places
+                outputToLogView(logString: "Processed \(processedFilesCount) files in \(formattedTime) seconds.\n")
+            }
+        }
+    }  else {
+        print("No folder selected.")
+    }
+}
 
 
 func openRecipe () {
@@ -976,7 +1288,7 @@ func openRecipe () {
       dialog.allowsMultipleSelection = false;
       dialog.showsHiddenFiles = true;
       dialog.canChooseFiles = true;
-      dialog.allowedFileTypes = ["recipe"]
+      dialog.allowedFileTypes = ["recipe", "yaml"]
     
     if recipePath != "" {
              dialog.directoryURL = NSURL.fileURL(withPath: recipePath, isDirectory: true)
@@ -992,31 +1304,73 @@ func openRecipe () {
      var result = dialog.url // Pathname of the file
           if (result != nil) {
               let path = result!.path
+              let fileExtension = result!.pathExtension.lowercased()
+              
                 
             // Set the recipePath for save dialog
                 result = result!.deletingLastPathComponent()
                 recipePath = result!.path
-
               
               if let choosenFileContents = try? String(contentsOfFile: path) {
-                 appDelegate().window.makeKeyAndOrderFront(Any?.self)
+                  appDelegate().window.makeKeyAndOrderFront(Any?.self)
                   appDelegate().outputTextField.string = ""
                   insertionPointIndex = (appDelegate().outputTextField.selectedRanges.first?.rangeValue.location)!
-                  let xmlFormatOutput = prettyFormatDocument(xmlString: choosenFileContents)
                   
-                  highlightr!.theme.codeFont = NSFont(name: "Menlo", size: 12)
-                  let highlightedCode = highlightr!.highlight(xmlFormatOutput, as: "xml")!
-                  
-                  appDelegate().outputTextField.textStorage?.insert(NSAttributedString(attributedString: highlightedCode), at: insertionPointIndex)
-                
-                // Clear identifier text fields
-                appDelegate().recipeIdentifierTextField.stringValue = ""
-                identififerTextField = ""
-                appDelegate().appPKGTextField.stringValue = ""
-                name = ""
-                appDelegate().recipeFormatPopup.selectItem(withTitle: "Recipe format")
-                
-                getIdentifier ()
+                  if choosenFileContents.hasPrefix("<?xml") && yamlModeStatus == false && fileExtension == "recipe" {
+                      let xmlFormatOutput = prettyFormatDocument(xmlString: choosenFileContents)
+                      
+                      highlightr!.setTheme(to: "xcode")
+                      highlightr!.theme.codeFont = NSFont(name: "Menlo", size: 12)
+                      let highlightedCode = highlightr!.highlight(xmlFormatOutput, as: "xml")!
+                      
+                      appDelegate().outputTextField.textStorage?.insert(NSAttributedString(attributedString: highlightedCode), at: insertionPointIndex)
+                      
+                      // Clear identifier text fields
+                      appDelegate().recipeIdentifierTextField.stringValue = ""
+                      identififerTextField = ""
+                      appDelegate().appPKGTextField.stringValue = ""
+                      name = ""
+                      appDelegate().recipeFormatPopup.selectItem(withTitle: "Recipe format")
+                      getIdentifier ()
+                  } else if choosenFileContents.hasPrefix("<?xml") && yamlModeStatus == true && fileExtension == "recipe" {
+                      let xmlFormatOutput = prettyFormatDocument(xmlString: choosenFileContents)
+                      
+                      highlightr!.setTheme(to: "xcode")
+                      highlightr!.theme.codeFont = NSFont(name: "Menlo", size: 12)
+                      let highlightedCode = highlightr!.highlight(xmlFormatOutput, as: "xml")!
+                      
+                      appDelegate().outputTextField.textStorage?.insert(NSAttributedString(attributedString: highlightedCode), at: insertionPointIndex)
+                      
+                      XMLtoYaml()
+                      
+                      // Clear identifier text fields
+                      appDelegate().recipeIdentifierTextField.stringValue = ""
+                      identififerTextField = ""
+                      appDelegate().appPKGTextField.stringValue = ""
+                      name = ""
+                      appDelegate().recipeFormatPopup.selectItem(withTitle: "Recipe format")
+                      getIdentifier ()
+                  } else {
+                      highlightr!.setTheme(to: "xcode")
+                      highlightr!.theme.codeFont = NSFont(name: "Menlo", size: 12)
+                      let highlightedCode = highlightr!.highlight(choosenFileContents, as: "yaml")!
+                      
+                      appDelegate().outputTextField.textStorage?.insert(NSAttributedString(attributedString: highlightedCode), at: insertionPointIndex)
+                      
+                      // Clear identifier text fields
+                      appDelegate().recipeIdentifierTextField.stringValue = ""
+                      identififerTextField = ""
+                      appDelegate().appPKGTextField.stringValue = ""
+                      name = ""
+                      appDelegate().recipeFormatPopup.selectItem(withTitle: "Recipe format")
+                      getIdentifier ()
+                      
+                      // Enable Yaml mode
+                      if yamlModeStatus == false {
+                          appDelegate().modeSwitch.state = .on
+                          yamlModeStatus = true
+                      }
+                  }
               }
              dialog.close()
               
@@ -1034,44 +1388,75 @@ func openRecipeDirectly () {
             appDelegate().window.makeKeyAndOrderFront(Any?.self)
             appDelegate().outputTextField.string = ""
                       insertionPointIndex = (appDelegate().outputTextField.selectedRanges.first?.rangeValue.location)!
+                      if choosenFileContents.hasPrefix("<?xml") && yamlModeStatus == false  {
                       let xmlFormatOutput = prettyFormatDocument(xmlString: choosenFileContents)
                       
+                      highlightr!.setTheme(to: "xcode")
                       highlightr!.theme.codeFont = NSFont(name: "Menlo", size: 12)
                       let highlightedCode = highlightr!.highlight(xmlFormatOutput, as: "xml")!
                       
                       appDelegate().outputTextField.textStorage?.insert(NSAttributedString(attributedString: highlightedCode), at: insertionPointIndex)
-                     
-                    // Clear identifier text fields
-                    appDelegate().recipeIdentifierTextField.stringValue = ""
-                    identififerTextField = ""
-                    appDelegate().appPKGTextField.stringValue = ""
-                    name = ""
-                    appDelegate().recipeFormatPopup.selectItem(withTitle: "Recipe format")
-                    
-                    getIdentifier ()
+                      
+                      // Clear identifier text fields
+                      appDelegate().recipeIdentifierTextField.stringValue = ""
+                      identififerTextField = ""
+                      appDelegate().appPKGTextField.stringValue = ""
+                      name = ""
+                      appDelegate().recipeFormatPopup.selectItem(withTitle: "Recipe format")
+                      getIdentifier ()
+                  } else if choosenFileContents.hasPrefix("<?xml") && yamlModeStatus == true  {
+                      let xmlFormatOutput = prettyFormatDocument(xmlString: choosenFileContents)
+                      
+                      highlightr!.setTheme(to: "xcode")
+                      highlightr!.theme.codeFont = NSFont(name: "Menlo", size: 12)
+                      let highlightedCode = highlightr!.highlight(xmlFormatOutput, as: "xml")!
+                      
+                      appDelegate().outputTextField.textStorage?.insert(NSAttributedString(attributedString: highlightedCode), at: insertionPointIndex)
+                      
+                      // Clear identifier text fields
+                      appDelegate().recipeIdentifierTextField.stringValue = ""
+                      identififerTextField = ""
+                      appDelegate().appPKGTextField.stringValue = ""
+                      name = ""
+                      appDelegate().recipeFormatPopup.selectItem(withTitle: "Recipe format")
+                      getIdentifier ()
+                      XMLtoYaml()
+                  } else {
+                      highlightr!.setTheme(to: "xcode")
+                      highlightr!.theme.codeFont = NSFont(name: "Menlo", size: 12)
+                      let highlightedCode = highlightr!.highlight(choosenFileContents, as: "yaml")!
+                      
+                      appDelegate().outputTextField.textStorage?.insert(NSAttributedString(attributedString: highlightedCode), at: insertionPointIndex)
+                      // Enable Yaml mode
+                      if yamlModeStatus == false {
+                          appDelegate().modeSwitch.state = .on
+                          yamlModeStatus = true
+                      }
+                  }
+              }
             
            //  Set the recipePath for save dialog
            recipePath = appDelegate().recipeDirectlyFileName
             
-           
-            }
-    
-      }
-
+}
 
 
 func saveRecipe () {
     wholeDocument = (appDelegate().outputTextField.textStorage as NSAttributedString?)!.string
-          if wholeDocument == "" { return }
-          if recipeFileName == "" { return }
-          finaliseDocument ()
-          if identifierMismatch == true {return}
-   
-// Save Dialog
+    if wholeDocument == "" { return }
+    if wholeDocument.hasPrefix("<?xml") {
+        finalizeDocument ()
+    
+        if identifierMismatch == true {
+            return}
+    }
+    
+                // Save Dialog
                let dialog = NSSavePanel();
-               dialog.showsResizeIndicator  = true;
-               dialog.showsHiddenFiles      = true;
-               dialog.canCreateDirectories  = true;
+                dialog.showsResizeIndicator  = true;
+                dialog.showsHiddenFiles      = true;
+                dialog.canCreateDirectories  = true;
+                dialog.title = "Save as .recipe or .yaml"
     
       if recipePath != "" {
           dialog.directoryURL = NSURL.fileURL(withPath: recipePath, isDirectory: true)
@@ -1079,13 +1464,14 @@ func saveRecipe () {
              if FileManager.default.fileExists(atPath: recipeBuilderFolder) {
                  dialog.directoryURL = NSURL.fileURL(withPath: recipeBuilderFolder, isDirectory: true)
         }
-        
     }
     
-            // Default Save value, add .recipe
-             dialog.nameFieldStringValue = "\(recipeFileName)"
-              
-               
+    getIdentifier ()
+   
+    // Generate recipeFileName (used in save dialog as prefilled name add .recipe or yaml (that seems to be problem)
+    dialog.nameFieldStringValue = "\(recipeFileName)"
+    
+
                if (dialog.runModal() == NSApplication.ModalResponse.OK) {
                    let result = dialog.url // Pathname of the file
                    if (result != nil) {
@@ -1107,10 +1493,11 @@ func saveRecipe () {
                        }
                        
                     if appDelegate().saveAndOpenExternalEditor == "true" {
-                     NSWorkspace.shared.openFile(fileURL.path, withApplication: appDelegate().selectedExternalEditor)
+                        // Call function with the URL and open external editor
+                        openFileInExternalEditor(fileURL: fileURL)
                         appDelegate().saveAndOpenExternalEditor = "false"
                         appDelegate().fileOptions.selectItem(at: 0)
-                                                          }
+                        }
                     
                   
                } else {
@@ -1119,6 +1506,31 @@ func saveRecipe () {
                }
                // End Save Dialog
                
+        }
+}
+
+
+func outputToLogView(logString: String) {
+    // Check if the message is already logged otherwise output to Logview
+    if loggedMessages.contains(logString) {
+        return // Skip logging if the message is already logged
+    }
+    
+    // Log the message and add it to the set
+    loggedMessages.insert(logString)
+    appDelegate().logWindow.orderFront(Any?.self)
+    highlightr!.setTheme(to: "xcode")
+    highlightr!.theme.codeFont = NSFont(name: "Menlo", size: 12)
+    let highlightedCode = highlightr!.highlight(logString, as: "clean")!  //"basic" "bash" "clean"
+    
+    // Append the log to the text storage and scroll to the bottom
+        if let textView = appDelegate().logTextView {
+            if let textStorage = textView.textStorage {
+                textStorage.append(NSAttributedString(attributedString: highlightedCode))
+            }
+
+            // Scroll to the bottom to show the latest log entry
+            textView.scrollToEndOfDocument(nil)
         }
 }
 
@@ -1193,8 +1605,6 @@ func prettyFormatDocument(xmlString:String) -> String {
 }
 
 
-
-
 func createRecipeBuilderFolders (createFolder: String)  {
 // Create Dir
 do {
@@ -1208,6 +1618,7 @@ try FileManager.default.createDirectory(atPath: recipeBuilderOutputFolderCreate,
 }
   return
 }
+
 
 func deleteTmpFolder () {
     let tmpRecipeFolder = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/AutoPkg/RecipeBuilder Output/tmp/").path

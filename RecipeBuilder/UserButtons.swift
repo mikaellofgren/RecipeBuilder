@@ -1,9 +1,8 @@
 //
-//  Functions.swift
-//  testButton
+//  UserButtons.swift
 //
-//  Created by Mikael Löfgren on 2020-07-04.
-//  Copyright © 2020 Mikael Löfgren. All rights reserved.
+//  Created by Mikael Löfgren on 2024-12-27
+//  Copyright © 2024 Mikael Löfgren. All rights reserved.
 //
 
 
@@ -61,126 +60,134 @@ var output10 = ""
 var help10 = ""
 
 func createButton1 (title: String) {
-let button1 = NSButton(frame: NSRect(x: 17, y: 258, width: 191, height: 17))
-button1.title = title
-button1.bezelStyle = NSButton.BezelStyle.inline
-button1.setButtonType(NSButton.ButtonType.momentaryPushIn)
-button1.isBordered = true
-button1.font = .boldSystemFont(ofSize: 11)
-button1.action = #selector(appDelegate().buttonAction1)
-appDelegate().buttonView.addSubview(button1)
+    let button = NSButton(frame: NSRect(x: 17, y: 258, width: 191, height: 17))
+    button.title = title
+    button.bezelStyle = NSButton.BezelStyle.inline
+    button.setButtonType(NSButton.ButtonType.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.action = #selector(appDelegate().buttonAction1)
+    appDelegate().buttonView.addSubview(button)
 }
+
 
 func createButton2 (title: String) {
-let button2 = NSButton(frame: NSRect(x: 17, y: 237, width: 191, height: 17))
-button2.title = title
-button2.bezelStyle = NSButton.BezelStyle.inline
-button2.setButtonType(NSButton.ButtonType.momentaryPushIn)
-button2.isBordered = true
-button2.font = .boldSystemFont(ofSize: 11)
-button2.action = #selector(appDelegate().buttonAction2)
-appDelegate().buttonView.addSubview(button2)
+    let button = NSButton(frame: NSRect(x: 17, y: 237, width: 191, height: 17))
+    button.title = title
+    button.bezelStyle = NSButton.BezelStyle.inline
+    button.setButtonType(NSButton.ButtonType.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.action = #selector(appDelegate().buttonAction2)
+    appDelegate().buttonView.addSubview(button)
 }
+
 
 func createButton3 (title: String) {
-let button3 = NSButton(frame: NSRect(x: 17, y: 216, width: 191, height: 17))
-button3.title = title
-button3.bezelStyle = NSButton.BezelStyle.inline
-button3.setButtonType(NSButton.ButtonType.momentaryPushIn)
-button3.isBordered = true
-button3.font = .boldSystemFont(ofSize: 11)
-button3.action = #selector(appDelegate().buttonAction3)
-appDelegate().buttonView.addSubview(button3)
+    let button = NSButton(frame: NSRect(x: 17, y: 216, width: 191, height: 17))
+    button.title = title
+    button.bezelStyle = NSButton.BezelStyle.inline
+    button.setButtonType(NSButton.ButtonType.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.action = #selector(appDelegate().buttonAction3)
+    appDelegate().buttonView.addSubview(button)
 }
+
 
 func createButton4 (title: String) {
-let button4 = NSButton(frame: NSRect(x: 17, y: 195, width: 191, height: 17))
-button4.title = title
-button4.bezelStyle = NSButton.BezelStyle.inline
-button4.setButtonType(NSButton.ButtonType.momentaryPushIn)
-button4.isBordered = true
-button4.font = .boldSystemFont(ofSize: 11)
-button4.action = #selector(appDelegate().buttonAction4)
-appDelegate().buttonView.addSubview(button4)
+    let button = NSButton(frame: NSRect(x: 17, y: 195, width: 191, height: 17))
+    button.title = title
+    button.bezelStyle = NSButton.BezelStyle.inline
+    button.setButtonType(NSButton.ButtonType.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.action = #selector(appDelegate().buttonAction4)
+    appDelegate().buttonView.addSubview(button)
 }
+
 
 func createButton5 (title: String) {
-let button5 = NSButton(frame: NSRect(x: 17, y: 174, width: 191, height: 17))
-button5.title = title
-button5.bezelStyle = NSButton.BezelStyle.inline
-button5.setButtonType(NSButton.ButtonType.momentaryPushIn)
-button5.isBordered = true
-button5.font = .boldSystemFont(ofSize: 11)
-button5.action = #selector(appDelegate().buttonAction5)
-appDelegate().buttonView.addSubview(button5)
+    let button = NSButton(frame: NSRect(x: 17, y: 174, width: 191, height: 17))
+    button.title = title
+    button.bezelStyle = NSButton.BezelStyle.inline
+    button.setButtonType(NSButton.ButtonType.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.action = #selector(appDelegate().buttonAction5)
+    appDelegate().buttonView.addSubview(button)
 }
+
 
 func createButton6 (title: String) {
-let button6 = NSButton(frame: NSRect(x: 17, y: 153, width: 191, height: 17))
-button6.title = title
-button6.bezelStyle = NSButton.BezelStyle.inline
-button6.setButtonType(NSButton.ButtonType.momentaryPushIn)
-button6.isBordered = true
-button6.font = .boldSystemFont(ofSize: 11)
-button6.action = #selector(appDelegate().buttonAction6)
-appDelegate().buttonView.addSubview(button6)
+    let button = NSButton(frame: NSRect(x: 17, y: 153, width: 191, height: 17))
+    button.title = title
+    button.bezelStyle = NSButton.BezelStyle.inline
+    button.setButtonType(NSButton.ButtonType.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.action = #selector(appDelegate().buttonAction6)
+    appDelegate().buttonView.addSubview(button)
 }
+
 
 func createButton7 (title: String) {
-let button7 = NSButton(frame: NSRect(x: 17, y: 132, width: 191, height: 17))
-button7.title = title
-button7.bezelStyle = NSButton.BezelStyle.inline
-button7.setButtonType(NSButton.ButtonType.momentaryPushIn)
-button7.isBordered = true
-button7.font = .boldSystemFont(ofSize: 11)
-button7.action = #selector(appDelegate().buttonAction7)
-    appDelegate().buttonView.addSubview(button7)
+    let button = NSButton(frame: NSRect(x: 17, y: 132, width: 191, height: 17))
+    button.title = title
+    button.bezelStyle = NSButton.BezelStyle.inline
+    button.setButtonType(NSButton.ButtonType.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.action = #selector(appDelegate().buttonAction7)
+    appDelegate().buttonView.addSubview(button)
 }
+
 
 func createButton8 (title: String) {
-let button8 = NSButton(frame: NSRect(x: 17, y: 111, width: 191, height: 17))
-button8.title = title
-button8.bezelStyle = NSButton.BezelStyle.inline
-button8.setButtonType(NSButton.ButtonType.momentaryPushIn)
-button8.isBordered = true
-button8.font = .boldSystemFont(ofSize: 11)
-button8.action = #selector(appDelegate().buttonAction8)
-appDelegate().buttonView.addSubview(button8)
+    let button = NSButton(frame: NSRect(x: 17, y: 111, width: 191, height: 17))
+    button.title = title
+    button.bezelStyle = NSButton.BezelStyle.inline
+    button.setButtonType(NSButton.ButtonType.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.action = #selector(appDelegate().buttonAction8)
+    appDelegate().buttonView.addSubview(button)
 }
 
+
 func createButton9 (title: String) {
-let button9 = NSButton(frame: NSRect(x: 17, y: 90, width: 191, height: 17))
-button9.title = title
-button9.bezelStyle = NSButton.BezelStyle.inline
-button9.setButtonType(NSButton.ButtonType.momentaryPushIn)
-button9.isBordered = true
-button9.font = .boldSystemFont(ofSize: 11)
-button9.action = #selector(appDelegate().buttonAction9)
-appDelegate().buttonView.addSubview(button9)
+    let button = NSButton(frame: NSRect(x: 17, y: 90, width: 191, height: 17))
+    button.title = title
+    button.bezelStyle = NSButton.BezelStyle.inline
+    button.setButtonType(NSButton.ButtonType.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.action = #selector(appDelegate().buttonAction9)
+    appDelegate().buttonView.addSubview(button)
 }
 
 func createButton10 (title: String) {
-let button10 = NSButton(frame: NSRect(x: 17, y: 69, width: 191, height: 17))
-button10.title = title
-button10.bezelStyle = NSButton.BezelStyle.inline
-button10.setButtonType(NSButton.ButtonType.momentaryPushIn)
-button10.isBordered = true
-button10.font = .boldSystemFont(ofSize: 11)
-button10.action = #selector(appDelegate().buttonAction10)
-appDelegate().buttonView.addSubview(button10)
+    let button = NSButton(frame: NSRect(x: 17, y: 69, width: 191, height: 17))
+    button.title = title
+    button.bezelStyle = NSButton.BezelStyle.inline
+    button.setButtonType(NSButton.ButtonType.momentaryPushIn)
+    button.isBordered = true
+    button.font = .boldSystemFont(ofSize: 11)
+    button.action = #selector(appDelegate().buttonAction10)
+    appDelegate().buttonView.addSubview(button)
 }
 
 
 func buttonWarning (infomessage: String) {
 let warning = NSAlert()
-           warning.icon = NSImage(named: "Warning")
-           warning.addButton(withTitle: "OK")
-           warning.messageText = "Button is missing required info"
-           warning.alertStyle = NSAlert.Style.warning
-           warning.informativeText = """
-           \(infomessage)
-           """
-           warning.runModal()
+    warning.icon = NSImage(named: "Warning")
+    warning.addButton(withTitle: "OK")
+    warning.messageText = "Button is missing required info"
+    warning.alertStyle = NSAlert.Style.warning
+    warning.informativeText = """
+    \(infomessage)
+    """
+    warning.runModal()
 }
 
 func checkForUserButtonsAndEnable () {

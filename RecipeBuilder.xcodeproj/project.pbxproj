@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,10 @@
 		7300825C245308B600F4909F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7300825B245308B600F4909F /* Assets.xcassets */; };
 		7300825F245308B600F4909F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7300825D245308B600F4909F /* MainMenu.xib */; };
 		73008268245309F200F4909F /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73008267245309F200F4909F /* Buttons.swift */; };
+		733DE0042D160A9800F5CB2D /* XMLtoYaml.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733DE0032D160A8C00F5CB2D /* XMLtoYaml.swift */; };
+		733DE0072D197D0D00F5CB2D /* Yams in Frameworks */ = {isa = PBXBuildFile; productRef = 733DE0062D197D0D00F5CB2D /* Yams */; };
+		733DE00D2D1D596B00F5CB2D /* YamlToXML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733DE00C2D1D596B00F5CB2D /* YamlToXML.swift */; };
+		733DE00F2D1D863400F5CB2D /* XMLtoYamlSnippets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733DE00E2D1D863400F5CB2D /* XMLtoYamlSnippets.swift */; };
 		734EF16724B2582200C203C9 /* UserButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734EF16624B2582200C203C9 /* UserButtons.swift */; };
 		7352335927CBF82C004FAA8C /* Buttons3rdParty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7352335827CBF82C004FAA8C /* Buttons3rdParty.swift */; };
 		7352335B27D2981C004FAA8C /* JamfUploaderHelpTexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7352335A27D2981C004FAA8C /* JamfUploaderHelpTexts.swift */; };
@@ -27,6 +31,9 @@
 		73008260245308B600F4909F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73008261245308B600F4909F /* RecipeBuilder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RecipeBuilder.entitlements; sourceTree = "<group>"; };
 		73008267245309F200F4909F /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		733DE0032D160A8C00F5CB2D /* XMLtoYaml.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMLtoYaml.swift; sourceTree = "<group>"; };
+		733DE00C2D1D596B00F5CB2D /* YamlToXML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YamlToXML.swift; sourceTree = "<group>"; };
+		733DE00E2D1D863400F5CB2D /* XMLtoYamlSnippets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMLtoYamlSnippets.swift; sourceTree = "<group>"; };
 		734EF16624B2582200C203C9 /* UserButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserButtons.swift; sourceTree = "<group>"; };
 		7352335827CBF82C004FAA8C /* Buttons3rdParty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons3rdParty.swift; sourceTree = "<group>"; };
 		7352335A27D2981C004FAA8C /* JamfUploaderHelpTexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JamfUploaderHelpTexts.swift; sourceTree = "<group>"; };
@@ -39,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				733DE0072D197D0D00F5CB2D /* Yams in Frameworks */,
 				73631C1024587182008A6491 /* Highlightr in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -71,6 +79,9 @@
 				73008267245309F200F4909F /* Buttons.swift */,
 				7352335827CBF82C004FAA8C /* Buttons3rdParty.swift */,
 				73A9CE73247A5D2600627DA8 /* Functions.swift */,
+				733DE00C2D1D596B00F5CB2D /* YamlToXML.swift */,
+				733DE0032D160A8C00F5CB2D /* XMLtoYaml.swift */,
+				733DE00E2D1D863400F5CB2D /* XMLtoYamlSnippets.swift */,
 				73B2E40C27D51F9800CFEA88 /* CheckAndVerify.swift */,
 				7300825B245308B600F4909F /* Assets.xcassets */,
 				7300825D245308B600F4909F /* MainMenu.xib */,
@@ -98,6 +109,7 @@
 			name = RecipeBuilder;
 			packageProductDependencies = (
 				73631C0F24587182008A6491 /* Highlightr */,
+				733DE0062D197D0D00F5CB2D /* Yams */,
 			);
 			productName = autopkgRecipeBuilder;
 			productReference = 73008256245308B100F4909F /* RecipeBuilder.app */;
@@ -109,8 +121,9 @@
 		7300824E245308B100F4909F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1320;
+				LastUpgradeCheck = 1620;
 				ORGANIZATIONNAME = "Mikael Löfgren";
 				TargetAttributes = {
 					73008255245308B100F4909F = {
@@ -129,6 +142,7 @@
 			mainGroup = 7300824D245308B100F4909F;
 			packageReferences = (
 				73631C0E24587182008A6491 /* XCRemoteSwiftPackageReference "Highlightr" */,
+				733DE0052D197D0D00F5CB2D /* XCRemoteSwiftPackageReference "Yams" */,
 			);
 			productRefGroup = 73008257245308B100F4909F /* Products */;
 			projectDirPath = "";
@@ -158,11 +172,14 @@
 			files = (
 				7300825A245308B100F4909F /* AppDelegate.swift in Sources */,
 				73008268245309F200F4909F /* Buttons.swift in Sources */,
+				733DE0042D160A9800F5CB2D /* XMLtoYaml.swift in Sources */,
+				733DE00D2D1D596B00F5CB2D /* YamlToXML.swift in Sources */,
 				73B2E40D27D51F9800CFEA88 /* CheckAndVerify.swift in Sources */,
 				7352335927CBF82C004FAA8C /* Buttons3rdParty.swift in Sources */,
 				7352335B27D2981C004FAA8C /* JamfUploaderHelpTexts.swift in Sources */,
 				734EF16724B2582200C203C9 /* UserButtons.swift in Sources */,
 				73A9CE74247A5D2600627DA8 /* Functions.swift in Sources */,
+				733DE00F2D1D863400F5CB2D /* XMLtoYamlSnippets.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,10 +231,12 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -276,10 +295,12 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -303,16 +324,21 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = RecipeBuilder/RecipeBuilder.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = F489D96499;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/RecipeBuilder/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = RecipeBuilder;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.04;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.05;
 				PRODUCT_BUNDLE_IDENTIFIER = se.mikaellofgren.RecipeBuilder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -326,16 +352,21 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = RecipeBuilder/RecipeBuilder.entitlements;
 				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = F489D96499;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/RecipeBuilder/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = RecipeBuilder;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.04;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.05;
 				PRODUCT_BUNDLE_IDENTIFIER = se.mikaellofgren.RecipeBuilder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -367,6 +398,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		733DE0052D197D0D00F5CB2D /* XCRemoteSwiftPackageReference "Yams" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jpsim/Yams.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.3;
+			};
+		};
 		73631C0E24587182008A6491 /* XCRemoteSwiftPackageReference "Highlightr" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/helje5/Highlightr.git";
@@ -378,6 +417,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		733DE0062D197D0D00F5CB2D /* Yams */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 733DE0052D197D0D00F5CB2D /* XCRemoteSwiftPackageReference "Yams" */;
+			productName = Yams;
+		};
 		73631C0F24587182008A6491 /* Highlightr */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 73631C0E24587182008A6491 /* XCRemoteSwiftPackageReference "Highlightr" */;

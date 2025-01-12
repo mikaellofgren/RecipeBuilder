@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,16 +16,17 @@
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="RecipeBuilder" customModuleProvider="target">
             <connections>
                 <outlet property="appPKGTextField" destination="7Kc-6t-aGN" id="pHX-yn-5TB"/>
-                <outlet property="atom" destination="80k-re-aIO" id="qcr-GM-6j1"/>
                 <outlet property="bbedit" destination="0s9-es-7GX" id="6Lu-Qf-1ll"/>
                 <outlet property="buttonView" destination="zaC-Fo-LPd" id="Ol0-yp-eFs"/>
                 <outlet property="enableAndReloadButton" destination="7cR-ww-XK8" id="BEh-X3-gjs"/>
                 <outlet property="fileOptions" destination="BFU-N1-OEU" id="4SY-UC-iS8"/>
+                <outlet property="finalizeMenuItem" destination="4hl-VE-eSU" id="PwD-oY-a9B"/>
                 <outlet property="helpPopover" destination="0q6-KZ-Xca" id="hIL-9o-6Yw"/>
                 <outlet property="helpPopoverText" destination="Pvf-4Z-TAJ" id="Der-Hi-xUz"/>
                 <outlet property="logTextView" destination="FwP-Vr-BNw" id="hdl-dI-NV0"/>
                 <outlet property="logWindow" destination="qpN-QT-fXL" id="0mX-Vq-Wuy"/>
                 <outlet property="matchingRecipes" destination="eDe-55-uM4" id="9KG-vo-REX"/>
+                <outlet property="modeSwitch" destination="lUp-vV-D1v" id="MaW-LL-934"/>
                 <outlet property="newDocument" destination="Was-JA-tGl" id="IhY-p8-i2Z"/>
                 <outlet property="openFile" destination="IAo-SY-fd9" id="rQh-cv-jQj"/>
                 <outlet property="outputTextField" destination="DuA-9D-5g6" id="r9V-DY-VIZ"/>
@@ -38,6 +39,8 @@
                 <outlet property="spinner" destination="b9g-dM-aGG" id="Vz4-QT-JCF"/>
                 <outlet property="sublimeText" destination="x2V-ka-jvX" id="w4V-1y-98l"/>
                 <outlet property="textMate" destination="UnY-W0-jpD" id="XcN-QS-07A"/>
+                <outlet property="trustInfoFalse" destination="yeb-g6-iTA" id="O29-fx-z8K"/>
+                <outlet property="trustInfoTrue" destination="uPN-4M-2X7" id="8qq-0e-mlz"/>
                 <outlet property="visualStudioCode" destination="qAM-Ju-J18" id="vhb-GJ-884"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
@@ -112,6 +115,16 @@
                             <menuItem title="Open…" keyEquivalent="o" id="IAo-SY-fd9">
                                 <connections>
                                     <action selector="openFileAction:" target="Voe-Tx-rLC" id="VFl-Y7-ChS"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Finalize" keyEquivalent="i" id="CpI-Es-jdl">
+                                <connections>
+                                    <action selector="finalizeDoc:" target="Voe-Tx-rLC" id="x2T-BE-a3W"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Toggle Mode" keyEquivalent="y" id="yZ8-cY-hV2">
+                                <connections>
+                                    <action selector="modeSwitch:" target="Voe-Tx-rLC" id="zgo-Rj-4i4"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Open Recent" id="tXI-mr-wws">
@@ -718,26 +731,26 @@
         </menu>
         <window title="RecipeBuilder" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="0.0" y="335" width="1130" height="1095"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="0.0" y="320" width="1200" height="1100"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
             <view key="contentView" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="1130" height="1095"/>
+                <rect key="frame" x="0.0" y="0.0" width="1200" height="1100"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vwV-P6-8Bt" userLabel="outputScrollview">
-                        <rect key="frame" x="20" y="75" width="1090" height="957"/>
+                        <rect key="frame" x="20" y="75" width="1160" height="962"/>
                         <clipView key="contentView" copiesOnScroll="NO" id="cZa-V8-zQz">
-                            <rect key="frame" x="0.0" y="0.0" width="1075" height="957"/>
+                            <rect key="frame" x="0.0" y="0.0" width="1145" height="962"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textView drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" selectionGranularity="word" findStyle="bar" allowsUndo="YES" smartInsertDelete="YES" id="DuA-9D-5g6">
-                                    <rect key="frame" x="0.0" y="0.0" width="1075" height="957"/>
+                                <textView drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="bar" allowsUndo="YES" smartInsertDelete="YES" id="DuA-9D-5g6">
+                                    <rect key="frame" x="0.0" y="0.0" width="1145" height="962"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="textColor" red="0.33710148358585856" green="0.33710148358585856" blue="0.33710148358585856" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="1075" height="957"/>
-                                    <size key="maxSize" width="1090" height="10000000"/>
+                                    <size key="minSize" width="1145" height="962"/>
+                                    <size key="maxSize" width="1160" height="10000000"/>
                                     <color key="insertionPointColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </textView>
                             </subviews>
@@ -748,12 +761,12 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VC2-kf-nG3">
-                            <rect key="frame" x="1075" y="0.0" width="15" height="957"/>
+                            <rect key="frame" x="1145" y="0.0" width="15" height="962"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </scroller>
                     </scrollView>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0Z0-Wx-2Y6">
-                        <rect key="frame" x="20" y="1049" width="255" height="21"/>
+                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0Z0-Wx-2Y6">
+                        <rect key="frame" x="20" y="1054" width="255" height="21"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="com.github.your_name_here" drawsBackground="YES" id="fXL-0e-kQN">
                             <font key="font" usesAppearanceFont="YES"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -763,8 +776,8 @@
                             <action selector="getIdentifierTextValue:" target="Voe-Tx-rLC" id="SkL-Vf-LmW"/>
                         </connections>
                     </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7Kc-6t-aGN">
-                        <rect key="frame" x="405" y="1049" width="173" height="21"/>
+                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7Kc-6t-aGN">
+                        <rect key="frame" x="405" y="1054" width="173" height="21"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="173" id="8Xf-hX-fTD"/>
                         </constraints>
@@ -777,8 +790,8 @@
                             <action selector="setAppPKGvalue:" target="Voe-Tx-rLC" id="khw-mL-LNz"/>
                         </connections>
                     </textField>
-                    <textField toolTip="Identifier for the recipe" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WvT-rJ-uc4">
-                        <rect key="frame" x="20" y="1072" width="257" height="16"/>
+                    <textField toolTip="Identifier for the recipe" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WvT-rJ-uc4">
+                        <rect key="frame" x="20" y="1077" width="257" height="16"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="253" id="s5S-ra-8Dl"/>
                         </constraints>
@@ -788,8 +801,8 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField toolTip="App or PKG name of the recipe" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6ub-wq-Ho6">
-                        <rect key="frame" x="403" y="1072" width="282" height="16"/>
+                    <textField toolTip="App or PKG name of the recipe" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6ub-wq-Ho6">
+                        <rect key="frame" x="403" y="1077" width="282" height="16"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="278" id="8N6-xz-UYY"/>
                         </constraints>
@@ -799,8 +812,8 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <searchField toolTip="Search in ~/Library/AutoPkg/RecipeRepos to find processor usage for example" wantsLayer="YES" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="24b-Of-7zx">
-                        <rect key="frame" x="618" y="1048" width="178" height="22"/>
+                    <searchField toolTip="Search in ~/Library/AutoPkg/RecipeRepos to find processor usage for example" wantsLayer="YES" focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="24b-Of-7zx">
+                        <rect key="frame" x="618" y="1053" width="178" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="178" id="5Ej-6i-KOt"/>
                         </constraints>
@@ -814,10 +827,10 @@
                         </connections>
                     </searchField>
                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eDe-55-uM4">
-                        <rect key="frame" x="801" y="1044" width="313" height="25"/>
+                        <rect key="frame" x="801" y="1049" width="383" height="25"/>
                         <popUpButtonCell key="cell" type="push" title="Matching recipes" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingHead" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" pullsDown="YES" selectedItem="3vO-s7-xKn" id="8i3-GA-qEe">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="menu"/>
+                            <font key="font" metaFont="message"/>
                             <menu key="menu" id="jfl-cK-2Eo">
                                 <items>
                                     <menuItem title="Matching recipes" state="on" hidden="YES" id="3vO-s7-xKn"/>
@@ -829,24 +842,16 @@
                         </connections>
                     </popUpButton>
                     <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BFU-N1-OEU">
-                        <rect key="frame" x="968" y="31" width="146" height="25"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="139" id="4mT-bo-0Nn"/>
-                        </constraints>
+                        <rect key="frame" x="1038" y="31" width="146" height="25"/>
                         <popUpButtonCell key="cell" type="push" title="Options..." bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="zha-TI-COZ" id="3tO-qa-KF5">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="menu"/>
+                            <font key="font" metaFont="message"/>
                             <menu key="menu" id="rae-h9-tu0">
                                 <items>
                                     <menuItem title="Options..." state="on" id="zha-TI-COZ"/>
-                                    <menuItem title="✅ Finalize" toolTip="Runs plutil -lint and indenting XML" id="4hl-VE-eSU">
+                                    <menuItem title="✅ Finalize " keyEquivalent="i" toolTip="Runs plutil -lint and indenting on XML" id="4hl-VE-eSU">
                                         <connections>
                                             <action selector="finalizeDoc:" target="Voe-Tx-rLC" id="Ged-7y-b9Q"/>
-                                        </connections>
-                                    </menuItem>
-                                    <menuItem title="🆗 Verify recipes files" toolTip="Verify files and check for duplicated Identifiers, and ParentRecipes and MinimumVersion for Yaml files" id="t2F-JL-TNp">
-                                        <connections>
-                                            <action selector="verifyRecipes:" target="Voe-Tx-rLC" id="0Ln-FC-vza"/>
                                         </connections>
                                     </menuItem>
                                     <menuItem title="🏃🏼‍♂️ Autopkg run   " toolTip="Runs autopkg -v, recommended to run from recipes from saved in ~/Library/Autopkg/ folder" id="1W0-Um-uoy">
@@ -854,7 +859,24 @@
                                             <action selector="autopkgRun:" target="Voe-Tx-rLC" id="zac-VG-IUV"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem title="💸 Open autopkg cache" toolTip="Opens ~/Library/Autopkg/Cache folder" id="LaH-X9-Fdo">
+                                    <menuItem title="🤝 Autopkg trust Info" id="Dxl-2G-FzO">
+                                        <string key="toolTip">Toggles the Trust Info key (FAIL_RECIPES_WITHOUT_TRUST_INFO) between true and false. It is recommended to keep this set to true for security. However, when running from this app, set temporarily to false to allow execution.</string>
+                                        <menu key="submenu" title="🤝 Autopkg trust Info" id="aUu-QX-5Bd">
+                                            <items>
+                                                <menuItem title="True" id="uPN-4M-2X7">
+                                                    <connections>
+                                                        <action selector="trustInfoTrue:" target="Voe-Tx-rLC" id="28j-Fv-eT3"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="False" id="yeb-g6-iTA">
+                                                    <connections>
+                                                        <action selector="trustInfoFalse:" target="Voe-Tx-rLC" id="Y4c-Bx-d7j"/>
+                                                    </connections>
+                                                </menuItem>
+                                            </items>
+                                        </menu>
+                                    </menuItem>
+                                    <menuItem title="💸 Open Autopkg cache folder" toolTip="Opens ~/Library/Autopkg/Cache folder" id="LaH-X9-Fdo">
                                         <connections>
                                             <action selector="openAutoPkgCacheFolder:" target="Voe-Tx-rLC" id="Saf-TQ-9Dl"/>
                                         </connections>
@@ -864,15 +886,27 @@
                                             <action selector="openUserButtonsFolder:" target="Voe-Tx-rLC" id="60b-tw-Vz3"/>
                                         </connections>
                                     </menuItem>
+                                    <menuItem title="🔄 Batch Convert" id="caP-Tb-zzm">
+                                        <string key="toolTip">Toggles the Trust Info key (FAIL_RECIPES_WITHOUT_TRUST_INFO) between true and false. It is recommended to keep this set to true for security. However, when running from this app, set temporarily to false to allow execution.</string>
+                                        <menu key="submenu" title="🔄 Batch Convert" id="JWk-pP-DbX">
+                                            <items>
+                                                <menuItem title="XML to YAML" toolTip="Convert XML (.recipe) files to YAML format and save them as .yaml copies in the same folder" id="Y3N-oV-Bti">
+                                                    <connections>
+                                                        <action selector="batchXMLtoYaml:" target="Voe-Tx-rLC" id="ixt-R3-L20"/>
+                                                    </connections>
+                                                </menuItem>
+                                                <menuItem title="YAML to XML" toolTip="Convert YAML (.yaml) files to XML format and save them as .recipe copies in the same folder" id="vy9-KN-gU2">
+                                                    <connections>
+                                                        <action selector="batchYamltoXML:" target="Voe-Tx-rLC" id="at0-nQ-ES3"/>
+                                                    </connections>
+                                                </menuItem>
+                                            </items>
+                                        </menu>
+                                    </menuItem>
                                     <menuItem title="✏️ Save and Open in external editor" id="yY7-30-FCG">
                                         <string key="toolTip">Saves the recipes first and then open in external editor. To select preferred editor to open Search result recipes, choose a editor here while main textfield is empty</string>
                                         <menu key="submenu" title="✏️ Save and Open in external editor" id="2RG-lx-sHX">
                                             <items>
-                                                <menuItem title="Atom" id="80k-re-aIO">
-                                                    <connections>
-                                                        <action selector="openExternalAtom:" target="Voe-Tx-rLC" id="Da3-ny-lDW"/>
-                                                    </connections>
-                                                </menuItem>
                                                 <menuItem title="BBEdit" state="on" id="0s9-es-7GX" userLabel="BBedit">
                                                     <connections>
                                                         <action selector="openExternalBBEdit:" target="Voe-Tx-rLC" id="9TF-EY-CEo"/>
@@ -896,15 +930,23 @@
                                             </items>
                                         </menu>
                                     </menuItem>
+                                    <menuItem title="🆗 Verify recipes files" toolTip="Verify files and check for duplicated Identifiers, and ParentRecipes and MinimumVersion for Yaml files" id="t2F-JL-TNp">
+                                        <connections>
+                                            <action selector="verifyRecipes:" target="Voe-Tx-rLC" id="0Ln-FC-vza"/>
+                                        </connections>
+                                    </menuItem>
                                 </items>
                             </menu>
                         </popUpButtonCell>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="139" id="4mT-bo-0Nn"/>
+                        </constraints>
                     </popUpButton>
                     <popUpButton verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k3q-W5-8vj">
-                        <rect key="frame" x="278" y="1044" width="124" height="25"/>
+                        <rect key="frame" x="278" y="1049" width="124" height="25"/>
                         <popUpButtonCell key="cell" type="push" title="Recipe format" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="4vz-PG-WQZ" id="EJ8-UG-fbV">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="menu"/>
+                            <font key="font" metaFont="message"/>
                             <menu key="menu" id="qCg-iz-r1V">
                                 <items>
                                     <menuItem title="Recipe format" state="on" id="4vz-PG-WQZ"/>
@@ -923,8 +965,8 @@
                             </menu>
                         </popUpButtonCell>
                     </popUpButton>
-                    <textField toolTip="Format for the recipe" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7No-kh-8xc">
-                        <rect key="frame" x="281" y="1072" width="118" height="16"/>
+                    <textField toolTip="Format for the recipe" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7No-kh-8xc">
+                        <rect key="frame" x="281" y="1077" width="118" height="16"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="114" id="AEA-2v-kSo"/>
                         </constraints>
@@ -937,20 +979,49 @@
                     <progressIndicator hidden="YES" wantsLayer="YES" maxValue="100" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="b9g-dM-aGG">
                         <rect key="frame" x="22" y="39" width="16" height="16"/>
                     </progressIndicator>
+                    <switch horizontalHuggingPriority="750" verticalHuggingPriority="750" allowsExpansionToolTips="YES" controlSize="small" baseWritingDirection="leftToRight" alignment="left" translatesAutoresizingMaskIntoConstraints="NO" id="lUp-vV-D1v">
+                        <rect key="frame" x="943" y="34" width="36" height="21"/>
+                        <accessibility help="Switch mode between XML and Yaml"/>
+                        <connections>
+                            <action selector="modeSwitch:" target="Voe-Tx-rLC" id="GLl-U0-kN3"/>
+                        </connections>
+                    </switch>
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HHd-DB-4jt">
+                        <rect key="frame" x="901" y="37" width="32" height="16"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="XML" id="8l6-tP-zdG">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                        <accessibility help="Switch mode between XML and Yaml"/>
+                    </textField>
+                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="emP-ad-bAz">
+                        <rect key="frame" x="989" y="37" width="39" height="16"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="YAML" id="f2d-UQ-qTH">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                        <accessibility help="Switch mode between XML and Yaml"/>
+                    </textField>
                 </subviews>
                 <constraints>
                     <constraint firstItem="24b-Of-7zx" firstAttribute="baseline" secondItem="eDe-55-uM4" secondAttribute="baseline" id="2hO-aM-92v"/>
                     <constraint firstItem="vwV-P6-8Bt" firstAttribute="trailing" secondItem="BFU-N1-OEU" secondAttribute="trailing" id="3vd-Ft-hPX"/>
+                    <constraint firstItem="HHd-DB-4jt" firstAttribute="baseline" secondItem="b9g-dM-aGG" secondAttribute="baseline" constant="-1" id="478-eG-9z9"/>
                     <constraint firstItem="0Z0-Wx-2Y6" firstAttribute="leading" secondItem="vwV-P6-8Bt" secondAttribute="leading" id="5az-QR-Uea"/>
                     <constraint firstItem="eDe-55-uM4" firstAttribute="trailing" secondItem="vwV-P6-8Bt" secondAttribute="trailing" id="7Cy-w2-bpM"/>
                     <constraint firstItem="24b-Of-7zx" firstAttribute="leading" secondItem="7Kc-6t-aGN" secondAttribute="trailing" constant="40" id="AZX-bu-xie"/>
                     <constraint firstItem="WvT-rJ-uc4" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="7" id="CSo-I5-7lN"/>
                     <constraint firstItem="WvT-rJ-uc4" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="22" id="Cnd-vB-gxP"/>
                     <constraint firstAttribute="bottom" secondItem="BFU-N1-OEU" secondAttribute="bottom" constant="35" id="GbG-zh-mdp"/>
+                    <constraint firstItem="lUp-vV-D1v" firstAttribute="leading" secondItem="HHd-DB-4jt" secondAttribute="trailing" constant="14" id="GhN-2j-PFF"/>
                     <constraint firstItem="7No-kh-8xc" firstAttribute="baseline" secondItem="6ub-wq-Ho6" secondAttribute="baseline" id="IYQ-ZG-8Jv"/>
                     <constraint firstItem="b9g-dM-aGG" firstAttribute="top" secondItem="BFU-N1-OEU" secondAttribute="top" id="Ilh-xu-6RE"/>
                     <constraint firstItem="vwV-P6-8Bt" firstAttribute="top" secondItem="k3q-W5-8vj" secondAttribute="bottom" constant="16" id="J5t-Ov-bt8"/>
+                    <constraint firstItem="lUp-vV-D1v" firstAttribute="top" secondItem="BFU-N1-OEU" secondAttribute="top" constant="1" id="KJq-ll-RiS"/>
                     <constraint firstItem="0Z0-Wx-2Y6" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" symbolic="YES" id="MJj-xp-t3w"/>
+                    <constraint firstItem="emP-ad-bAz" firstAttribute="leading" secondItem="lUp-vV-D1v" secondAttribute="trailing" constant="14" id="PoU-Mc-ezn"/>
                     <constraint firstItem="0Z0-Wx-2Y6" firstAttribute="top" secondItem="WvT-rJ-uc4" secondAttribute="bottom" constant="2" id="S7p-wI-gap"/>
                     <constraint firstItem="k3q-W5-8vj" firstAttribute="leading" secondItem="0Z0-Wx-2Y6" secondAttribute="trailing" constant="6" id="SdW-Nw-Jgr"/>
                     <constraint firstItem="WvT-rJ-uc4" firstAttribute="trailing" secondItem="0Z0-Wx-2Y6" secondAttribute="trailing" id="TkJ-jY-rLp"/>
@@ -958,6 +1029,7 @@
                     <constraint firstItem="7No-kh-8xc" firstAttribute="centerX" secondItem="k3q-W5-8vj" secondAttribute="centerX" id="XA8-he-66T"/>
                     <constraint firstItem="6ub-wq-Ho6" firstAttribute="leading" secondItem="7Kc-6t-aGN" secondAttribute="leading" id="XfL-Km-H44"/>
                     <constraint firstItem="7No-kh-8xc" firstAttribute="leading" secondItem="WvT-rJ-uc4" secondAttribute="trailing" constant="8" symbolic="YES" id="Xyr-Jc-rVH"/>
+                    <constraint firstItem="emP-ad-bAz" firstAttribute="baseline" secondItem="HHd-DB-4jt" secondAttribute="baseline" id="Ysg-cc-HCC"/>
                     <constraint firstItem="b9g-dM-aGG" firstAttribute="top" secondItem="vwV-P6-8Bt" secondAttribute="bottom" constant="20" id="Zop-rx-Psq"/>
                     <constraint firstItem="WvT-rJ-uc4" firstAttribute="leading" secondItem="b9g-dM-aGG" secondAttribute="leading" id="bXh-3s-JO2"/>
                     <constraint firstItem="k3q-W5-8vj" firstAttribute="baseline" secondItem="7Kc-6t-aGN" secondAttribute="baseline" id="fFP-9h-3jE"/>
@@ -966,32 +1038,33 @@
                     <constraint firstItem="WvT-rJ-uc4" firstAttribute="baseline" secondItem="7No-kh-8xc" secondAttribute="baseline" id="iyR-nV-XvY"/>
                     <constraint firstItem="eDe-55-uM4" firstAttribute="leading" secondItem="24b-Of-7zx" secondAttribute="trailing" constant="8" symbolic="YES" id="mt7-mi-KAC"/>
                     <constraint firstAttribute="trailing" secondItem="eDe-55-uM4" secondAttribute="trailing" constant="20" symbolic="YES" id="rHZ-qL-LGO"/>
+                    <constraint firstItem="BFU-N1-OEU" firstAttribute="leading" secondItem="lUp-vV-D1v" secondAttribute="trailing" constant="64" id="upR-mp-mYt"/>
                 </constraints>
             </view>
             <point key="canvasLocation" x="-333" y="286.5"/>
         </window>
         <window title="Log" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="qpN-QT-fXL" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES"/>
-            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="1082" height="467"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="1201" y="45" width="1200" height="450"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
             <view key="contentView" id="j7Q-vL-4oZ">
-                <rect key="frame" x="0.0" y="0.0" width="1082" height="467"/>
+                <rect key="frame" x="0.0" y="0.0" width="1200" height="450"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kv4-qu-qxH">
-                        <rect key="frame" x="0.0" y="0.0" width="1082" height="467"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1200" height="450"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="GBI-FO-2rq">
-                            <rect key="frame" x="0.0" y="0.0" width="1067" height="467"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <rect key="frame" x="0.0" y="0.0" width="1185" height="450"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="FwP-Vr-BNw">
-                                    <rect key="frame" x="0.0" y="0.0" width="1067" height="467"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1185" height="450"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="1067" height="467"/>
-                                    <size key="maxSize" width="1082" height="10000000"/>
+                                    <size key="minSize" width="1185" height="450"/>
+                                    <size key="maxSize" width="1185" height="10000000"/>
                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 </textView>
                             </subviews>
@@ -1001,7 +1074,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="P4G-ad-C7A">
-                            <rect key="frame" x="1067" y="0.0" width="15" height="467"/>
+                            <rect key="frame" x="1185" y="0.0" width="15" height="450"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
@@ -1013,10 +1086,10 @@
                     <constraint firstItem="kv4-qu-qxH" firstAttribute="leading" secondItem="j7Q-vL-4oZ" secondAttribute="leading" id="tnH-hO-i4d"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="-1507" y="24.5"/>
+            <point key="canvasLocation" x="-333" y="1086"/>
         </window>
         <customView id="9EF-zT-WQo">
-            <rect key="frame" x="0.0" y="0.0" width="390" height="227"/>
+            <rect key="frame" x="0.0" y="0.0" width="390" height="219"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5LC-8J-BrL">
@@ -1024,7 +1097,7 @@
                     <autoresizingMask key="autoresizingMask"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="AwJ-kR-yi3">
                         <rect key="frame" x="0.0" y="0.0" width="376" height="213"/>
-                        <autoresizingMask key="autoresizingMask"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView importsGraphics="NO" richText="NO" verticallyResizable="YES" selectionGranularity="paragraph" spellingCorrection="YES" smartInsertDelete="YES" id="Pvf-4Z-TAJ">
                                 <rect key="frame" x="0.0" y="0.0" width="376" height="213"/>
@@ -1047,12 +1120,12 @@
                     </scroller>
                 </scrollView>
             </subviews>
-            <point key="canvasLocation" x="738" y="-166.5"/>
+            <point key="canvasLocation" x="1027" y="180"/>
         </customView>
         <window title="User buttons" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" frameAutosaveName="" animationBehavior="default" id="RLK-vr-IQ4" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" utility="YES"/>
-            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="1694" y="1326" width="229" height="284"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="1661" y="1136" width="229" height="284"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
             <view key="contentView" id="zaC-Fo-LPd">
                 <rect key="frame" x="0.0" y="0.0" width="229" height="284"/>
@@ -1071,29 +1144,29 @@
                     </button>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="665.5" y="141"/>
+            <point key="canvasLocation" x="947" y="-119"/>
         </window>
         <window title="Processors" subtitle="Built-in" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" frameAutosaveName="" animationBehavior="default" id="0yD-ws-lUR" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" utility="YES"/>
-            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="272" y="172" width="225" height="881"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="1201" y="539" width="229" height="881"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
             <view key="contentView" id="FPF-XD-aiT">
-                <rect key="frame" x="0.0" y="0.0" width="225" height="881"/>
+                <rect key="frame" x="0.0" y="0.0" width="229" height="881"/>
                 <autoresizingMask key="autoresizingMask"/>
             </view>
             <point key="canvasLocation" x="394" y="180"/>
         </window>
         <window title="Processors" subtitle="3rd party" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" frameAutosaveName="" animationBehavior="default" id="Vbm-XX-brd" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES" utility="YES"/>
-            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="272" y="172" width="229" height="350"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="1431" y="539" width="229" height="881"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
             <view key="contentView" id="UAZ-wU-hX8">
-                <rect key="frame" x="0.0" y="0.0" width="229" height="350"/>
+                <rect key="frame" x="0.0" y="0.0" width="229" height="881"/>
                 <autoresizingMask key="autoresizingMask"/>
             </view>
-            <point key="canvasLocation" x="666" y="488"/>
+            <point key="canvasLocation" x="671" y="180"/>
         </window>
     </objects>
 </document>

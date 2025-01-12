@@ -1,9 +1,8 @@
 //
 //  AppDelegate.swift
-//  autopkgRecipeBuilder
 //
-//  Created by Mikael Löfgren on 2020-04-24.
-//  Copyright © 2020 Mikael Löfgren. All rights reserved.
+//  Created by Mikael Löfgren on 2024-12-27
+//  Copyright © 2024 Mikael Löfgren. All rights reserved.
 //
 
 import Cocoa
@@ -14,6 +13,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     var searchSelectedRecipe = ""
     var saveAndOpenExternalEditor = "false"
     var selectedExternalEditor = "BBEdit"
+    var trustInfo = ""
+    
     var recipeDirectlyFileName: String = ""
     
     @IBOutlet weak var window: NSWindow!
@@ -31,12 +32,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
     @IBOutlet var matchingRecipes: NSPopUpButton!
     @IBOutlet var searchField: NSSearchField!
     @IBOutlet var fileOptions: NSPopUpButton!
-    @IBOutlet var atom: NSMenuItem!
+    @IBOutlet var finalizeMenuItem: NSMenuItem!
+    @IBOutlet var trustInfoTrue: NSMenuItem!
+    @IBOutlet var trustInfoFalse: NSMenuItem!
     @IBOutlet var bbedit: NSMenuItem!
     @IBOutlet var sublimeText: NSMenuItem!
     @IBOutlet var textMate: NSMenuItem!
     @IBOutlet var visualStudioCode: NSMenuItem!
     
+    @IBOutlet var modeSwitch: NSSwitch!
     @IBOutlet var spinner: NSProgressIndicator!
     @IBOutlet var logWindow: NSPanel!
     @IBOutlet var logTextView: NSTextView!
@@ -73,7 +77,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
      
     @IBAction func selectedRecipe(_ sender: NSPopUpButton) {
         searchSelectedRecipe = matchingRecipes.titleOfSelectedItem!
-        openSearchInExternalEditor ()
+        let searchSelectedFileURL = URL(fileURLWithPath: appDelegate().searchSelectedRecipe)
+        openFileInExternalEditor(fileURL: searchSelectedFileURL)
     }
      
     @IBAction func newDocumentAction(_ sender: NSMenuItem) {
@@ -95,7 +100,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
      }
     
     @IBAction func finalizeDoc(_ sender: NSMenuItem) {
-        finaliseDocument ()
+        finalizeDocument ()
     }
     
     @IBAction func verifyRecipes(_ sender: NSMenuItem) {
@@ -117,15 +122,25 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         openUserButtons ()
     }
      
-   
+    @IBAction func trustInfoTrue(_ sender: NSMenuItem) {
+        setTrustInfo(to: true)
+        trustInfo = sender.title
+        toggleTrustInfo()
+    }
     
+    @IBAction func trustInfoFalse(_ sender: NSMenuItem) {
+        setTrustInfo(to: false)
+        trustInfo = sender.title.lowercased()
+        toggleTrustInfo()
+    }
     
-    @IBAction func openExternalAtom(_ sender: NSMenuItem) {
-        saveAndOpenExternalEditor = "true"
-        selectedExternalEditor = sender.title
-        toggleExternalEditor ()
-        saveRecipe ()
-}
+    @IBAction func batchXMLtoYaml(_ sender: NSMenuItem) {
+        selectFolderAndProcessRecipesToYaml()
+    }
+    
+    @IBAction func batchYamltoXML(_ sender: NSMenuItem) {
+        selectFolderAndProcessRecipesToXML()
+    }
     
     @IBAction func openExternalBBEdit(_ sender: NSMenuItem) {
         saveAndOpenExternalEditor = "true"
@@ -155,7 +170,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate {
         saveRecipe ()
     }
     
-
+    @IBAction func modeSwitch(_ sender: Any) {
+        yamlModeStatusSwitcher ()
+    }
+    
     @objc func appDMGVersionerAction (sender: NSButton) {
             appDMGVersioner ()
             helpPopover.close()
@@ -318,7 +336,7 @@ Add as Input key to use the %GITHUB_REPO% variable
         writePopOvertext(processor: "MunkiPkginfoMerger", extraHelpText: "")
     }
     
-    @IBAction func packageRequiredAction(sender: NSButton) {
+    @objc func packageRequiredAction(sender: NSButton) {
         packageRequired ()
         helpPopover.close()
         helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
@@ -455,6 +473,13 @@ if you only want CFBundleShortVersionString
     }
     
     // 3rd party buttons
+    @objc func JamfAccountUploaderAction(sender: NSButton) {
+        JamfAccountUploader()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertextJamfUploader(processor: "JamfAccountUploader", extraHelpText: JamfAccountUploaderHelp)
+    }
+    
     @objc func JamfCategoryUploaderAction(sender: NSButton) {
         JamfCategoryUploader ()
         helpPopover.close()
@@ -462,117 +487,180 @@ if you only want CFBundleShortVersionString
         writePopOvertextJamfUploader(processor: "JamfCategoryUploader", extraHelpText: JamfCategoryUploaderHelp)
         //writePopOvertext(processor: "", extraHelpText: JamfCategoryUploaderHelp)
     }
+
+    @objc func JamfClassicAPIObjectUploaderAction(sender: NSButton) {
+        JamfClassicAPIObjectUploader()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertextJamfUploader(processor: "JamfClassicAPIObjectUploader", extraHelpText: JamfClassicAPIObjectUploaderHelp)
+    }
+
+    @objc func JamfComputerGroupDeleterAction(sender: NSButton) {
+        JamfComputerGroupDeleter()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertextJamfUploader(processor: "JamfComputerGroupDeleter", extraHelpText: JamfComputerGroupDeleterHelp)
+    }
     
     @objc func JamfComputerGroupUploaderAction(sender: NSButton) {
-            JamfComputerGroupUploader ()
-            helpPopover.close()
-            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
-            writePopOvertextJamfUploader(processor: "JamfComputerGroupUploader", extraHelpText: JamfComputerGroupUploaderHelp)
-            //writePopOvertext(processor: "", extraHelpText: JamfComputerGroupUploaderHelp)
-        }
-
-    @objc func JamfComputerProfileUploaderAction(sender: NSButton) {
-            JamfComputerProfileUploader ()
-            helpPopover.close()
-            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
-            writePopOvertextJamfUploader(processor: "JamfComputerProfileUploader", extraHelpText: JamfComputerProfileUploaderHelp)
-            //writePopOvertext(processor: "", extraHelpText: JamfComputerProfileUploaderHelp)
-        }
-        
-        @objc func JamfDockItemUploaderAction(sender: NSButton) {
-            JamfDockItemUploader ()
-            helpPopover.close()
-            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
-            writePopOvertextJamfUploader(processor: "JamfDockItemUploader", extraHelpText: JamfDockItemUploaderHelp)
-            //writePopOvertext(processor: "", extraHelpText: JamfDockItemUploaderHelp)
-        }
-        
-         @objc func JamfExtensionAttributeUploaderAction(sender: NSButton) {
-            JamfExtensionAttributeUploader () 
-            helpPopover.close()
-            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
-            writePopOvertextJamfUploader(processor: "JamfExtensionAttributeUploader", extraHelpText: JamfExtensionAttributeUploaderHelp)
-            //writePopOvertext(processor: "", extraHelpText: JamfExtensionAttributeUploaderHelp)
-        }
+        JamfComputerGroupUploader ()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertextJamfUploader(processor: "JamfComputerGroupUploader", extraHelpText: JamfComputerGroupUploaderHelp)
+        //writePopOvertext(processor: "", extraHelpText: JamfComputerGroupUploaderHelp)
+    }
     
-        @objc func JamfMacAppUploaderAction(sender: NSButton) {
-            JamfMacAppUploader ()
-            helpPopover.close()
-            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
-            writePopOvertextJamfUploader(processor: "JamfMacAppUploader", extraHelpText: JamfMacAppUploaderHelp)
-        }
+    @objc func JamfComputerProfileUploaderAction(sender: NSButton) {
+        JamfComputerProfileUploader ()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertextJamfUploader(processor: "JamfComputerProfileUploader", extraHelpText: JamfComputerProfileUploaderHelp)
+        //writePopOvertext(processor: "", extraHelpText: JamfComputerProfileUploaderHelp)
+    }
+    
+    @objc func JamfDockItemUploaderAction(sender: NSButton) {
+        JamfDockItemUploader ()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertextJamfUploader(processor: "JamfDockItemUploader", extraHelpText: JamfDockItemUploaderHelp)
+        //writePopOvertext(processor: "", extraHelpText: JamfDockItemUploaderHelp)
+    }
+    
+     @objc func JamfExtensionAttributeUploaderAction(sender: NSButton) {
+        JamfExtensionAttributeUploader ()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertextJamfUploader(processor: "JamfExtensionAttributeUploader", extraHelpText: JamfExtensionAttributeUploaderHelp)
+        //writePopOvertext(processor: "", extraHelpText: JamfExtensionAttributeUploaderHelp)
+    }
 
-        @objc func JamfPackageUploaderAction(sender: NSButton) {
-            JamfPackageUploader ()
-            helpPopover.close()
-            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
-            writePopOvertextJamfUploader(processor: "JamfPackageUploader", extraHelpText: JamfPackageUploaderHelp)
-            //writePopOvertext(processor: "", extraHelpText: JamfPackageUploaderHelp)
-        }
+    @objc func JamfIconUploaderAction(sender: NSButton) {
+        JamfIconUploader()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertextJamfUploader(processor: "JamfIconUploader", extraHelpText: JamfIconUploaderHelp)
+    }
+    
+    @objc func JamfMacAppUploaderAction(sender: NSButton) {
+        JamfMacAppUploader ()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertextJamfUploader(processor: "JamfMacAppUploader", extraHelpText: JamfMacAppUploaderHelp)
+    }
+
+    @objc func JamfMobileDeviceGroupUploaderAction(sender: NSButton) {
+        JamfMobileDeviceGroupUploader()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertextJamfUploader(processor: "JamfMobileDeviceGroupUploader", extraHelpText: JamfMobileDeviceGroupUploaderHelp)
+    }
+
+    @objc func JamfMobileDeviceProfileUploaderAction(sender: NSButton) {
+        JamfMobileDeviceProfileUploader()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertextJamfUploader(processor: "JamfMobileDeviceProfileUploader", extraHelpText: JamfMobileDeviceProfileUploaderHelp)
+    }
+
+    @objc func JamfPackageCleanerAction(sender: NSButton) {
+        JamfPackageCleaner()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertextJamfUploader(processor: "JamfPackageCleaner", extraHelpText: JamfPackageCleanerHelp)
+    }
+
+    @objc func JamfPackageRecalculatorAction(sender: NSButton) {
+        JamfPackageRecalculator()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertextJamfUploader(processor: "JamfPackageRecalculator", extraHelpText: JamfPackageRecalculatorHelp)
+    }
+    
+    @objc func JamfPackageUploaderAction(sender: NSButton) {
+        JamfPackageUploader ()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertextJamfUploader(processor: "JamfPackageUploader", extraHelpText: JamfPackageUploaderHelp)
+        //writePopOvertext(processor: "", extraHelpText: JamfPackageUploaderHelp)
+    }
+    
+    @objc func JamfPatchCheckerAction(sender: NSButton) {
+        JamfPatchChecker()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertextJamfUploader(processor: "JamfPatchChecker", extraHelpText: JamfPatchCheckerHelp)
+    }
+    
+     @objc func JamfPatchUploaderAction(sender: NSButton) {
+        JamfPatchUploader ()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertextJamfUploader(processor: "JamfPatchUploader", extraHelpText: JamfPatchUploaderHelp)
+        //writePopOvertext(processor: "", extraHelpText: JamfPatchUploaderHelp)
+    }
+
+    @objc func JamfPkgMetadataUploaderAction(sender: NSButton) {
+        JamfPkgMetadataUploader()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertextJamfUploader(processor: "JamfPkgMetadataUploader", extraHelpText: JamfPkgMetadataUploaderHelp)
+    }
+    
+    @objc func JamfPolicyDeleterAction(sender: NSButton) {
+        JamfPolicyDeleter ()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertextJamfUploader(processor: "JamfPolicyDeleter", extraHelpText: JamfPolicyDeleterHelp)
+        //writePopOvertext(processor: "", extraHelpText: JamfPolicyDeleterHelp)
+    }
         
-         @objc func JamfPatchUploaderAction(sender: NSButton) {
-            JamfPatchUploader ()
-            helpPopover.close()
-            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
-            writePopOvertextJamfUploader(processor: "JamfPatchUploader", extraHelpText: JamfPatchUploaderHelp)
-            //writePopOvertext(processor: "", extraHelpText: JamfPatchUploaderHelp)
-        }
+    @objc func JamfPolicyLogFlusherAction(sender: NSButton) {
+        JamfPolicyLogFlusher ()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertextJamfUploader(processor: "JamfPolicyLogFlusher", extraHelpText: JamfPolicyLogFlusherHelp)
+        //writePopOvertext(processor: "", extraHelpText: JamfPolicyLogFlusherHelp)
+    }
         
-        @objc func JamfPolicyDeleterAction(sender: NSButton) {
-            JamfPolicyDeleter ()
-            helpPopover.close()
-            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
-            writePopOvertextJamfUploader(processor: "JamfPolicyDeleter", extraHelpText: JamfPolicyDeleterHelp)
-            //writePopOvertext(processor: "", extraHelpText: JamfPolicyDeleterHelp)
-        }
+    @objc func JamfPolicyUploaderAction(sender: NSButton) {
+        JamfPolicyUploader ()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertextJamfUploader(processor: "JamfPolicyUploader", extraHelpText: JamfPolicyUploaderHelp)
+        //writePopOvertext(processor: "", extraHelpText: JamfPolicyUploaderHelp)
+    }
         
-        @objc func JamfPolicyLogFlusherAction(sender: NSButton) {
-            JamfPolicyLogFlusher ()
-            helpPopover.close()
-            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
-            writePopOvertextJamfUploader(processor: "JamfPolicyLogFlusher", extraHelpText: JamfPolicyLogFlusherHelp)
-            //writePopOvertext(processor: "", extraHelpText: JamfPolicyLogFlusherHelp)
-        }
+    @objc func JamfScriptUploaderAction(sender: NSButton) {
+        JamfScriptUploader ()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertextJamfUploader(processor: "JamfScriptUploader", extraHelpText: JamfScriptUploaderHelp)
+        //writePopOvertext(processor: "", extraHelpText: JamfScriptUploaderHelp)
+    }
         
-        @objc func JamfPolicyUploaderAction(sender: NSButton) {
-            JamfPolicyUploader ()
-            helpPopover.close()
-            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
-            writePopOvertextJamfUploader(processor: "JamfPolicyUploader", extraHelpText: JamfPolicyUploaderHelp)
-            //writePopOvertext(processor: "", extraHelpText: JamfPolicyUploaderHelp)
-        }
+    @objc func JamfSoftwareRestrictionUploaderAction(sender: NSButton) {
+        JamfSoftwareRestrictionUploader ()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertextJamfUploader(processor: "JamfSoftwareRestrictionUploader", extraHelpText: JamfSoftwareRestrictionUploaderHelp)
+        //writePopOvertext(processor: "", extraHelpText: JamfSoftwareRestrictionUploaderHelp)
+    }
         
-        @objc func JamfScriptUploaderAction(sender: NSButton) {
-            JamfScriptUploader ()
-            helpPopover.close()
-            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
-            writePopOvertextJamfUploader(processor: "JamfScriptUploader", extraHelpText: JamfScriptUploaderHelp)
-            //writePopOvertext(processor: "", extraHelpText: JamfScriptUploaderHelp)
-        }
+    @objc func JamfUploaderSlackerAction(sender: NSButton) {
+        JamfUploaderSlacker ()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertextJamfUploader(processor: "JamfUploaderSlacker", extraHelpText: JamfUploaderSlackerHelp)
+        //writePopOvertext(processor: "", extraHelpText: JamfUploaderSlackerHelp)
+    }
         
-        @objc func JamfSoftwareRestrictionUploaderAction(sender: NSButton) {
-            JamfSoftwareRestrictionUploader ()
-            helpPopover.close()
-            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
-            writePopOvertextJamfUploader(processor: "JamfSoftwareRestrictionUploader", extraHelpText: JamfSoftwareRestrictionUploaderHelp)
-            //writePopOvertext(processor: "", extraHelpText: JamfSoftwareRestrictionUploaderHelp)
-        }
-        
-         @objc func JamfUploaderSlackerAction(sender: NSButton) {
-            JamfUploaderSlacker ()
-            helpPopover.close()
-            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
-            writePopOvertextJamfUploader(processor: "JamfUploaderSlacker", extraHelpText: JamfUploaderSlackerHelp)
-            //writePopOvertext(processor: "", extraHelpText: JamfUploaderSlackerHelp)
-        }
-        
-         @objc func JamfUploaderTeamsNotifierAction(sender: NSButton) {
-            JamfUploaderTeamsNotifier ()
-            helpPopover.close()
-            helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
-            writePopOvertextJamfUploader(processor: "JamfUploaderTeamsNotifier", extraHelpText: JamfUploaderTeamsNotifierHelp)
-            //writePopOvertext(processor: "", extraHelpText: JamfUploaderTeamsNotifierHelp)
-        }
+    @objc func JamfUploaderTeamsNotifierAction(sender: NSButton) {
+        JamfUploaderTeamsNotifier ()
+        helpPopover.close()
+        helpPopover.show(relativeTo: sender.bounds, of: sender, preferredEdge: NSRectEdge.maxX)
+        writePopOvertextJamfUploader(processor: "JamfUploaderTeamsNotifier", extraHelpText: JamfUploaderTeamsNotifierHelp)
+        //writePopOvertext(processor: "", extraHelpText: JamfUploaderTeamsNotifierHelp)
+    }
     
     
     @IBAction func enableAndReloadAction(_ sender: NSButton) {
@@ -660,14 +748,59 @@ if you only want CFBundleShortVersionString
        writePopOvertextUserButtons (helpText: help10)
     }
    
+    func showHelpPopoverinTextField() {
+        guard let textField = outputTextField else { return }
+        let textFieldFrame = textField.window?.convertToScreen(textField.convert(textField.bounds, to: nil)) ?? .zero
+        // Show the popover anchored to the text field
+        // Use the full bounds of the text field for the anchor
+            let anchorRect = NSRect(
+                x: textFieldFrame.origin.x - 1000, // Align to the left edge
+                y: textFieldFrame.origin.y - 1320, // Optional vertical offset
+                width: textFieldFrame.width, // Full width of the text field
+                height: textFieldFrame.height // Full height of the text field
+            )
+        
+            
+// Set up the popover text
+helpPopoverText.string = """
+Getting Started
+1. Set Up Your New Recipe
+Enter the Identifier, Recipe Format
+and App/Package Name in the respective fields.
+
+2. Create the New Recipe:
+Select File > New (Command-N)
+
+3. Choose Your Format:
+Use the XML/Yaml switch to toggle between the two supported formats.(Command-Y)
+
+-----
+To Open an existing Recipe file
+Select File > Open
+"""
+        let attributedText = [ NSAttributedString.Key.font: NSFont(name: "Menlo", size: 12.0)! ]
+        let processorInfoAttributed = NSAttributedString(string: helpPopoverText.string, attributes: attributedText)
+        appDelegate().helpPopoverText.string = ""
+        appDelegate().helpPopoverText.textStorage?.insert(NSAttributedString(attributedString: processorInfoAttributed), at: 0)
+        helpPopover.show(relativeTo: anchorRect, of: textField, preferredEdge: .maxY)
+        //maxY: Displays the popover below the rectangle, with the arrow pointing upwards.
+        //.minY: Displays the popover above the rectangle, with the arrow pointing downwards.
+        //.maxX = Displays the popover to left
+        // minX: Displays the popover to the left
+    }
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        outputTextField.isAutomaticQuoteSubstitutionEnabled = false
         outputTextField.font = NSFont(name: "Menlo", size: 12)
         createAllDefaultButtons ()
         createAll3rdPartyButtons ()
         checkThatAutopkgExist ()
         checkForUserButtonsAndEnable ()
+        showHelpPopoverinTextField()
+        getTrustInfo()
     }
-
+           
+    
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
       
