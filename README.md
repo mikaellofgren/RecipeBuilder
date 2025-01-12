@@ -21,8 +21,7 @@ Icon: vecteezy.com<br>
 
 Download: https://github.com/mikaellofgren/RecipeBuilder/releases
 
-<img src="https://github.com/mikaellofgren/RecipeBuilder/blob/master/images/intro.mov" width="50%"></img><br>
-[![Click to view intro video](https://github.com/mikaellofgren/RecipeBuilder/blob/master/images/intro.mov)](intro.mov)
+<img src="https://github.com/mikaellofgren/RecipeBuilder/blob/master/images/recipebuilderinterface.png" width="50%"></img><br>
 
 # User buttons<br>
 In folder "~/Library/Application Support/RecipeBuilder"
