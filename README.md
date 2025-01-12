@@ -10,15 +10,18 @@
  - Open autopkg cache folder
  - Create your own buttons
  - Check and verify recipes files
+ - Switch mode between XML and YAML
+ - Batch convert XML to YAML or YAML to XML
+ - Set Autopkg Trustinfo
  
 
-System requirements: 10.14 or later<br>
-Dependencies: Highlightr<br>
+System requirements: macOS 11 or later<br>
+Dependencies: Highlightr and Yams<br>
 Icon: vecteezy.com<br>
 
 Download: https://github.com/mikaellofgren/RecipeBuilder/releases
 
-<img src="https://github.com/mikaellofgren/RecipeBuilder/blob/master/images/recipebuilderinterface.png" width="50%"></img><br>
+<img src="https://github.com/mikaellofgren/RecipeBuilder/blob/master/images/intro.mov" width="50%"></img><br>
 
 # User buttons<br>
 In folder "~/Library/Application Support/RecipeBuilder"
